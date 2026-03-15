@@ -885,21 +885,34 @@ function showToast(msg, type) {
 }
 
 // ===== SIGNATURE COUNTER =====
-const signatureGoal = 10000;
 const signatureCountStatic = 1704;
+const signatureMilestones = [2000, 5000, 10000];
+function calculateSignatureGoal(count) {
+  for (const milestone of signatureMilestones) {
+    if (count < milestone) return milestone;
+  }
+  // Dynamic scaling above the top milestone
+  if (count <= 20000) return 20000;
+  if (count <= 50000) return 50000;
+  const multiplier = count > 100000 ? 1.25 : 1.3;
+  const scaled = Math.ceil(count * multiplier / 1000) * 1000;
+  return scaled;
+}
+
 function updateSignatureCount() {
   const count = signatureCountStatic;
+  const goal = calculateSignatureGoal(count);
   const el = document.getElementById('signatureCount');
   if (el) el.textContent = count.toLocaleString('sv-SE');
 
   const startEl = document.getElementById('progressStart');
   const goalEl = document.getElementById('progressGoal');
   if (startEl) startEl.textContent = '0';
-  if (goalEl) goalEl.textContent = signatureGoal.toLocaleString('sv-SE');
+  if (goalEl) goalEl.textContent = goal.toLocaleString('sv-SE');
 
   const bar = document.getElementById('progressBar');
   if (bar) {
-    const pct = signatureGoal > 0 ? Math.min((count / signatureGoal) * 100, 100) : 0;
+    const pct = goal > 0 ? Math.min((count / goal) * 100, 100) : 0;
     bar.style.width = pct + '%';
   }
 }

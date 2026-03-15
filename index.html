@@ -886,9 +886,9 @@ function showToast(msg, type) {
 
 // ===== SIGNATURE COUNTER =====
 const signatureGoal = 10000;
+const signatureCountStatic = 1704;
 function updateSignatureCount() {
-  const petitions = allRecords.filter(r => r.type === 'petition');
-  const count = petitions.length;
+  const count = signatureCountStatic;
   const el = document.getElementById('signatureCount');
   if (el) el.textContent = count.toLocaleString('sv-SE');
 

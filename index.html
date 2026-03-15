@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="sv" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rättvisa Malmö</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&amp;display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg-color: #F7F5F0;
+  --surface-color: #FFFFFF;
+  --text-color: #1A1A1A;
+  --primary-color: #C23A22;
+  --secondary-color: #2B5A4B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+.font-display { font-family: 'Fraunces', serif; }
+.app-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.page { display: none; width: 100%; }
+.page.active { display: block; }
+
+/* Animated counter */
+@keyframes countPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.counter-pulse { animation: countPulse 2s ease-in-out infinite; }
+
+/* Progress bar fill */
+@keyframes fillBar {
+  from { width: 0; }
+}
+.progress-fill { animation: fillBar 1.5s ease-out forwards; }
+
+/* Staggered entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out forwards;
+}
+.fade-up-d1 { animation-delay: 0.1s; }
+.fade-up-d2 { animation-delay: 0.2s; }
+.fade-up-d3 { animation-delay: 0.3s; }
+.fade-up-d4 { animation-delay: 0.4s; }
+.fade-up-d5 { animation-delay: 0.5s; }
+
+/* Hero pattern */
+.hero-pattern {
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(194,58,34,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(43,90,75,0.08) 0%, transparent 50%),
+    linear-gradient(135deg, var(--bg-color) 0%, #EDE9E0 100%);
+}
+
+/* Card hover */
+.info-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+/* Button styles */
+@keyframes primaryPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(194,58,34,0.35); }
+  50% { transform: scale(1.02); box-shadow: 0 0 0 12px rgba(194,58,34,0); }
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 230px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-primary:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+.btn-primary.btn-pulse {
+  animation: primaryPulse 2s infinite;
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-secondary:focus { outline: 2px solid var(--secondary-color); outline-offset: 2px; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-outline:hover { background: var(--primary-color); color: white; }
+
+/* Nav */
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.nav-link:hover { background: rgba(0,0,0,0.05); }
+.nav-link.active-nav { color: var(--primary-color); font-weight: 600; }
+
+/* Timeline */
+.timeline-line {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+}
+.timeline-step {
+  position: relative;
+  margin-bottom: 36px;
+  padding-left: 52px;
+}
+.timeline-step:last-child { margin-bottom: 0; }
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 3px solid var(--bg-color);
+  position: absolute;
+  left: 18px;
+  top: 9px;
+}
+.timeline-dot.completed { background: var(--secondary-color); }
+
+/* Org logos placeholder */
+.org-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #e5e2db;
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 80px;
+}
+.org-logo:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(43,90,75,0.1);
+}
+
+/* Form fields */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e2db;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  background: white;
+}
+.form-input:focus { border-color: var(--secondary-color); outline: none; }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  z-index: 100;
+  padding: 24px;
+  flex-direction: column;
+}
+.mobile-menu.open { display: flex; }
+
+/* Malmö map SVG */
+.map-district {
+  fill: #ddd8cf;
+  stroke: var(--bg-color);
+  stroke-width: 1.5;
+  transition: fill 0.3s;
+}
+.map-district.density-low { fill: #b8d4ca; }
+.map-district.density-med { fill: #6aab94; }
+.map-district.density-high { fill: var(--secondary-color); }
+
+/* Checkbox custom */
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 2px solid #e5e2db;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 14px;
+}
+.check-item:hover { border-color: var(--secondary-color); background: rgba(43,90,75,0.04); }
+.check-item input:checked + span { font-weight: 600; }
+
+/* Toast */
+.toast-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 14px 28px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  z-index: 200;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+.toast-msg.show { transform: translateX(-50%) translateY(0); }
+.toast-success { background: var(--secondary-color); }
+.toast-error { background: var(--primary-color); }
+
+/* FAQ */
+.faq-item { border-bottom: 1px solid #e5e2db; }
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  text-align: left;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+}
+.faq-answer.open { max-height: 500px; padding-bottom: 20px; }
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+  .desktop-nav { display: none !important; }
+  .mobile-trigger { display: flex !important; }
+}
+@media (min-width: 769px) {
+  .mobile-trigger { display: none !important; }
+}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body>
+  <div class="app-wrapper" id="appWrapper"><!-- Toast -->
+   <div id="toast" class="toast-msg toast-success" role="alert" aria-live="polite"></div><!-- Mobile Menu -->
+   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Navigation menu">
+    <div class="flex justify-between items-center mb-8"><span class="font-display font-bold text-xl" style="color:var(--primary-color)">Rättvisa Malmö</span> <button onclick="toggleMobileMenu()" class="p-2" aria-label="Close menu"><i data-lucide="x" style="width:24px;height:24px"></i></button>
+    </div>
+    <nav class="flex flex-col gap-2" aria-label="Mobile navigation"><button class="nav-link text-left text-lg" onclick="goTo('home');toggleMobileMenu()">Hem</button> <button class="nav-link text-left text-lg" onclick="goTo('about');toggleMobileMenu()">Om kampanjen</button> <button class="nav-link text-left text-lg" onclick="goTo('faq');toggleMobileMenu()">Frågor &amp; Svar</button> <button class="nav-link text-left text-lg" onclick="goTo('petition');toggleMobileMenu()">Skriv under</button> <button class="nav-link text-left text-lg" onclick="goTo('volunteer');toggleMobileMenu()">Engagera dig</button>
+    </nav>
+   </div><!-- HEADER / NAV -->
+   <header class="sticky top-0 z-50" style="background:rgba(247,245,240,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e5e2db">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between" style="height:64px"><button onclick="goTo('home')" class="flex items-center gap-2 border-none bg-transparent cursor-pointer" aria-label="Go to homepage">
+      <div style="width:32px;height:32px;background:var(--primary-color);border-radius:6px;display:flex;align-items:center;justify-content:center">
+       <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10" /><path d="M12 6v12M6 12h12" />
+       </svg>
+      </div><span class="font-display font-bold" style="font-size:18px;color:var(--text-color)">Rättvisa Malmö</span> </button>
+     <nav class="desktop-nav flex items-center gap-1" aria-label="Main navigation"><button class="nav-link" data-nav="home" onclick="goTo('home')">Hem</button> <button class="nav-link" data-nav="about" onclick="goTo('about')">Om kampanjen</button> <button class="nav-link" data-nav="faq" onclick="goTo('faq')">Frågor &amp; Svar</button> <button class="btn-primary btn-pulse" style="padding:8px 20px;font-size:14px" onclick="goTo('petition')">Skriv under</button>
+     </nav><button class="mobile-trigger p-2 bg-transparent border-none cursor-pointer" onclick="toggleMobileMenu()" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px"></i> </button>
+    </div>
+   </header><!-- ========== HOME PAGE ========== -->
+   <main id="page-home" class="page active"><!-- HERO -->
+    <section class="hero-pattern" style="padding:80px 0 60px">
+     <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid gap-12" style="grid-template-columns:1fr;max-width:800px">
+       <div>
+        <div class="fade-up" style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px;margin-bottom:20px" id="heroBadge"><span style="color:var(--secondary-color);background:rgba(43,90,75,0.1);padding:6px 14px;border-radius:20px">MEDBORGARINITIATIV I MALMÖ</span>
+        </div>
+        <h1 id="heroHeadline" class="font-display fade-up fade-up-d1" style="font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.08;margin-bottom:20px;color:var(--text-color)">Offentliga medel ska aldrig finansiera krigsbrott</h1>
+        <p id="heroSubtext" class="fade-up fade-up-d2" style="font-size:clamp(17px,2vw,20px);line-height:1.6;color:#555;margin-bottom:32px;max-width:600px">Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.</p>
+        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig </button>
+        </div>
+       </div>
+      </div><!-- LIVE COUNTER -->
+      <div class="fade-up fade-up-d4" style="margin-top:48px;padding:32px;border-radius:16px;background:white;border:1px solid #e5e2db;max-width:560px">
+       <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> LIVE — NAMNINSAMLING
+       </div>
+       <div class="counter-pulse font-display" style="font-size:clamp(42px,6vw,56px);font-weight:800;color:var(--primary-color)" id="signatureCount">
+        0
+       </div>
+       <div style="font-size:15px;color:#777;margin-bottom:16px">
+        personer har skrivit under
+       </div>
+       <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden">
+        <div id="progressBar" class="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;width:0%"></div>
+       </div>
+       <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span>0</span> <span>Mål: 10 000</span>
+       </div>
+      </div>
+     </div>
+    </section><!-- WHY IT MATTERS — STATS -->
+    <section style="padding:80px 0;background:white">
+     <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+       <h2 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:700;margin-bottom:12px">Varför det spelar roll</h2>
+       <p style="font-size:17px;color:#666;max-width:550px;margin:0 auto">Offentlig upphandling är ett av de mest kraftfulla verktygen en kommun har. Det handlar om hur vi använder gemensamma resurser.</p>
+      </div>
+      <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+       <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
+        <div style="width:56px;height:56px;border-radius:12px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="banknote" style="width:28px;height:28px;color:var(--primary-color)"></i>
+        </div>
+        <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px">
+         11 mdr
+        </div>
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+         SEK per år
+        </div>
+        <p style="color:#666;font-size:15px;line-height:1.6">Malmö stad spenderar 11 miljarder kronor årligen på inköp av varor och tjänster. Det är enorma summor av skattebetalarnas pengar.</p>
+       </div>
+       <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
+        <div style="width:56px;height:56px;border-radius:12px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="heart-handshake" style="width:28px;height:28px;color:var(--secondary-color)"></i>
+        </div>
+        <div class="font-display" style="font-size:42px;font-weight:800;color:var(--secondary-color);margin-bottom:8px">
+         100%
+        </div>
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+         Gemensamma värderingar
+        </div>
+        <p style="color:#666;font-size:15px;line-height:1.6">Offentliga medel ska spegla våra gemensamma värderingar. Skattepengar bör aldrig gå till företag som bryter mot mänskliga rättigheter.</p>
+       </div>
+       <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
+        <div style="width:56px;height:56px;border-radius:12px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary-color)"></i>
+        </div>
+        <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px">
+         42+
+        </div>
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+         Städer visar vägen
+        </div>
+        <p style="color:#666;font-size:15px;line-height:1.6">Över 42 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- OUR DEMAND -->
+    <section style="padding:80px 0;background:var(--bg-color)">
+     <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid gap-12 items-start" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+       <div>
+        <div style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;background:rgba(194,58,34,0.1);color:var(--primary-color);margin-bottom:16px">
+         VÅRT KRAV
+        </div>
+        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:20px">Malmö stad ska anta en etisk upphandlingspolicy</h2>
+        <p style="font-size:16px;line-height:1.7;color:#555;margin-bottom:24px">Policyn ska utesluta företag som är inblandade i:</p>
+        <div class="flex flex-col gap-4">
+         <div class="flex items-start gap-3">
+          <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="shield-off" style="width:16px;height:16px;color:white"></i>
+          </div>
+          <div>
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+            Krigsbrott
+           </div>
+           <div style="color:#666;font-size:14px">
+            Brott mot internationell humanitär rätt i väpnade konflikter
+           </div>
+          </div>
+         </div>
+         <div class="flex items-start gap-3">
+          <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="alert-triangle" style="width:16px;height:16px;color:white"></i>
+          </div>
+          <div>
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+            Brott mot mänskligheten
+           </div>
+           <div style="color:#666;font-size:14px">
+            Systematiska och utbredda övergrepp mot civilbefolkningen
+           </div>
+          </div>
+         </div>
+         <div class="flex items-start gap-3">
+          <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="ban" style="width:16px;height:16px;color:white"></i>
+          </div>
+          <div>
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+            Grova kränkningar av mänskliga rättigheter
+           </div>
+           <div style="color:#666;font-size:14px">
+            Allvarliga och dokumenterade brott mot grundläggande rättigheter
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div style="background:white;border-radius:16px;padding:32px;border:1px solid #e5e2db">
+        <h3 class="font-display" style="font-size:20px;font-weight:700;margin-bottom:16px">Etisk upphandling — redan verklighet</h3>
+        <p style="font-size:15px;line-height:1.7;color:#555;margin-bottom:20px">Etiska upphandlingspolicyer är redan verklighet i många städer och institutioner runt om i världen. De bygger på internationell rätt, FN:s vägledande principer för företag och mänskliga rättigheter, samt EU-direktiv om hållbar upphandling.</p>
+        <div class="flex flex-col gap-3">
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span>Barcelona — etisk upphandlingspolicy sedan 2017</span>
+         </div>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span>Oslo — utesluter företag som bryter mot folkrätten</span>
+         </div>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span>Norska pensionsfonden — världsledande etiska riktlinjer</span>
+         </div>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span>EU-direktiv stödjer hållbar och etisk upphandling</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- SUPPORTERS / ENDORSERS -->
+    <section style="padding:80px 0;background:white">
+     <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Organisationer som stödjer etisk upphandling i Malmö</h2>
+       <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto">En bred koalition av civilsamhällesorganisationer, fackförbund och föreningar</p>
+      </div>
+      <div class="grid gap-4" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">
+       <div class="org-logo">
+        <i data-lucide="scale" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Rättighetscenter
+       </div>
+       <div class="org-logo">
+        <i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Fredsrörelse
+       </div>
+       <div class="org-logo">
+        <i data-lucide="globe" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Svenska Freds
+       </div>
+       <div class="org-logo">
+        <i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Diakonia Malmö
+       </div>
+       <div class="org-logo">
+        <i data-lucide="briefcase" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Kommunal Syd
+       </div>
+       <div class="org-logo">
+        <i data-lucide="book-open" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> ABF Malmö
+       </div>
+       <div class="org-logo">
+        <i data-lucide="home" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Hyresgästföreningen
+       </div>
+       <div class="org-logo">
+        <i data-lucide="leaf" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Naturskyddsföreningen
+       </div>
+       <div class="org-logo">
+        <i data-lucide="graduation-cap" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Studentkår
+       </div>
+       <div class="org-logo">
+        <i data-lucide="megaphone" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Amnesty Malmö
+       </div>
+       <div class="org-logo">
+        <i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Palestinagrupperna
+       </div>
+       <div class="org-logo">
+        <i data-lucide="shield" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rädda Barnen Malmö
+       </div>
+      </div>
+      <p class="text-center mt-6" style="font-size:14px;color:#999">Vill din organisation ansluta sig? <button onclick="goTo('volunteer')" style="color:var(--primary-color);font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer">Kontakta oss</button></p>
+     </div>
+    </section><!-- MOMENTUM / TIMELINE -->
+    <section style="padding:80px 0;background:var(--bg-color)">
+     <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Kampanjens framsteg</h2>
+       <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto">Rörelsen växer. Följ hur kampanjen utvecklas.</p>
+      </div>
+      <div class="grid gap-12 items-start" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><!-- Timeline -->
+       <div style="position:relative;padding-left:50px">
+        <div class="timeline-line"></div>
+        <div class="timeline-step">
+         <div class="timeline-dot completed"></div>
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+          JANUARI 2025
+         </div>
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+          Namninsamlingen lanserad
+         </div>
+         <div style="color:#666;font-size:14px">
+          Kampanjen Rättvisa Malmö startar officiellt
+         </div>
+        </div>
+        <div class="timeline-step">
+         <div class="timeline-dot completed"></div>
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+          MARS 2025
+         </div>
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+          1 000 underskrifter
+         </div>
+         <div style="color:#666;font-size:14px">
+          Första tusen namnteckningar insamlade
+         </div>
+        </div>
+        <div class="timeline-step">
+         <div class="timeline-dot completed"></div>
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+          MAJ 2025
+         </div>
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+          Möte med kommunfullmäktige
+         </div>
+         <div style="color:#666;font-size:14px">
+          Kampanjen presenteras för förtroendevalda
+         </div>
+        </div>
+        <div class="timeline-step">
+         <div class="timeline-dot" style="background:var(--primary-color)"></div>
+         <div style="font-size:12px;color:var(--primary-color);font-weight:600;margin-bottom:4px">
+          PÅGÅENDE
+         </div>
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+          5 000 underskrifter — nästa mål
+         </div>
+         <div style="color:#666;font-size:14px">
+          Hjälp oss nå nästa milstolpe
+         </div>
+        </div>
+        <div class="timeline-step">
+         <div class="timeline-dot" style="background:#ccc"></div>
+         <div style="font-size:12px;color:#999;font-weight:600;margin-bottom:4px">
+          MÅL
+         </div>
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+          10 000 underskrifter
+         </div>
+         <div style="color:#666;font-size:14px">
+          Formell petition till Malmö stad
+         </div>
+        </div>
+       </div><!-- Map of Malmö -->
+       <div style="background:white;border-radius:16px;padding:28px;border:1px solid #e5e2db">
+        <h3 class="font-display" style="font-size:18px;font-weight:700;margin-bottom:4px">Stöd i Malmös stadsdelar</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:20px">Visar antal supportrar per stadsdel</p>
+        <svg viewbox="0 0 300 280" style="width:100%;max-width:350px;margin:0 auto;display:block"><!-- Stylized Malmö district map --> <path class="map-district density-high" d="M80 50 L140 30 L180 55 L170 100 L120 110 L75 90 Z" /> <path class="map-district density-med" d="M180 55 L240 50 L260 90 L230 130 L170 100 Z" /> <path class="map-district density-high" d="M75 90 L120 110 L130 160 L80 170 L50 130 Z" /> <path class="map-district density-med" d="M120 110 L170 100 L190 150 L130 160 Z" /> <path class="map-district density-low" d="M170 100 L230 130 L240 170 L190 150 Z" /> <path class="map-district density-high" d="M50 130 L80 170 L90 220 L40 200 Z" /> <path class="map-district density-med" d="M80 170 L130 160 L150 210 L90 220 Z" /> <path class="map-district density-low" d="M130 160 L190 150 L200 200 L150 210 Z" /> <path class="map-district density-low" d="M190 150 L240 170 L230 210 L200 200 Z" /> <path class="map-district density-med" d="M90 220 L150 210 L160 260 L100 260 Z" /> <!-- Labels --> <text x="120" y="75" font-size="9" fill="white" font-weight="600" text-anchor="middle">
+          Centrum
+         </text> <text x="210" y="85" font-size="8" fill="white" font-weight="500" text-anchor="middle">
+          Kirseberg
+         </text> <text x="95" y="140" font-size="8" fill="white" font-weight="600" text-anchor="middle">
+          Västra
+         </text> <text x="155" y="135" font-size="8" fill="white" font-weight="500" text-anchor="middle">
+          Södra
+         </text> <text x="65" y="185" font-size="8" fill="white" font-weight="600" text-anchor="middle">
+          Limhamn
+         </text> <text x="130" y="245" font-size="8" fill="white" font-weight="500" text-anchor="middle">
+          Oxie
+         </text>
+        </svg>
+        <div class="flex justify-center gap-6 mt-4" style="font-size:12px;color:#777">
+         <div class="flex items-center gap-2">
+          <span style="width:12px;height:12px;border-radius:3px;background:var(--secondary-color);display:inline-block"></span> Starkt stöd
+         </div>
+         <div class="flex items-center gap-2">
+          <span style="width:12px;height:12px;border-radius:3px;background:#6aab94;display:inline-block"></span> Medelstöd
+         </div>
+         <div class="flex items-center gap-2">
+          <span style="width:12px;height:12px;border-radius:3px;background:#b8d4ca;display:inline-block"></span> Växande
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- FINAL CTA -->
+    <section style="padding:80px 0;background:var(--text-color)">
+     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <h2 id="closingHeadline" class="font-display" style="font-size:clamp(32px,5vw,48px);font-weight:800;color:white;margin-bottom:16px;line-height:1.1">Malmö kan visa vägen.</h2>
+      <p id="closingText" style="font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:550px;margin-left:auto;margin-right:auto">Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.</p>
+      <div class="flex flex-wrap justify-center gap-4"><button class="btn-primary" style="background:var(--primary-color)" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under </button> <button class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white" onclick="goTo('volunteer')"> <i data-lucide="hand" style="width:18px;height:18px"></i> Engagera dig </button>
+      </div>
+     </div>
+    </section>
+   </main><!-- ========== PETITION PAGE ========== -->
+   <main id="page-petition" class="page" role="main">
+    <section style="padding:60px 0 80px">
+     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Skriv under namninsamlingen</h1>
+      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6">Jag kräver att Malmö stad antar en etisk upphandlingspolicy som utesluter företag inblandade i krigsbrott, brott mot mänskligheten och grova kränkningar av mänskliga rättigheter.</p>
+      <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="lock" style="width:14px;height:14px"></i> Din information är trygg och delas aldrig med tredje part
+      </div>
+      <form id="petitionForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
+       <div class="mb-5"><label for="petName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Namn *</label> <input type="text" id="petName" class="form-input" placeholder="Ditt fullständiga namn" required>
+       </div>
+       <div class="mb-5"><label for="petEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="petEmail" class="form-input" placeholder="din@email.com" required>
+       </div>
+       <div class="mb-6"><label for="petPostal" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Postnummer (valfritt)</label> <input type="text" id="petPostal" class="form-input" placeholder="211 XX">
+       </div><button type="submit" id="petitionSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span id="petitionBtnText">Skriv under namninsamlingen</span> </button>
+       <div id="petitionMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
+      </form>
+     </div>
+    </section>
+   </main><!-- ========== VOLUNTEER PAGE ========== -->
+   <main id="page-volunteer" class="page" role="main">
+    <section style="padding:60px 0 80px">
+     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Engagera dig i kampanjen</h1>
+      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6">Varje insats gör skillnad. Oavsett om du har fem minuter eller fem timmar — det finns något du kan göra.</p>
+      <div class="grid gap-4 mb-10" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:24px">
+       <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="file-signature" style="width:20px;height:20px;color:var(--primary-color)"></i>
+        </div>
+        <div style="font-weight:600;font-size:14px">
+         Samla underskrifter
+        </div>
+       </div>
+       <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="share-2" style="width:20px;height:20px;color:var(--secondary-color)"></i>
+        </div>
+        <div style="font-weight:600;font-size:14px">
+         Dela kampanjen
+        </div>
+       </div>
+       <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="calendar" style="width:20px;height:20px;color:var(--primary-color)"></i>
+        </div>
+        <div style="font-weight:600;font-size:14px">
+         Organisera event
+        </div>
+       </div>
+       <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="mail" style="width:20px;height:20px;color:var(--secondary-color)"></i>
+        </div>
+        <div style="font-weight:600;font-size:14px">
+         Kontakta politiker
+        </div>
+       </div>
+       <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="megaphone" style="width:20px;height:20px;color:var(--primary-color)"></i>
+        </div>
+        <div style="font-weight:600;font-size:14px">
+         Hjälp med uppsökande
+        </div>
+       </div>
+      </div>
+      <form id="volunteerForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
+       <h2 class="font-display" style="font-size:22px;font-weight:700;margin-bottom:20px">Anmäl dig som volontär</h2>
+       <div class="mb-5"><label for="volName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Namn *</label> <input type="text" id="volName" class="form-input" placeholder="Ditt namn" required>
+       </div>
+       <div class="mb-5"><label for="volEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="volEmail" class="form-input" placeholder="din@email.com" required>
+       </div>
+       <div class="mb-5"><label style="display:block;font-weight:600;font-size:14px;margin-bottom:10px">Vad vill du hjälpa till med?</label>
+        <div class="grid gap-3" style="grid-template-columns:1fr 1fr" id="volunteerAreas"><label class="check-item"><input type="checkbox" value="signatures"><span>Samla underskrifter</span></label> <label class="check-item"><input type="checkbox" value="share"><span>Dela kampanjen</span></label> <label class="check-item"><input type="checkbox" value="events"><span>Organisera event</span></label> <label class="check-item"><input type="checkbox" value="politicians"><span>Kontakta politiker</span></label> <label class="check-item"><input type="checkbox" value="outreach"><span>Uppsökande arbete</span></label> <label class="check-item"><input type="checkbox" value="other"><span>Annat</span></label>
+        </div>
+       </div>
+       <div class="mb-6"><label for="volMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Meddelande (valfritt)</label> <textarea id="volMessage" class="form-input" rows="3" placeholder="Berätta gärna lite om dig själv..."></textarea>
+       </div><button type="submit" id="volunteerSubmitBtn" class="btn-secondary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="hand" style="width:18px;height:18px"></i> <span id="volunteerBtnText">Anmäl dig som volontär</span> </button>
+       <div id="volunteerMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
+      </form>
+     </div>
+    </section>
+   </main><!-- ========== ABOUT PAGE ========== -->
+   <main id="page-about" class="page" role="main">
+    <section style="padding:60px 0 80px">
+     <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:20px">Om Rättvisa Malmö</h1>
+      <div style="font-size:17px;line-height:1.8;color:#444">
+       <p style="margin-bottom:20px;font-size:19px;font-weight:500;color:var(--text-color)">Rättvisa Malmö är en gräsrotsrörelse som verkar för etisk offentlig upphandling och ansvarsutkrävande för mänskliga rättigheter i Malmö stad.</p>
+       <p style="margin-bottom:20px">Kampanjen drivs av Malmöbor och stöds av ett brett nätverk av civilsamhällesorganisationer, fackförbund, studentföreningar och religiösa samfund. Vi tror att offentliga medel — skattepengar som tillhör oss alla — aldrig bör finansiera företag som är inblandade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
+       <p style="margin-bottom:20px">Malmö stad upphandlar varor och tjänster för cirka 11 miljarder kronor varje år. Det gör kommunen till en av Sveriges största offentliga köpare. Med den kraften följer ett ansvar. Vi anser att staden bör anta en etisk upphandlingspolicy som sätter mänskliga rättigheter i centrum.</p>
+       <div style="background:white;border-left:4px solid var(--primary-color);padding:24px 28px;border-radius:0 12px 12px 0;margin:32px 0">
+        <p style="font-style:italic;font-size:18px;margin-bottom:8px;color:var(--text-color)">"Offentlig upphandling är inte bara en ekonomisk fråga — det är en moralisk fråga."</p>
+        <p style="font-size:14px;color:#888">— Rättvisa Malmö</p>
+       </div>
+       <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px">Vad vi gör</h2>
+       <ul style="list-style:none;padding:0">
+        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Samlar underskrifter för en formell petition till Malmö kommunfullmäktige</span></li>
+        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Informerar Malmöbor om hur deras skattepengar används</span></li>
+        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Bygger en bred koalition av stödjande organisationer</span></li>
+        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Möter lokalpolitiker och tjänstemän för att driva förändring</span></li>
+       </ul>
+       <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px">Internationell kontext</h2>
+       <p style="margin-bottom:20px">Etisk upphandling är inte nytt. Norges oljefond (Government Pension Fund Global) har sedan länge uteslutit företag som bryter mot internationell rätt. Barcelona antog sin etiska upphandlingspolicy 2017. Oslo kommun har infört regler som utesluter leverantörer inblandade i folkrättsbrott. EU-direktiv ger också uttryckligt stöd för att inkludera sociala och etiska kriterier i offentlig upphandling.</p>
+       <p>Malmö kan och bör följa deras exempel.</p>
+      </div>
+      <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under</button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig</button>
+      </div>
+     </div>
+    </section>
+   </main><!-- ========== FAQ PAGE ========== -->
+   <main id="page-faq" class="page" role="main">
+    <section style="padding:60px 0 80px">
+     <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:8px">Frågor &amp; Svar</h1>
+      <p style="font-size:16px;color:#666;margin-bottom:40px">Vanliga frågor om kampanjen och etisk upphandling</p>
+      <div id="faqContainer">
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vad innebär etisk upphandling? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Etisk upphandling innebär att kommunen tar hänsyn till mänskliga rättigheter, arbetsvillkor och internationell rätt när den köper varor och tjänster. Det handlar om att utesluta leverantörer som är inblandade i grova överträdelser, som krigsbrott eller brott mot mänskligheten.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Är detta lagligt? Kan kommuner göra detta? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Ja. EU:s upphandlingsdirektiv (2014/24/EU) ger uttryckligt stöd för att inkludera sociala och etiska kriterier. Lagen om offentlig upphandling (LOU) i Sverige tillåter krav på att leverantörer respekterar internationella konventioner om mänskliga rättigheter och arbetsrätt.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vilka andra städer har infört liknande policyer? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Barcelona (Spanien), Oslo (Norge), Dublin (Irland), och ett flertal belgiska och holländska kommuner har alla olika former av etiska upphandlingspolicyer. Norska statens pensionsfond har världens mest kända etiska investeringspolicy som utesluter hundratals företag.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Hur mycket pengar handlar det om? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Malmö stad spenderar cirka 11 miljarder kronor per år på upphandling av varor och tjänster. Det är enorma summor av skattemedel som kan styras till företag som respekterar mänskliga rättigheter.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Hur kan jag hjälpa till? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Det finns många sätt att engagera sig! Du kan skriva under namninsamlingen, dela kampanjen i sociala medier, samla underskrifter bland vänner och kollegor, delta i kampanjevent, eller kontakta lokala politiker direkt. Besök vår sida "Engagera dig" för att anmäla dig som volontär.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vad händer med min underskrift? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Din underskrift sparas säkert och används enbart för att visa stödet för etisk upphandling i Malmö. När vi når vårt mål kommer namninsamlingen att presenteras formellt för Malmö kommunfullmäktige. Din personliga information delas aldrig med tredje part.
+        </div>
+       </div>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Måste jag bo i Malmö för att skriva under? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+        <div class="faq-answer">
+         Alla är välkomna att skriva under. Även om kampanjens fokus är Malmö stad, visar stöd från personer utanför kommunen att frågan engagerar brett. Lokala underskrifter har dock extra tyngd i den politiska processen.
+        </div>
+       </div>
+      </div>
+      <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under</button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig</button>
+      </div>
+     </div>
+    </section>
+   </main><!-- FOOTER (all pages) -->
+   <footer style="background:var(--text-color);padding:40px 0 24px">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+     <div class="grid gap-8" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:32px">
+      <div>
+       <div class="font-display" style="font-weight:700;color:white;font-size:18px;margin-bottom:12px">
+        Rättvisa Malmö
+       </div>
+       <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6">En gräsrotsrörelse för etisk offentlig upphandling och mänskliga rättigheter i Malmö.</p>
+      </div>
+      <div>
+       <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px">
+        Sidor
+       </div>
+       <div class="flex flex-col gap-2"><button onclick="goTo('home')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Hem</button> <button onclick="goTo('about')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Om kampanjen</button> <button onclick="goTo('faq')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Frågor &amp; Svar</button>
+       </div>
+      </div>
+      <div>
+       <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px">
+        Delta
+       </div>
+       <div class="flex flex-col gap-2"><button onclick="goTo('petition')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Skriv under</button> <button onclick="goTo('volunteer')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Engagera dig</button>
+       </div>
+      </div>
+     </div>
+     <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center">
+      <p style="color:rgba(255,255,255,0.3);font-size:13px">© 2025 Rättvisa Malmö. Alla rättigheter förbehållna.</p>
+     </div>
+    </div>
+   </footer>
+  </div><!-- end app-wrapper -->
+  <script>
+// ===== STATE =====
+let allRecords = [];
+let currentPage = 'home';
+
+const defaultConfig = {
+  background_color: '#F7F5F0',
+  surface_color: '#FFFFFF',
+  text_color: '#1A1A1A',
+  primary_color: '#C23A22',
+  secondary_color: '#2B5A4B',
+  font_family: 'DM Sans',
+  font_size: 16,
+  hero_headline: 'Offentliga medel ska aldrig finansiera krigsbrott',
+  hero_subtext: 'Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.',
+  closing_headline: 'Malmö kan visa vägen.',
+  closing_text: 'Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.'
+};
+
+// ===== NAVIGATION =====
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  currentPage = page;
+  // Update nav active state
+  document.querySelectorAll('[data-nav]').forEach(n => {
+    n.classList.toggle('active-nav', n.getAttribute('data-nav') === page);
+  });
+  document.getElementById('appWrapper').scrollTop = 0;
+  lucide.createIcons();
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ===== FAQ =====
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('i');
+  const isOpen = answer.classList.contains('open');
+  answer.classList.toggle('open');
+  if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// ===== TOAST =====
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast-msg ' + (type === 'error' ? 'toast-error' : 'toast-success');
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ===== SIGNATURE COUNTER =====
+function updateSignatureCount() {
+  const petitions = allRecords.filter(r => r.type === 'petition');
+  const count = petitions.length;
+  const el = document.getElementById('signatureCount');
+  if (el) el.textContent = count.toLocaleString('sv-SE');
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = Math.min((count / 10000) * 100, 100) + '%';
+}
+
+// ===== DATA SDK =====
+const dataHandler = {
+  onDataChanged(data) {
+    allRecords = data;
+    updateSignatureCount();
+  }
+};
+
+// ===== FORMS =====
+function setupForms() {
+  const petForm = document.getElementById('petitionForm');
+  petForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (allRecords.length >= 999) {
+      showToast('Maximalt antal poster nått (999). Tack för ditt stöd!', 'error');
+      return;
+    }
+    const btn = document.getElementById('petitionSubmitBtn');
+    const btnText = document.getElementById('petitionBtnText');
+    btn.disabled = true;
+    btnText.innerHTML = '<span class="spinner"></span>';
+
+    const name = document.getElementById('petName').value.trim();
+    const email = document.getElementById('petEmail').value.trim();
+    const postal = document.getElementById('petPostal').value.trim();
+
+    const result = await window.dataSdk.create({
+      type: 'petition',
+      name,
+      email,
+      postal_code: postal,
+      volunteer_areas: '',
+      message: '',
+      created_at: new Date().toISOString()
+    });
+
+    btn.disabled = false;
+    btnText.textContent = 'Skriv under namninsamlingen';
+
+    if (result.isOk) {
+      showToast('Tack för din underskrift! ✊', 'success');
+      petForm.reset();
+    } else {
+      showToast('Något gick fel. Försök igen.', 'error');
+    }
+  });
+
+  const volForm = document.getElementById('volunteerForm');
+  volForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (allRecords.length >= 999) {
+      showToast('Maximalt antal poster nått (999).', 'error');
+      return;
+    }
+    const btn = document.getElementById('volunteerSubmitBtn');
+    const btnText = document.getElementById('volunteerBtnText');
+    btn.disabled = true;
+    btnText.innerHTML = '<span class="spinner"></span>';
+
+    const name = document.getElementById('volName').value.trim();
+    const email = document.getElementById('volEmail').value.trim();
+    const message = document.getElementById('volMessage').value.trim();
+    const areas = [...document.querySelectorAll('#volunteerAreas input:checked')].map(c => c.value).join(',');
+
+    const result = await window.dataSdk.create({
+      type: 'volunteer',
+      name,
+      email,
+      postal_code: '',
+      volunteer_areas: areas,
+      message,
+      created_at: new Date().toISOString()
+    });
+
+    btn.disabled = false;
+    btnText.textContent = 'Anmäl dig som volontär';
+
+    if (result.isOk) {
+      showToast('Välkommen till kampanjen! 🎉', 'success');
+      volForm.reset();
+    } else {
+      showToast('Något gick fel. Försök igen.', 'error');
+    }
+  });
+}
+
+// ===== ELEMENT SDK =====
+function applyConfig(config) {
+  const bg = config.background_color || defaultConfig.background_color;
+  const surface = config.surface_color || defaultConfig.surface_color;
+  const text = config.text_color || defaultConfig.text_color;
+  const primary = config.primary_color || defaultConfig.primary_color;
+  const secondary = config.secondary_color || defaultConfig.secondary_color;
+  const font = config.font_family || defaultConfig.font_family;
+  const size = config.font_size || defaultConfig.font_size;
+
+  document.documentElement.style.setProperty('--bg-color', bg);
+  document.documentElement.style.setProperty('--surface-color', surface);
+  document.documentElement.style.setProperty('--text-color', text);
+  document.documentElement.style.setProperty('--primary-color', primary);
+  document.documentElement.style.setProperty('--secondary-color', secondary);
+
+  // Apply font
+  const fontStack = `${font}, 'DM Sans', sans-serif`;
+  document.body.style.fontFamily = fontStack;
+
+  // Apply font size proportionally
+  document.querySelectorAll('p, span, label, .nav-link, .form-input, textarea, .check-item, .faq-answer').forEach(el => {
+    el.style.fontFamily = fontStack;
+  });
+  document.querySelectorAll('.font-display').forEach(el => {
+    el.style.fontFamily = `'Fraunces', ${font}, serif`;
+  });
+
+  // Text content
+  const heroH = document.getElementById('heroHeadline');
+  if (heroH) heroH.textContent = config.hero_headline || defaultConfig.hero_headline;
+  const heroS = document.getElementById('heroSubtext');
+  if (heroS) heroS.textContent = config.hero_subtext || defaultConfig.hero_subtext;
+  const closeH = document.getElementById('closingHeadline');
+  if (closeH) closeH.textContent = config.closing_headline || defaultConfig.closing_headline;
+  const closeT = document.getElementById('closingText');
+  if (closeT) closeT.textContent = config.closing_text || defaultConfig.closing_text;
+}
+
+// ===== INIT =====
+(async function init() {
+  // Init Element SDK
+  if (window.elementSdk) {
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => { applyConfig(config); },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.primary_color || defaultConfig.primary_color, set: (v) => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
+          { get: () => config.secondary_color || defaultConfig.secondary_color, set: (v) => { config.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['hero_headline', config.hero_headline || defaultConfig.hero_headline],
+        ['hero_subtext', config.hero_subtext || defaultConfig.hero_subtext],
+        ['closing_headline', config.closing_headline || defaultConfig.closing_headline],
+        ['closing_text', config.closing_text || defaultConfig.closing_text]
+      ])
+    });
+  }
+
+  // Init Data SDK
+  if (window.dataSdk) {
+    const result = await window.dataSdk.init(dataHandler);
+    if (!result.isOk) {
+      console.error('Data SDK init failed');
+    }
+  }
+
+  setupForms();
+  lucide.createIcons();
+})();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dc5e78733537060',t:'MTc3MzUxODg0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -367,7 +367,7 @@ body {
        <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> LIVE — NAMNINSAMLING
        </div>
        <div class="counter-pulse font-display" style="font-size:clamp(42px,6vw,56px);font-weight:800;color:var(--primary-color)" id="signatureCount">
-        0
+        1704
        </div>
        <div style="font-size:15px;color:#777;margin-bottom:16px">
         personer har skrivit under
@@ -375,7 +375,7 @@ body {
        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden">
         <div id="progressBar" class="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;width:0%"></div>
        </div>
-       <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span>0</span> <span>Mål: 10 000</span>
+       <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span id="progressStart">0</span> <span>Mål: <span id="progressGoal">10 000</span></span>
        </div>
       </div>
      </div>
@@ -885,13 +885,23 @@ function showToast(msg, type) {
 }
 
 // ===== SIGNATURE COUNTER =====
+const signatureGoal = 10000;
 function updateSignatureCount() {
   const petitions = allRecords.filter(r => r.type === 'petition');
   const count = petitions.length;
   const el = document.getElementById('signatureCount');
   if (el) el.textContent = count.toLocaleString('sv-SE');
+
+  const startEl = document.getElementById('progressStart');
+  const goalEl = document.getElementById('progressGoal');
+  if (startEl) startEl.textContent = '0';
+  if (goalEl) goalEl.textContent = signatureGoal.toLocaleString('sv-SE');
+
   const bar = document.getElementById('progressBar');
-  if (bar) bar.style.width = Math.min((count / 10000) * 100, 100) + '%';
+  if (bar) {
+    const pct = signatureGoal > 0 ? Math.min((count / signatureGoal) * 100, 100) : 0;
+    bar.style.width = pct + '%';
+  }
 }
 
 // ===== DATA SDK =====

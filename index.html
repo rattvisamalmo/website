@@ -11,6 +11,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#0a1628',
+            ocean: '#1a3a5c',
+            ember: '#d4553a',
+            sand: '#f0ebe3',
+            chalk: '#faf8f5'
+          }
+        }
+      }
+    }
+  </script>
   <style>
 :root {
   --bg-color: #F7F5F0;
@@ -188,6 +203,9 @@ body {
   top: 9px;
 }
 .timeline-dot.completed { background: var(--secondary-color); }
+
+.material-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(10,22,40,0.12); }
+.material-card { transition: all 0.3s ease; }
 
 /* Org logos placeholder */
 .org-logo {
@@ -489,7 +507,7 @@ body {
        </div>
       </div>
      </div>
-    </section><!-- SUPPORTERS / ENDORSERS -->
+    </section>
     <section style="padding:80px 0;background:white">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
@@ -497,42 +515,18 @@ body {
        <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto">En bred koalition av civilsamhällesorganisationer, fackförbund och föreningar</p>
       </div>
       <div class="grid gap-4" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">
-       <div class="org-logo">
-        <i data-lucide="scale" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Rättighetscenter
-       </div>
-       <div class="org-logo">
-        <i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Fredsrörelse
-       </div>
-       <div class="org-logo">
-        <i data-lucide="globe" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Svenska Freds
-       </div>
-       <div class="org-logo">
-        <i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Diakonia Malmö
-       </div>
-       <div class="org-logo">
-        <i data-lucide="briefcase" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Kommunal Syd
-       </div>
-       <div class="org-logo">
-        <i data-lucide="book-open" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> ABF Malmö
-       </div>
-       <div class="org-logo">
-        <i data-lucide="home" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Hyresgästföreningen
-       </div>
-       <div class="org-logo">
-        <i data-lucide="leaf" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Naturskyddsföreningen
-       </div>
-       <div class="org-logo">
-        <i data-lucide="graduation-cap" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Studentkår
-       </div>
-       <div class="org-logo">
-        <i data-lucide="megaphone" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Amnesty Malmö
-       </div>
-       <div class="org-logo">
-        <i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Palestinagrupperna
-       </div>
-       <div class="org-logo">
-        <i data-lucide="shield" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rädda Barnen Malmö
-       </div>
+       <div class="org-logo"><i data-lucide="scale" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Rättighetscenter</div>
+       <div class="org-logo"><i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Fredsrörelse</div>
+       <div class="org-logo"><i data-lucide="globe" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Svenska Freds</div>
+       <div class="org-logo"><i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Diakonia Malmö</div>
+       <div class="org-logo"><i data-lucide="briefcase" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Kommunal Syd</div>
+       <div class="org-logo"><i data-lucide="book-open" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> ABF Malmö</div>
+       <div class="org-logo"><i data-lucide="home" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Hyresgästföreningen</div>
+       <div class="org-logo"><i data-lucide="leaf" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Naturskyddsföreningen</div>
+       <div class="org-logo"><i data-lucide="graduation-cap" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Studentkår</div>
+       <div class="org-logo"><i data-lucide="megaphone" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Amnesty Malmö</div>
+       <div class="org-logo"><i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Palestinagrupperna</div>
+       <div class="org-logo"><i data-lucide="shield" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rädda Barnen Malmö</div>
       </div>
       <p class="text-center mt-6" style="font-size:14px;color:#999">Vill din organisation ansluta sig? <button onclick="goTo('volunteer')" style="color:var(--primary-color);font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer">Kontakta oss</button></p>
      </div>
@@ -638,7 +632,42 @@ body {
        </div>
       </div>
      </div>
-    </section><!-- FINAL CTA -->
+    </section>
+    </section><!-- Materials Section -->
+   <section id="materials" style="background:white" class="w-full py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+     <div class="scroll-reveal text-center mb-12">
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Ladda ner material</h2>
+      <p class="text-ocean/70 text-base max-w-xl mx-auto">Här hittar du allt material du behöver för att stötta kampanjen — flygblad, affischer, mallar och informationsdokument.</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"><!-- Material Card 1 -->
+      <div class="scroll-reveal material-card bg-white rounded-xl p-5 border border-sand cursor-pointer">
+       <div class="w-full aspect-[4/3] bg-gradient-to-br from-ember/10 to-ember/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="file-text" style="width:36px;height:36px;color:#d4553a;"></i> <span class="text-xs text-ember font-semibold mt-2">PDF</span>
+       </div>
+       <h3 class="font-semibold text-midnight text-sm mb-1">Informationsblad</h3>
+       <p class="text-ocean/60 text-xs mb-3">Översikt av kampanjen och dess mål — perfekt att dela ut.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand" onclick="simulateDownload(this, 'Informationsblad.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      </div><!-- Material Card 2 -->
+      <div class="scroll-reveal material-card bg-white rounded-xl p-5 border border-sand cursor-pointer" style="transition-delay:0.08s;">
+       <div class="w-full aspect-[4/3] bg-gradient-to-br from-ocean/10 to-ocean/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="image" style="width:36px;height:36px;color:#1a3a5c;"></i> <span class="text-xs text-ocean font-semibold mt-2">PNG / PDF</span>
+       </div>
+       <h3 class="font-semibold text-midnight text-sm mb-1">Affisch A3</h3>
+       <p class="text-ocean/60 text-xs mb-3">Tryckfärdig affisch för anslagstavlor, fönster och evenemang.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand" onclick="simulateDownload(this, 'Affisch_A3.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      </div><!-- Material Card 3 -->
+      <div class="scroll-reveal material-card bg-white rounded-xl p-5 border border-sand cursor-pointer" style="transition-delay:0.16s;">
+       <div class="w-full aspect-[4/3] bg-gradient-to-br from-ember/10 to-ocean/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="mail" style="width:36px;height:36px;color:#d4553a;"></i> <span class="text-xs text-ember font-semibold mt-2">DOCX</span>
+       </div>
+       <h3 class="font-semibold text-midnight text-sm mb-1">Brevmall till politiker</h3>
+       <p class="text-ocean/60 text-xs mb-3">Färdig mall för att kontakta dina lokala politiker om etisk upphandling.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand" onclick="simulateDownload(this, 'Brevmall.docx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      </div><!-- Material Card 4 -->
+      <div class="scroll-reveal material-card bg-white rounded-xl p-5 border border-sand cursor-pointer" style="transition-delay:0.24s;">
+       <div class="w-full aspect-[4/3] bg-gradient-to-br from-ocean/10 to-ember/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="presentation" style="width:36px;height:36px;color:#1a3a5c;"></i> <span class="text-xs text-ocean font-semibold mt-2">PPTX</span>
+       </div>
+       <h3 class="font-semibold text-midnight text-sm mb-1">Presentationsmaterial</h3>
+       <p class="text-ocean/60 text-xs mb-3">Bildspel för möten, studiecirklar och informationsträffar.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand" onclick="simulateDownload(this, 'Presentation.pptx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      </div>
+     </div>
+    </div>
+   </section><!-- FINAL CTA -->
     <section style="padding:80px 0;background:var(--text-color)">
      <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
       <h2 id="closingHeadline" class="font-display" style="font-size:clamp(32px,5vw,48px);font-weight:800;color:white;margin-bottom:16px;line-height:1.1">Malmö kan visa vägen.</h2>

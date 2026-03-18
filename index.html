@@ -508,7 +508,68 @@ body {
       </div>
      </div>
     </section>
-    <section style="padding:80px 0;background:white">
+    <!-- Companies Section -->
+   <section id="companies" class="w-full py-20 md:py-28" style="padding:80px 0;background:white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+     <div class="scroll-reveal text-center mb-12">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-companies-title">Exempel från Malmö stad</h2>
+      <p class="text-ocean/70 text-base max-w-xl mx-auto" id="el-companies-description">Här är två exempel på företag som Malmö stad har kontrakt med, trots deras inblandning i brott mot folkerättsliga normer.</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6"><!-- Company Card 1: WSP -->
+      <div class="scroll-reveal bg-chalk rounded-xl p-8 border-l-4 border-ember">
+       <div class="flex items-start gap-4 mb-4">
+        <div class="w-12 h-12 rounded-lg bg-ember/10 flex items-center justify-center flex-shrink-0"><i data-lucide="building-2" style="width:24px;height:24px;color:#d4553a;"></i>
+        </div>
+        <div>
+         <h3 class="font-display text-xl font-bold text-midnight">WSP Sverige</h3>
+         <p class="text-ocean/60 text-sm">Del av WSP Global Inc.</p>
+        </div>
+       </div>
+       <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> Malmö stad: 10 miljoner kronor</p>
+        <p class="text-red-800 text-xs">Kontraktsvärde för konsulttjänster</p>
+       </div>
+       <div class="space-y-3">
+        <div>
+         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1">Inblandning i folkerättsbrott</p>
+         <ul class="text-sm text-ocean/80 space-y-1.5">
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Jerusalem spårväg:</strong> Designade spårvägssystem som förbinder olagliga bosättningar i ockuperad Östjerusalem med västra delen av staden.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Tel Aviv–Jerusalem järnväg:</strong> Tillhandahållit finansiellt och tekniskt stöd för järnväg som går över ockuperad mark i Västbanken.</span></li>
+         </ul>
+        </div>
+       </div>
+      </div><!-- Company Card 2: Atea -->
+      <div class="scroll-reveal bg-chalk rounded-xl p-8 border-l-4 border-ember" style="transition-delay:0.1s;">
+       <div class="flex items-start gap-4 mb-4">
+        <div class="w-12 h-12 rounded-lg bg-ember/10 flex items-center justify-center flex-shrink-0"><i data-lucide="network" style="width:24px;height:24px;color:#d4553a;"></i>
+        </div>
+        <div>
+         <h3 class="font-display text-xl font-bold text-midnight">Atea</h3>
+         <p class="text-ocean/60 text-sm">IT och teknikdistributör</p>
+        </div>
+       </div>
+       <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> Malmö stad: Finansierar Atea</p>
+        <p class="text-red-800 text-xs">Genom IT-upphandling och systemleveranser</p>
+       </div>
+       <div class="space-y-3">
+        <div>
+         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1">Inblandning i kränkningar</p>
+         <ul class="text-sm text-ocean/80 space-y-1.5">
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Konfliktmineraler:</strong> Involverad i värdekedjor med mineraler från DR Kongo där människorättsbrott förekommer.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Militär teknologi:</strong> Distribuerar övervaknings- och kontrollteknik till ockupationsmakt och konfliktparter.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Partner i brott:</strong> Tillsammans med partners involverad i människorättskränkningar i Israel och andra konfliktområden.</span></li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="scroll-reveal mt-12 p-6 bg-red-50 border border-red-200 rounded-xl">
+      <p class="text-red-900 text-sm leading-relaxed"><strong>Varför är det här relevant?</strong> Dessa är bara två exempel på hur Malmö stads skattepengar kan komma att finansiera företag involverade i folkerättsbrott. En etisk upphandlingspolicy skulle förhindra detta genom att kräva att leverantörer kan garantera att de inte är involverade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
+     </div>
+    </div>
+   </section>
+   <section style="padding:80px 0;background:var(--bg-color)">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Organisationer som stödjer etisk upphandling i Malmö</h2>
@@ -531,7 +592,7 @@ body {
       <p class="text-center mt-6" style="font-size:14px;color:#999">Vill din organisation ansluta sig? <button onclick="goTo('volunteer')" style="color:var(--primary-color);font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer">Kontakta oss</button></p>
      </div>
     </section><!-- MOMENTUM / TIMELINE -->
-    <section style="padding:80px 0;background:var(--bg-color)">
+    <section style="padding:80px 0;background:white">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Kampanjens framsteg</h2>
@@ -634,7 +695,7 @@ body {
      </div>
     </section>
     </section><!-- Materials Section -->
-   <section id="materials" style="background:white" class="w-full py-20 md:py-28">
+   <section id="materials" style="padding:80px 0;background:var(--bg-color)" class="w-full py-20 md:py-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
      <div class="scroll-reveal text-center mb-12">
       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Ladda ner material</h2>
@@ -946,6 +1007,21 @@ function updateSignatureCount() {
     const pct = goal > 0 ? Math.min((count / goal) * 100, 100) : 0;
     bar.style.width = pct + '%';
   }
+}
+
+// Simulate download with inline feedback
+function simulateDownload(btn, filename) {
+  const original = btn.innerHTML;
+  btn.innerHTML = '<span class="flex items-center gap-1.5"><svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg> Laddar...</span>';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = '<span class="flex items-center gap-1.5 text-green-700">✓ ' + filename + '</span>';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.disabled = false;
+      lucide.createIcons();
+    }, 2000);
+  }, 1200);
 }
 
 // ===== DATA SDK =====

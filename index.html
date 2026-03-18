@@ -98,6 +98,124 @@ body {
   box-shadow: 0 12px 40px rgba(0,0,0,0.1);
 }
 
+.flip-card {
+  perspective: 1000px;
+  height: 320px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+}
+
+.flip-card-front {
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f0ebe3 0%, #faf8f5 100%);
+  border: 2px solid #d4553a;
+  box-shadow: 0 8px 32px rgba(212, 85, 58, 0.12);
+}
+
+.flip-card-back {
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #d4553a 0%, #e8785f 100%);
+  color: white;
+  transform: rotateY(180deg);
+  overflow-y: auto;
+}
+
+.flip-card-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #d4553a;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.flip-card-front .flip-card-number {
+  background: #d4553a;
+}
+
+.flip-card-back .flip-card-number {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.flip-card-question {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0a1628;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.flip-card-subtitle {
+  color: #1a3a5c;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.flip-card-content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: left;
+}
+
+.flip-card-content strong {
+  font-weight: 600;
+  color: white;
+}
+
+.flip-card-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: rgba(212, 85, 58, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flip-card:not(.flipped) .flip-card-hint {
+  animation: pulse-hint 1.5s ease-in-out infinite 1s;
+}
+
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 /* Button styles */
 @keyframes primaryPulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(194,58,34,0.35); }
@@ -589,8 +707,125 @@ body {
       </div>
       <p class="text-center mt-6" style="font-size:14px;color:#999">Vill din organisation ansluta sig? <button onclick="goTo('volunteer')" style="color:var(--primary-color);font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer">Kontakta oss</button></p>
      </div>
-    </section><!-- MOMENTUM / TIMELINE -->
-    <section style="padding:80px 0;background:white">
+    </section><!-- Legal Foundation Section -->
+   <section id="legal" style="padding:80px 0;background:white" class="w-full py-20 md:py-28 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-72 h-72 rounded-full bg-ocean/5 blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+     <div class="scroll-reveal text-center mb-14">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-legal-title">Är det juridiskt möjligt?</h2>
+      <div class="w-16 h-1 bg-ember rounded-full mx-auto mb-6"></div>
+      <p class="text-ocean/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Politiker hävdar ofta att etisk upphandling är omöjligt enligt EU:s upphandlingslag (LOU). Det stämmer inte. En grundlig juridisk analys visar att Malmö stad redan idag har den rättsliga grunden att införa en etisk upphandlingspolicy.</p>
+     </div><!-- Legal Journey Container --> <!-- Flip Cards Container -->
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Flip Card 1 -->
+      <div class="scroll-reveal flip-card" onclick="toggleFlip(this)">
+       <div class="flip-card-inner">
+        <!-- Front -->
+        <div class="flip-card-front">
+         <div class="flip-card-number">
+          1
+         </div>
+         <h3 class="flip-card-question">Tillåter EU-rätten etiska krav?</h3>
+         <p class="flip-card-subtitle">Direktiv 2014/24/EU — är det ett hinder eller en grund?</p>
+         <div class="flip-card-hint">
+          Klicka för att visa svar
+         </div>
+        </div><!-- Back -->
+        <div class="flip-card-back">
+         <div class="flip-card-number">
+          1
+         </div>
+         <div class="flip-card-content">
+          <p class="mb-4"><strong>Ja — och långt mer än så</strong></p>
+          <p class="mb-4">Direktiv 2014/24/EU kräver uttryckligen att offentliga upphandlingar genomförs <strong>i enlighet med gällande miljö-, social- och arbetsmiljölag, samt internationella konventioner</strong>.</p>
+          <p class="mb-3 italic text-sm opacity-90">"Myndigheter ska säkerställa att offentliga medel används på sätt som respekterar internationell rätt och mänskliga rättigheter."</p>
+          <p>Det betyder att Malmö stad <strong>redan har den juridiska grunden</strong> — det handlar om att <strong>använda den</strong>.</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Flip Card 2 -->
+      <div class="scroll-reveal flip-card" onclick="toggleFlip(this)" style="transition-delay:0.1s;">
+       <div class="flip-card-inner">
+        <!-- Front -->
+        <div class="flip-card-front">
+         <div class="flip-card-number">
+          2
+         </div>
+         <h3 class="flip-card-question">Kan företag uteslutas för felaktigt beteende?</h3>
+         <p class="flip-card-subtitle">Vilka former av misconduct räknas?</p>
+         <div class="flip-card-hint">
+          Klicka för att visa svar
+         </div>
+        </div><!-- Back -->
+        <div class="flip-card-back">
+         <div class="flip-card-number">
+          2
+         </div>
+         <div class="flip-card-content">
+          <p class="mb-4"><strong>Ja — EU-domstolen tolkar detta mycket brett</strong></p>
+          <p class="mb-4">Begreppet <strong>"allvarligt oprofessionellt beteende"</strong> är inte begränsat till tekniska fel eller brott inom ett specifikt kontrakt.</p>
+          <p class="mb-3"><strong>EU-domstolspraxis:</strong> Det omfattar <strong>allt beteende som ifrågasätter företagets tillförlitlighet</strong> — inklusive allvarlig inblandning i brott mot mänskliga rättigheter eller internationell rätt.</p>
+          <p>Myndigheter kan och <strong>bör</strong> utesluta företag vars verksamhet undergräver grundläggande värderingar.</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Flip Card 3 -->
+      <div class="scroll-reveal flip-card" onclick="toggleFlip(this)" style="transition-delay:0.2s;">
+       <div class="flip-card-inner">
+        <!-- Front -->
+        <div class="flip-card-front">
+         <div class="flip-card-number">
+          3
+         </div>
+         <h3 class="flip-card-question">Innefattar detta människorättskränkningar?</h3>
+         <p class="flip-card-subtitle">Krigsbrott, brott mot mänskligheten — kan det användas?</p>
+         <div class="flip-card-hint">
+          Klicka för att visa svar
+         </div>
+        </div><!-- Back -->
+        <div class="flip-card-back">
+         <div class="flip-card-number">
+          3
+         </div>
+         <div class="flip-card-content">
+          <p class="mb-4"><strong>Ja — och det är starkt förankrat i internationell rätt</strong></p>
+          <p class="mb-4">Sverige är bunden av konventioner om mänskliga rättigheter och internationell humanitär rätt. Myndigheter har en juridisk <strong>skyldighet att inte assistera eller underlätta allvarliga brott mot internationell rätt</strong>.</p>
+          <p class="mb-3"><strong>FN:s vägledande principer:</strong> Stater ska säkerställa att affärsverksamhet inte underlättar kränkningar av mänskliga rättigheter.</p>
+          <p>Dokumentation från FN, människorättsorganisationer och oberoende journalistik <strong>räcker som bevisning</strong> — ingen fällande dom krävs.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Final Step - The Question -->
+     <div class="scroll-reveal pt-4 mt-12 border-t-2 border-ember/30">
+      <div class="max-w-2xl">
+       <h3 class="font-display text-2xl md:text-3xl font-bold text-midnight mb-3">Så varför gör inte Malmö det?</h3>
+       <p class="text-ocean/80 text-base md:text-lg leading-relaxed">Det finns ingen juridisk anledning. Det finns bara politisk vilja — eller bristen på sådan.</p>
+      </div>
+     </div>
+    </div><!-- Key Legal Concept Box -->
+    <div class="scroll-reveal mt-12 max-w-2xl mx-auto bg-gradient-to-br from-ocean/5 to-ember/5 border-2 border-ocean/20 rounded-2xl p-8 md:p-10">
+     <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-ember/10 flex items-center justify-center flex-shrink-0">
+       <i data-lucide="book-open" style="width:24px;height:24px;color:#d4553a;"></i>
+      </div>
+      <div class="flex-1">
+       <h4 class="font-display text-lg font-bold text-midnight mb-4">Nyckelbegrepp: ALLVARLIGT OPROFESSIONELLT BETEENDE</h4>
+       <ul class="space-y-3">
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Bred juridisk definition i EU-rätten</strong><br>
+           Omfattar långt mer än bara tekniska fel eller kontraktskränkningar.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Täcker beteende som undergräver företagets integritet</strong><br>
+           Inklusive allvarlig inblandning i brott mot folkerättsliga normer.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Kräver ingen fällande dom</strong><br>
+           Dokumentation från oberoende källor räcker som bevisning.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Kan omfatta människorättskränkningar</strong><br>
+           Krigsbrott, brott mot mänskligheten och systematiska kränkningar.</span></li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </section><!-- MOMENTUM / TIMELINE -->
+    <section style="padding:80px 0;background:var(--bg-color)">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Kampanjens framsteg</h2>
@@ -659,7 +894,7 @@ body {
           Formell petition till Malmö stad
          </div>
         </div>
-       </div><!-- Map of Malmö -->
+       </div>
        <div style="background:white;border-radius:16px;padding:28px;border:1px solid #e5e2db">
         <h3 class="font-display" style="font-size:18px;font-weight:700;margin-bottom:10px">Introduktion till kampanjen</h3>
         <p style="font-size:13px;color:#888;margin-bottom:18px">Se vår korta kampanjvideo som förklarar varför vi kräver etisk upphandling i Malmö.</p>
@@ -669,57 +904,56 @@ body {
        </div>
       </div>
      </div>
-    </section>
     </section><!-- Spread the Campaign -->
-    <section id="spread" style="padding:80px 0;background:var(--bg-color)" class="w-full py-20 md:py-28">
+    <section id="spread" style="padding:80px 0;background:white" class="w-full py-20 md:py-28">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="scroll-reveal text-center mb-12">
         <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-spread-title">Sprid kampanjen</h2>
         <p class="text-ocean/70 text-base max-w-xl mx-auto">Varje röst räknas. Här är konkreta sätt du kan hjälpa kampanjen att nå fler Malmöbor.</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6">
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="share-2" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
         <h3 class="font-semibold text-midnight mb-2">Dela i sociala medier</h3>
         <p class="text-ocean/60 text-sm mb-4">Dela kampanjens budskap med dina nätverk på Instagram, Facebook och TikTok.</p>
-        <div class="flex gap-2"><button onclick="window.open('https://www.facebook.com/rattvisamalmo','_blank')" class="p-2.5 rounded-lg bg-chalk border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Facebook"><i data-lucide="facebook" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.tiktok.com/@rattvisa.malmo','_blank')" class="p-2.5 rounded-lg bg-chalk border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på TikTok"><i data-lucide="music" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.instagram.com/rattvisamalmo/','_blank')" class="p-2.5 rounded-lg bg-chalk border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Instagram"><i data-lucide="instagram" style="width:16px;height:16px;"></i></button> <button onclick="window.location.href='mailto:rattvisamalmo@gmail.com'" class="p-2.5 rounded-lg bg-chalk border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela via e-post"><i data-lucide="mail" style="width:16px;height:16px;"></i></button>
+        <div class="flex gap-2"><button onclick="window.open('https://www.facebook.com/rattvisamalmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Facebook"><i data-lucide="facebook" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.tiktok.com/@rattvisa.malmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på TikTok"><i data-lucide="music" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.instagram.com/rattvisamalmo/','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Instagram"><i data-lucide="instagram" style="width:16px;height:16px;"></i></button> <button onclick="window.location.href='mailto:rattvisamalmo@gmail.com'" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela via e-post"><i data-lucide="mail" style="width:16px;height:16px;"></i></button>
         </div>
         </div>
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6" style="transition-delay:0.08s;">
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.08s;">
         <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="message-circle" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
         <h3 class="font-semibold text-midnight mb-2">Prata med dina grannar</h3>
         <p class="text-ocean/60 text-sm mb-4">Informella samtal kan göra stor skillnad. Använd vårt informationsblad som utgångspunkt.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Hämta material <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6" style="transition-delay:0.16s;">
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.16s;">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="megaphone" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
         <h3 class="font-semibold text-midnight mb-2">Kontakta politiker</h3>
         <p class="text-ocean/60 text-sm mb-4">Skriv till dina kommunfullmäktigeledamöter och be dem stödja en etisk upphandlingspolicy.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Ladda ner brevmall <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6" style="transition-delay:0.24s;">
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.24s;">
         <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="printer" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
         <h3 class="font-semibold text-midnight mb-2">Skriv ut &amp; sätt upp</h3>
         <p class="text-ocean/60 text-sm mb-4">Skriv ut affischer och flygblad och sätt upp dem på anslagstavlor, i butiker och på arbetsplatser.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Ladda ner affischer <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6" style="transition-delay:0.32s;">
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.32s;">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="pen-tool" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
         <h3 class="font-semibold text-midnight mb-2">Skriv debattartikel</h3>
         <p class="text-ocean/60 text-sm mb-4">Dela dina åsikter i en insändare eller debattartikel till lokala och nationella medier om etisk upphandling.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Se exempelartikel <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
-        <div class="scroll-reveal spread-card bg-white rounded-xl p-6" style="transition-delay:0.4s;">
-        <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="calendar" style="width:22px;height:22px;color:#1a3a5c;"></i>
+        <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.4s;">
+        <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="users" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Delta på evenemang</h3>
-        <p class="text-ocean/60 text-sm mb-4">Kom till våra öppna möten och manifestationer. Håll utkik efter kommande datum i nyhetssektionen.</p><a href="#news" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Se nyheter <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2">Organisera för stöd</h3>
+        <p class="text-ocean/60 text-sm mb-4">Är du en organisation, förening eller arbetsplats? Vi söker partners som kan stödja och förespråka kampanjen.</p><a href="#news" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Se nyheter <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
       </div>
       </div>
     </section><!-- Materials Section -->
-   <section id="materials" style="padding:80px 0;background:white" class="w-full py-20 md:py-28">
+   <section id="materials" style="padding:80px 0;background:var(--bg-color)" class="w-full py-20 md:py-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
      <div class="scroll-reveal text-center mb-12">
       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Ladda ner material</h2>
@@ -998,6 +1232,11 @@ function showToast(msg, type) {
   t.className = 'toast-msg ' + (type === 'error' ? 'toast-error' : 'toast-success');
   requestAnimationFrame(() => t.classList.add('show'));
   setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ===== Toggle Flip Card =====
+function toggleFlip(card) {
+  card.classList.toggle('flipped');
 }
 
 // ===== SIGNATURE COUNTER =====

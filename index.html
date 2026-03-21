@@ -348,6 +348,105 @@ body {
   box-shadow: 0 4px 12px rgba(43,90,75,0.1);
 }
 
+.endorser-tabs {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  padding: 4px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #e5e2db;
+  border-radius: 999px;
+  min-width: 280px;
+}
+.endorser-tab-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background: var(--primary-color);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(194,58,34,0.2);
+  transform: translateX(var(--endorser-indicator-x, 0%));
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease;
+  pointer-events: none;
+}
+.endorser-tab {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  color: #666;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.24s ease, transform 0.24s ease;
+}
+.endorser-tab:hover {
+  color: var(--text-color);
+}
+.endorser-tab.active {
+  color: white;
+}
+.endorser-panel {
+  display: none;
+}
+.endorser-panel.active {
+  display: block;
+}
+.individual-card {
+  background: white;
+  border: 1px solid #e5e2db;
+  border-radius: 14px;
+  padding: 20px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(10,22,40,0.05);
+  width: 100%;
+  max-width: 280px;
+}
+.individual-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+.individual-title {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+.endorsement-type-switch {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(26,58,92,0.06);
+  border: 1px solid #e5e2db;
+}
+.endorsement-type-btn {
+  border: none;
+  background: transparent;
+  color: #666;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.endorsement-type-btn.active {
+  background: white;
+  color: var(--text-color);
+  box-shadow: 0 8px 20px rgba(10,22,40,0.08);
+}
+
 /* Form fields */
 .form-input {
   width: 100%;
@@ -693,21 +792,57 @@ body {
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Stöd för etisk upphandling i Malmö</h2>
-       <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto">Lokala föreningar och civilsamhälle står enade.</p>
+         <p style="font-size:16px;color:#666;max-width:620px;margin:0 auto">Organisationer och enskilda personer som ställer sig bakom kampanjen för etisk upphandling i Malmö.</p>
       </div>
-      <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-       <div class="org-logo"><i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Afroswedes</div>
-       <div class="org-logo"><i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Fridays For Future Malmö</div>
-       <div class="org-logo"><i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Klimataktion Skåne</div>
-       <div class="org-logo"><i data-lucide="scale" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Antirasistiska Förening (MARF)</div>
-       <div class="org-logo"><i data-lucide="home" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Culture Collective</div>
-       <div class="org-logo"><i data-lucide="shield" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Matriarkatet Malmö</div>
-       <div class="org-logo"><i data-lucide="message-circle" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Palestinagruppen Malmö</div>
-       <div class="org-logo"><i data-lucide="heart-pulse" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rebellmammorna</div>
-      </div>
-      <p class="text-center mt-6" style="font-size:14px;color:#999">Vill din organisation ansluta sig? <button onclick="goTo('volunteer')" style="color:var(--primary-color);font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer">Kontakta oss</button></p>
+        <div class="flex justify-center mb-8">
+         <div class="endorser-tabs" id="endorsers-tabs" role="tablist" aria-label="Stödjande aktörer">
+          <span class="endorser-tab-indicator" aria-hidden="true"></span>
+          <button class="endorser-tab active" id="endorsers-tab-orgs" type="button" role="tab" aria-selected="true" aria-controls="endorsers-panel-orgs" onclick="setEndorserTab('orgs')">Organisationer</button>
+          <button class="endorser-tab" id="endorsers-tab-individuals" type="button" role="tab" aria-selected="false" aria-controls="endorsers-panel-individuals" onclick="setEndorserTab('individuals')">Personer</button>
+         </div>
+        </div>
+        <div id="endorsers-panel-orgs" class="endorser-panel active" role="tabpanel" aria-labelledby="endorsers-tab-orgs" aria-hidden="false">
+         <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div class="org-logo"><i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Afroswedes</div>
+          <div class="org-logo"><i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Fridays For Future Malmö</div>
+          <div class="org-logo"><i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Klimataktion Skåne</div>
+          <div class="org-logo"><i data-lucide="scale" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Antirasistiska Förening (MARF)</div>
+          <div class="org-logo"><i data-lucide="home" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Malmö Culture Collective</div>
+          <div class="org-logo"><i data-lucide="shield" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Matriarkatet Malmö</div>
+          <div class="org-logo"><i data-lucide="message-circle" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Palestinagruppen Malmö</div>
+          <div class="org-logo"><i data-lucide="heart-pulse" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rebellmammorna</div>
+         </div>
+         <div class="text-center mt-6">
+          <p style="font-size:14px;color:#999;margin-bottom:12px">Vill din organisation offentligt stödja kampanjen? Skicka in ett organisationsstöd så följer vi upp det som en endorsement.</p>
+          <button class="btn-secondary" onclick="openEndorsement('organization')"><i data-lucide="building-2" style="width:18px;height:18px"></i> Stöd som organisation</button>
+         </div>
+        </div>
+        <div id="endorsers-panel-individuals" class="endorser-panel" role="tabpanel" aria-labelledby="endorsers-tab-individuals" aria-hidden="true">
+          <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div class="individual-card">
+            <div class="individual-name">Nicolas Lunabba</div>
+            <div class="individual-title">författare och hedersdoktor i socialt arbete</div>
+          </div>
+          <div class="individual-card">
+            <div class="individual-name">Halimo Nuur</div>
+            <div class="individual-title">community-arbetare och folkrörelseutvecklare</div>
+          </div>
+          <div class="individual-card">
+            <div class="individual-name">Anfal Mahdi</div>
+            <div class="individual-title">oppositionsråd för Vänsterpartiet</div>
+           </div>
+           <div class="individual-card">
+            <div class="individual-name">Nina Jakku</div>
+            <div class="individual-title">oppositionsråd för Vänsterpartiet</div>
+          </div>
+         </div>
+           <div class="text-center mt-6">
+            <p style="font-size:14px;color:#999;margin-bottom:12px">Vill du stödja kampanjen som person? Skicka in namn och titel för ett individuellt endorsement.</p>
+            <button class="btn-primary" onclick="openEndorsement('individual')"><i data-lucide="badge-check" style="width:18px;height:18px"></i> Stöd som person</button>
+           </div>
+        </div>
      </div>
-    </section><!-- Legal Foundation Section -->
+      </section><!-- Legal Foundation Section -->
    <section id="legal" style="padding:80px 0;background:white" class="w-full py-20 md:py-28 relative overflow-hidden">
     <div class="absolute top-0 left-0 w-72 h-72 rounded-full bg-ocean/5 blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -1073,6 +1208,33 @@ body {
       </form>
      </div>
     </section>
+    </main><!-- ========== ENDORSEMENT PAGE ========== -->
+    <main id="page-endorse" class="page" role="main">
+     <section style="padding:60px 0 80px">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <h1 id="endorsementPageHeading" class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Stöd kampanjen som organisation</h1>
+      <p id="endorsementPageIntro" style="font-size:16px;color:#666;margin-bottom:24px;line-height:1.6">Fyll i uppgifterna nedan så följer vi upp ert stöd och bekräftar allt innan något publiceras offentligt.</p>
+      <div class="flex justify-center mb-8">
+       <div class="endorsement-type-switch" role="tablist" aria-label="Välj typ av endorsement">
+        <button class="endorsement-type-btn active" id="endorsementModeOrg" type="button" role="tab" aria-selected="true" onclick="setEndorsementMode('organization')">Som organisation</button>
+        <button class="endorsement-type-btn" id="endorsementModeIndividual" type="button" role="tab" aria-selected="false" onclick="setEndorsementMode('individual')">Som person</button>
+       </div>
+      </div>
+      <form id="endorsementForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
+       <h2 id="endorsementFormTitle" class="font-display" style="font-size:22px;font-weight:700;margin-bottom:20px">Skicka organisationsstöd</h2>
+       <div class="mb-5"><label id="endorseNameLabel" for="endorseName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Organisationens namn *</label> <input type="text" id="endorseName" class="form-input" placeholder="Namn på organisation" required>
+       </div>
+       <div class="mb-5"><label id="endorseSecondaryLabel" for="endorseSecondary" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kontaktperson (valfritt)</label> <input type="text" id="endorseSecondary" class="form-input" placeholder="Namn på kontaktperson">
+       </div>
+       <div class="mb-5"><label for="endorseEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="endorseEmail" class="form-input" placeholder="namn@organisation.se" required>
+       </div>
+       <div class="mb-6"><label id="endorseMessageLabel" for="endorseMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kort meddelande (valfritt)</label> <textarea id="endorseMessage" class="form-input" rows="4" placeholder="Skriv gärna om varför ni vill stödja kampanjen..."></textarea>
+        <p id="endorsementDisclosure" style="margin-top:10px;font-size:13px;color:#777;line-height:1.5">Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.</p>
+       </div><button type="submit" id="endorsementSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="badge-check" style="width:18px;height:18px"></i> <span id="endorsementBtnText">Skicka organisationsstöd</span> </button>
+       <div id="endorsementMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
+      </form>
+      </div>
+     </section>
    </main><!-- ========== ABOUT PAGE ========== -->
    <main id="page-about" class="page" role="main">
     <section style="padding:60px 0 80px">
@@ -1183,6 +1345,7 @@ body {
 // ===== STATE =====
 let allRecords = [];
 let currentPage = 'home';
+let currentEndorsementType = 'organization';
 
 const defaultConfig = {
   background_color: '#F7F5F0',
@@ -1214,6 +1377,83 @@ function goTo(page) {
 
 function toggleMobileMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+function setEndorserTab(tab) {
+  const isOrgs = tab === 'orgs';
+  const tabs = document.getElementById('endorsers-tabs');
+  const orgTab = document.getElementById('endorsers-tab-orgs');
+  const individualsTab = document.getElementById('endorsers-tab-individuals');
+  const orgPanel = document.getElementById('endorsers-panel-orgs');
+  const individualsPanel = document.getElementById('endorsers-panel-individuals');
+
+  if (!tabs || !orgTab || !individualsTab || !orgPanel || !individualsPanel) return;
+
+  tabs.style.setProperty('--endorser-indicator-x', isOrgs ? '0%' : '100%');
+
+  orgTab.classList.toggle('active', isOrgs);
+  individualsTab.classList.toggle('active', !isOrgs);
+  orgTab.setAttribute('aria-selected', isOrgs ? 'true' : 'false');
+  individualsTab.setAttribute('aria-selected', isOrgs ? 'false' : 'true');
+
+  orgPanel.classList.toggle('active', isOrgs);
+  individualsPanel.classList.toggle('active', !isOrgs);
+  orgPanel.setAttribute('aria-hidden', isOrgs ? 'false' : 'true');
+  individualsPanel.setAttribute('aria-hidden', isOrgs ? 'true' : 'false');
+}
+
+function openEndorsement(type) {
+  setEndorsementMode(type);
+  goTo('endorse');
+}
+
+function setEndorsementMode(type) {
+  currentEndorsementType = type === 'individual' ? 'individual' : 'organization';
+  updateEndorsementForm();
+}
+
+function updateEndorsementForm() {
+  const isOrg = currentEndorsementType === 'organization';
+  const pageHeading = document.getElementById('endorsementPageHeading');
+  const pageIntro = document.getElementById('endorsementPageIntro');
+  const formTitle = document.getElementById('endorsementFormTitle');
+  const nameLabel = document.getElementById('endorseNameLabel');
+  const nameInput = document.getElementById('endorseName');
+  const secondaryLabel = document.getElementById('endorseSecondaryLabel');
+  const secondaryInput = document.getElementById('endorseSecondary');
+  const emailInput = document.getElementById('endorseEmail');
+  const messageLabel = document.getElementById('endorseMessageLabel');
+  const messageInput = document.getElementById('endorseMessage');
+  const disclosure = document.getElementById('endorsementDisclosure');
+  const submitText = document.getElementById('endorsementBtnText');
+  const orgBtn = document.getElementById('endorsementModeOrg');
+  const individualBtn = document.getElementById('endorsementModeIndividual');
+
+  if (!pageHeading || !pageIntro || !formTitle || !nameLabel || !nameInput || !secondaryLabel || !secondaryInput || !emailInput || !messageLabel || !messageInput || !disclosure || !submitText || !orgBtn || !individualBtn) return;
+
+  pageHeading.textContent = isOrg ? 'Stöd kampanjen som organisation' : 'Stöd kampanjen som person';
+  pageIntro.textContent = isOrg
+    ? 'Fyll i uppgifterna nedan så följer vi upp ert stöd och bekräftar allt innan något publiceras offentligt.'
+    : 'Skicka in ditt namn och din titel så följer vi upp stödet och bekräftar allt innan något publiceras offentligt.';
+  formTitle.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
+  nameLabel.textContent = isOrg ? 'Organisationens namn *' : 'Ditt namn *';
+  nameInput.placeholder = isOrg ? 'Namn på organisation' : 'Ditt fullständiga namn';
+  secondaryLabel.textContent = isOrg ? 'Kontaktperson (valfritt)' : 'Titel eller roll *';
+  secondaryInput.placeholder = isOrg ? 'Namn på kontaktperson' : 'Till exempel författare, forskare eller kommunpolitiker';
+  secondaryInput.required = !isOrg;
+  emailInput.placeholder = isOrg ? 'namn@organisation.se' : 'din@email.com';
+  messageLabel.textContent = isOrg ? 'Kort meddelande (valfritt)' : 'Kort motivering (valfritt)';
+  messageInput.placeholder = isOrg
+    ? 'Skriv gärna om varför ni vill stödja kampanjen...'
+    : 'Skriv gärna om varför du vill stödja kampanjen...';
+  disclosure.textContent = isOrg
+    ? 'Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.'
+    : 'Vi återkommer för att bekräfta stödet innan namn och titel publiceras.';
+  submitText.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
+  orgBtn.classList.toggle('active', isOrg);
+  individualBtn.classList.toggle('active', !isOrg);
+  orgBtn.setAttribute('aria-selected', isOrg ? 'true' : 'false');
+  individualBtn.setAttribute('aria-selected', isOrg ? 'false' : 'true');
 }
 
 // ===== FAQ =====
@@ -1371,6 +1611,50 @@ function setupForms() {
       showToast('Något gick fel. Försök igen.', 'error');
     }
   });
+
+  const endorsementForm = document.getElementById('endorsementForm');
+  endorsementForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (allRecords.length >= 999) {
+      showToast('Maximalt antal poster nått (999).', 'error');
+      return;
+    }
+    const btn = document.getElementById('endorsementSubmitBtn');
+    const btnText = document.getElementById('endorsementBtnText');
+    btn.disabled = true;
+    btnText.innerHTML = '<span class="spinner"></span>';
+
+    const isOrg = currentEndorsementType === 'organization';
+    const name = document.getElementById('endorseName').value.trim();
+    const secondary = document.getElementById('endorseSecondary').value.trim();
+    const email = document.getElementById('endorseEmail').value.trim();
+    const message = document.getElementById('endorseMessage').value.trim();
+    const details = [
+      isOrg ? `Kontaktperson: ${secondary || 'Ej angiven'}` : `Titel eller roll: ${secondary}`,
+      message ? `Meddelande: ${message}` : ''
+    ].filter(Boolean).join('\n');
+
+    const result = await window.dataSdk.create({
+      type: 'endorsement',
+      name,
+      email,
+      postal_code: '',
+      volunteer_areas: isOrg ? 'organization-endorsement' : 'individual-endorsement',
+      message: details,
+      created_at: new Date().toISOString()
+    });
+
+    btn.disabled = false;
+    btnText.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
+
+    if (result.isOk) {
+      showToast(isOrg ? 'Tack! Vi följer upp ert organisationsstöd.' : 'Tack! Vi följer upp ditt stöd.', 'success');
+      endorsementForm.reset();
+      updateEndorsementForm();
+    } else {
+      showToast('Något gick fel. Försök igen.', 'error');
+    }
+  });
 }
 
 // ===== ELEMENT SDK =====
@@ -1455,6 +1739,7 @@ function applyConfig(config) {
   }
 
   setupForms();
+  updateEndorsementForm();
   updateSignatureCount();
   lucide.createIcons();
 })();

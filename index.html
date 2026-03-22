@@ -565,65 +565,95 @@ body {
 @media (min-width: 769px) {
   .mobile-trigger { display: none !important; }
 }
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid #e5e2db;
+  background: rgba(255,255,255,0.82);
+}
+.language-switcher button {
+  border: none;
+  background: transparent;
+  color: #666;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.language-switcher button.active {
+  background: var(--text-color);
+  color: white;
+  box-shadow: 0 6px 16px rgba(10,22,40,0.12);
+}
 </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
  <body>
   <div class="app-wrapper" id="appWrapper"><!-- Toast -->
    <div id="toast" class="toast-msg toast-success" role="alert" aria-live="polite"></div><!-- Mobile Menu -->
-   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Navigation menu">
-    <div class="flex justify-between items-center mb-8"><span class="font-display font-bold text-xl" style="color:var(--primary-color)">Rättvisa Malmö</span> <button onclick="toggleMobileMenu()" class="p-2" aria-label="Close menu"><i data-lucide="x" style="width:24px;height:24px"></i></button>
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Navigation menu" data-i18n-aria-label="language.mobileMenu">
+   <div class="flex justify-between items-center mb-8"><span class="font-display font-bold text-xl" style="color:var(--primary-color)">Rättvisa Malmö</span> <button onclick="toggleMobileMenu()" class="p-2" aria-label="Close menu" data-i18n-aria-label="language.closeMenu"><i data-lucide="x" style="width:24px;height:24px"></i></button>
     </div>
-    <nav class="flex flex-col gap-2" aria-label="Mobile navigation"><button class="nav-link text-left text-lg" onclick="goTo('home');toggleMobileMenu()">Hem</button> <button class="nav-link text-left text-lg" onclick="goTo('about');toggleMobileMenu()">Om kampanjen</button> <button class="nav-link text-left text-lg" onclick="goTo('faq');toggleMobileMenu()">Frågor &amp; Svar</button> <button class="nav-link text-left text-lg" onclick="goTo('petition');toggleMobileMenu()">Skriv under</button> <button class="nav-link text-left text-lg" onclick="goTo('volunteer');toggleMobileMenu()">Engagera dig</button>
+   <div class="language-switcher mb-6" id="mobileLanguageSwitcher" role="group" aria-label="Choose language" data-i18n-aria-label="language.switcher">
+     <button type="button" data-language-button="sv" onclick="setLanguage('sv')">SV</button>
+     <button type="button" data-language-button="en" onclick="setLanguage('en')">EN</button>
+    </div>
+   <nav class="flex flex-col gap-2" aria-label="Mobile navigation"><button class="nav-link text-left text-lg" onclick="goTo('home');toggleMobileMenu()" data-i18n="nav.home">Hem</button> <button class="nav-link text-left text-lg" onclick="goTo('about');toggleMobileMenu()" data-i18n="nav.about">Om kampanjen</button> <button class="nav-link text-left text-lg" onclick="goTo('faq');toggleMobileMenu()" data-i18n="nav.faq">Frågor &amp; Svar</button> <button class="nav-link text-left text-lg" onclick="goTo('petition');toggleMobileMenu()" data-i18n="nav.sign">Skriv under</button> <button class="nav-link text-left text-lg" onclick="goTo('volunteer');toggleMobileMenu()" data-i18n="nav.volunteer">Engagera dig</button>
     </nav>
    </div><!-- HEADER / NAV -->
    <header class="sticky top-0 z-50" style="background:rgba(247,245,240,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e5e2db">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between" style="height:64px"><button onclick="goTo('home')" class="flex items-center gap-2 border-none bg-transparent cursor-pointer" aria-label="Go to homepage">
+   <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between" style="height:64px"><button onclick="goTo('home')" class="flex items-center gap-2 border-none bg-transparent cursor-pointer" aria-label="Go to homepage" data-i18n-aria-label="language.goHome">
       <div style="width:32px;height:32px;background:var(--primary-color);border-radius:6px;display:flex;align-items:center;justify-content:center">
        <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
         <circle cx="12" cy="12" r="10" /><path d="M12 6v12M6 12h12" />
        </svg>
       </div><span class="font-display font-bold" style="font-size:18px;color:var(--text-color)">Rättvisa Malmö</span> </button>
-     <nav class="desktop-nav flex items-center gap-1" aria-label="Main navigation"><button class="nav-link" data-nav="home" onclick="goTo('home')">Hem</button> <button class="nav-link" data-nav="about" onclick="goTo('about')">Om kampanjen</button> <button class="nav-link" data-nav="faq" onclick="goTo('faq')">Frågor &amp; Svar</button> <button class="btn-primary btn-pulse" style="padding:8px 20px;font-size:14px" onclick="goTo('petition')">Skriv under</button>
-     </nav><button class="mobile-trigger p-2 bg-transparent border-none cursor-pointer" onclick="toggleMobileMenu()" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px"></i> </button>
+    <nav class="desktop-nav flex items-center gap-3" aria-label="Main navigation"><button class="nav-link" data-nav="home" onclick="goTo('home')" data-i18n="nav.home">Hem</button> <button class="nav-link" data-nav="about" onclick="goTo('about')" data-i18n="nav.about">Om kampanjen</button> <button class="nav-link" data-nav="faq" onclick="goTo('faq')" data-i18n="nav.faq">Frågor &amp; Svar</button> <div class="language-switcher" id="desktopLanguageSwitcher" role="group" aria-label="Choose language" data-i18n-aria-label="language.switcher"><button type="button" data-language-button="sv" onclick="setLanguage('sv')">SV</button><button type="button" data-language-button="en" onclick="setLanguage('en')">EN</button></div> <button class="btn-primary btn-pulse" style="padding:8px 20px;font-size:14px" onclick="goTo('petition')" data-i18n="nav.sign">Skriv under</button>
+    </nav><button class="mobile-trigger p-2 bg-transparent border-none cursor-pointer" onclick="toggleMobileMenu()" aria-label="Open menu" data-i18n-aria-label="language.openMenu"> <i data-lucide="menu" style="width:24px;height:24px"></i> </button>
     </div>
    </header><!-- ========== HOME PAGE ========== -->
    <main id="page-home" class="page active"><!-- HERO -->
-    <section class="hero-pattern" style="padding:80px 0 60px">
+    <section id="home-hero" class="hero-pattern" style="padding:80px 0 60px">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid gap-12" style="grid-template-columns:1fr;max-width:800px">
        <div>
-        <div class="fade-up" style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px;margin-bottom:20px" id="heroBadge"><span style="color:var(--secondary-color);background:rgba(43,90,75,0.1);padding:6px 14px;border-radius:20px">MEDBORGARINITIATIV I MALMÖ</span>
+        <div class="fade-up" style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px;margin-bottom:20px" id="heroBadge"><span style="color:var(--secondary-color);background:rgba(43,90,75,0.1);padding:6px 14px;border-radius:20px" data-i18n="hero.badge">MEDBORGARINITIATIV I MALMÖ</span>
         </div>
-        <h1 id="heroHeadline" class="font-display fade-up fade-up-d1" style="font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.08;margin-bottom:20px;color:var(--text-color)">Offentliga medel ska aldrig finansiera krigsbrott</h1>
-        <p id="heroSubtext" class="fade-up fade-up-d2" style="font-size:clamp(17px,2vw,20px);line-height:1.6;color:#555;margin-bottom:32px;max-width:600px">Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.</p>
-        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig </button>
+        <h1 id="heroHeadline" class="font-display fade-up fade-up-d1" style="font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.08;margin-bottom:20px;color:var(--text-color)" data-i18n="hero.headline">Offentliga medel ska aldrig finansiera krigsbrott</h1>
+        <p id="heroSubtext" class="fade-up fade-up-d2" style="font-size:clamp(17px,2vw,20px);line-height:1.6;color:#555;margin-bottom:32px;max-width:600px" data-i18n="hero.subtext">Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.</p>
+        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="hero.sign">Skriv under</span> </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="hero.volunteer">Engagera dig</span> </button>
         </div>
-        <p style="margin-top:8px;font-size:14px;color:#444;opacity:0.9">Det tar bara 10 sekunder att skriva under.</p>
+        <p style="margin-top:8px;font-size:14px;color:#444;opacity:0.9" data-i18n="hero.note">Det tar bara 10 sekunder att skriva under.</p>
        </div>
       </div><!-- LIVE COUNTER -->
       <div class="fade-up fade-up-d4" style="margin-top:48px;padding:32px;border-radius:16px;background:white;border:1px solid #e5e2db;max-width:560px">
-       <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> LIVE — NAMNINSAMLING
+      <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> <span data-i18n="counter.live">LIVE — NAMNINSAMLING</span>
        </div>
        <div class="counter-pulse font-display" style="font-size:clamp(42px,6vw,56px);font-weight:800;color:var(--primary-color)" id="signatureCount">
         1704
        </div>
-       <div style="font-size:15px;color:#777;margin-bottom:16px">
-        personer har skrivit under
+      <div style="font-size:15px;color:#777;margin-bottom:16px">
+       <span data-i18n="counter.signed">personer har skrivit under</span>
        </div>
        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden">
         <div id="progressBar" class="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;width:0%"></div>
        </div>
-       <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span id="progressStart">0</span> <span>Mål: <span id="progressGoal">10 000</span></span>
+      <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span id="progressStart">0</span> <span><span data-i18n="counter.goal">Mål:</span> <span id="progressGoal">10 000</span></span>
        </div>
       </div>
      </div>
     </section><!-- WHY IT MATTERS — STATS -->
-    <section style="padding:80px 0;background:white">
+    <section id="home-impact" style="padding:80px 0;background:white">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-       <h2 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:700;margin-bottom:12px">Varför det spelar roll</h2>
-       <p style="font-size:17px;color:#666;max-width:550px;margin:0 auto">Offentlig upphandling är ett av de mest kraftfulla verktygen en kommun har. Det handlar om hur vi använder gemensamma resurser.</p>
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:700;margin-bottom:12px" data-i18n="impact.title">Varför det spelar roll</h2>
+      <p style="font-size:17px;color:#666;max-width:550px;margin:0 auto" data-i18n="impact.intro">Offentlig upphandling är ett av de mest kraftfulla verktygen en kommun har. Det handlar om hur vi använder gemensamma resurser.</p>
       </div>
       <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
        <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
@@ -632,10 +662,10 @@ body {
         <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px">
          11 mdr
         </div>
-        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px" data-i18n="impact.yearly">
          SEK per år
         </div>
-        <p style="color:#666;font-size:15px;line-height:1.6">Malmö stad spenderar 11 miljarder kronor årligen på inköp av varor och tjänster. Det är enorma summor av skattebetalarnas pengar.</p>
+        <p style="color:#666;font-size:15px;line-height:1.6" data-i18n="impact.yearlyText">Malmö stad spenderar 11 miljarder kronor årligen på inköp av varor och tjänster. Det är enorma summor av skattebetalarnas pengar.</p>
        </div>
        <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
         <div style="width:56px;height:56px;border-radius:12px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="heart-handshake" style="width:28px;height:28px;color:var(--secondary-color)"></i>
@@ -643,10 +673,10 @@ body {
         <div class="font-display" style="font-size:42px;font-weight:800;color:var(--secondary-color);margin-bottom:8px">
          100%
         </div>
-        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px" data-i18n="impact.values">
          Gemensamma värderingar
         </div>
-        <p style="color:#666;font-size:15px;line-height:1.6">Offentliga medel ska spegla våra gemensamma värderingar. Skattepengar bör aldrig gå till företag som bryter mot mänskliga rättigheter.</p>
+        <p style="color:#666;font-size:15px;line-height:1.6" data-i18n="impact.valuesText">Offentliga medel ska spegla våra gemensamma värderingar. Skattepengar bör aldrig gå till företag som bryter mot mänskliga rättigheter.</p>
        </div>
        <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
         <div style="width:56px;height:56px;border-radius:12px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary-color)"></i>
@@ -654,32 +684,32 @@ body {
         <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px">
          20+
         </div>
-        <div style="font-size:18px;font-weight:600;margin-bottom:8px">
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px" data-i18n="impact.cities">
          Städer visar vägen
         </div>
-        <p style="color:#666;font-size:15px;line-height:1.6">Över 20 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.</p>
+        <p style="color:#666;font-size:15px;line-height:1.6" data-i18n="impact.citiesText">Över 20 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.</p>
        </div>
       </div>
      </div>
     </section><!-- OUR DEMAND -->
-    <section style="padding:80px 0;background:var(--bg-color)">
+    <section id="home-demand" style="padding:80px 0;background:var(--bg-color)">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid gap-12 items-start" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
        <div>
-        <div style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;background:rgba(194,58,34,0.1);color:var(--primary-color);margin-bottom:16px">
+        <div style="display:inline-block;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;background:rgba(194,58,34,0.1);color:var(--primary-color);margin-bottom:16px" data-i18n="demand.eyebrow">
          VÅRT KRAV
         </div>
-        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:20px">Malmö stad ska anta en etisk upphandlingspolicy</h2>
-        <p style="font-size:16px;line-height:1.7;color:#555;margin-bottom:24px">Policyn ska utesluta företag som är inblandade i:</p>
+        <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:20px" data-i18n="demand.title">Malmö stad ska anta en etisk upphandlingspolicy</h2>
+        <p style="font-size:16px;line-height:1.7;color:#555;margin-bottom:24px" data-i18n="demand.intro">Policyn ska utesluta företag som är inblandade i:</p>
         <div class="flex flex-col gap-4">
          <div class="flex items-start gap-3">
           <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="shield-off" style="width:16px;height:16px;color:white"></i>
           </div>
           <div>
-           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px" data-i18n="demand.warCrimes">
             Krigsbrott
            </div>
-           <div style="color:#666;font-size:14px">
+           <div style="color:#666;font-size:14px" data-i18n="demand.warCrimesText">
             Brott mot internationell humanitär rätt i väpnade konflikter
            </div>
           </div>
@@ -688,10 +718,10 @@ body {
           <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="alert-triangle" style="width:16px;height:16px;color:white"></i>
           </div>
           <div>
-           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px" data-i18n="demand.crimesAgainstHumanity">
             Brott mot mänskligheten
            </div>
-           <div style="color:#666;font-size:14px">
+           <div style="color:#666;font-size:14px" data-i18n="demand.crimesAgainstHumanityText">
             Systematiska och utbredda övergrepp mot civilbefolkningen
            </div>
           </div>
@@ -700,10 +730,10 @@ body {
           <div style="min-width:32px;height:32px;border-radius:8px;background:var(--primary-color);display:flex;align-items:center;justify-content:center;margin-top:2px"><i data-lucide="ban" style="width:16px;height:16px;color:white"></i>
           </div>
           <div>
-           <div style="font-weight:600;font-size:16px;margin-bottom:2px">
+           <div style="font-weight:600;font-size:16px;margin-bottom:2px" data-i18n="demand.severeViolations">
             Grova kränkningar av mänskliga rättigheter
            </div>
-           <div style="color:#666;font-size:14px">
+           <div style="color:#666;font-size:14px" data-i18n="demand.severeViolationsText">
             Allvarliga och dokumenterade brott mot grundläggande rättigheter
            </div>
           </div>
@@ -711,16 +741,16 @@ body {
         </div>
        </div>
        <div style="background:white;border-radius:16px;padding:32px;border:1px solid #e5e2db">
-        <h3 class="font-display" style="font-size:20px;font-weight:700;margin-bottom:16px">Etisk upphandling — redan verklighet</h3>
-        <p style="font-size:15px;line-height:1.7;color:#555;margin-bottom:20px">Etiska upphandlingspolicyer är redan verklighet i många städer och institutioner runt om i världen. De bygger på internationell rätt, FN:s vägledande principer för företag och mänskliga rättigheter, samt EU-direktiv om hållbar upphandling.</p>
+        <h3 class="font-display" style="font-size:20px;font-weight:700;margin-bottom:16px" data-i18n="demand.cardTitle">Etisk upphandling — redan verklighet</h3>
+        <p style="font-size:15px;line-height:1.7;color:#555;margin-bottom:20px" data-i18n="demand.cardText">Etiska upphandlingspolicyer är redan verklighet i många städer och institutioner runt om i världen. De bygger på internationell rätt, FN:s vägledande principer för företag och mänskliga rättigheter, samt EU-direktiv om hållbar upphandling.</p>
         <div class="flex flex-col gap-3">
-         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span><strong>Bologna</strong>: etisk upphandlingspolicy sedan 2023</span>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span data-i18n-html="demand.example1"><strong>Bologna</strong>: etisk upphandlingspolicy sedan 2023</span>
          </div>
-         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span><strong>Leuven och Ghent</strong>: utesluter företag som bryter mot folkrätten</span>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span data-i18n-html="demand.example2"><strong>Leuven och Ghent</strong>: utesluter företag som bryter mot folkrätten</span>
          </div>
-         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span><strong>Norska pensionsfonden</strong>: världsledande etiska riktlinjer</span>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span data-i18n-html="demand.example3"><strong>Norska pensionsfonden</strong>: världsledande etiska riktlinjer</span>
          </div>
-         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span><strong>EU-direktiv</strong>: stödjer hållbar och etisk upphandling</span>
+         <div class="flex items-center gap-3" style="font-size:14px"><i data-lucide="check-circle" style="width:18px;height:18px;color:var(--secondary-color);flex-shrink:0"></i> <span data-i18n-html="demand.example4"><strong>EU-direktiv</strong>: stödjer hållbar och etisk upphandling</span>
          </div>
         </div>
        </div>
@@ -731,8 +761,8 @@ body {
    <section id="companies" class="w-full py-20 md:py-28" style="padding:80px 0;background:white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
      <div class="scroll-reveal text-center mb-12">
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-companies-title">Exempel från Malmö stad</h2>
-      <p class="text-ocean/70 text-base max-w-xl mx-auto" id="el-companies-description">Här är två exempel på företag som Malmö stad har kontrakt med, trots deras inblandning i brott mot folkerättsliga normer.</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-companies-title" data-i18n="companies.title">Exempel från Malmö stad</h2>
+      <p class="text-ocean/70 text-base max-w-xl mx-auto" id="el-companies-description" data-i18n="companies.intro">Här är två exempel på företag som Malmö stad har kontrakt med, trots deras inblandning i brott mot folkerättsliga normer.</p>
      </div>
      <div class="grid md:grid-cols-2 gap-6"><!-- Company Card 1: WSP -->
       <div class="scroll-reveal bg-chalk rounded-xl p-8 border-l-4 border-ember">
@@ -741,19 +771,19 @@ body {
         </div>
         <div>
          <h3 class="font-display text-xl font-bold text-midnight">WSP Sverige</h3>
-         <p class="text-ocean/60 text-sm">Del av WSP Global Inc.</p>
+         <p class="text-ocean/60 text-sm" data-i18n="companies.wspSubtitle">Del av WSP Global Inc.</p>
         </div>
        </div>
        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> Malmö stad: 10 miljoner kronor</p>
-        <p class="text-red-800 text-xs">Kontraktsvärde för konsulttjänster</p>
+        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> <span data-i18n="companies.wspValue">Malmö stad: 10 miljoner kronor</span></p>
+        <p class="text-red-800 text-xs" data-i18n="companies.wspContract">Kontraktsvärde för konsulttjänster</p>
        </div>
        <div class="space-y-3">
         <div>
-         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1">Inblandning i folkerättsbrott</p>
+         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1" data-i18n="companies.wspHeading">Inblandning i folkerättsbrott</p>
          <ul class="text-sm text-ocean/80 space-y-1.5">
-          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Jerusalem spårväg:</strong> Designade spårvägssystem som förbinder olagliga bosättningar i ockuperad Östjerusalem med västra delen av staden.</span></li>
-          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Tel Aviv–Jerusalem järnväg:</strong> Tillhandahållit finansiellt och tekniskt stöd för järnväg som går över ockuperad mark i Västbanken.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span data-i18n-html="companies.wspBullet1"><strong>Jerusalem spårväg:</strong> Designade spårvägssystem som förbinder olagliga bosättningar i ockuperad Östjerusalem med västra delen av staden.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span data-i18n-html="companies.wspBullet2"><strong>Tel Aviv–Jerusalem järnväg:</strong> Tillhandahållit finansiellt och tekniskt stöd för järnväg som går över ockuperad mark i Västbanken.</span></li>
          </ul>
         </div>
        </div>
@@ -764,41 +794,41 @@ body {
         </div>
         <div>
          <h3 class="font-display text-xl font-bold text-midnight">Atea</h3>
-         <p class="text-ocean/60 text-sm">IT och teknikdistributör</p>
+         <p class="text-ocean/60 text-sm" data-i18n="companies.ateaSubtitle">IT och teknikdistributör</p>
         </div>
        </div>
        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> Malmö stad: Finansierar Atea</p>
-        <p class="text-red-800 text-xs">Genom IT-upphandling och systemleveranser</p>
+        <p class="text-red-900 font-semibold text-sm mb-2 flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;"></i> <span data-i18n="companies.ateaValue">Malmö stad: Finansierar Atea</span></p>
+        <p class="text-red-800 text-xs" data-i18n="companies.ateaContract">Genom IT-upphandling och systemleveranser</p>
        </div>
        <div class="space-y-3">
         <div>
-         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1">Inblandning i kränkningar</p>
+         <p class="text-xs font-semibold text-ocean/50 uppercase mb-1" data-i18n="companies.ateaHeading">Inblandning i kränkningar</p>
          <ul class="text-sm text-ocean/80 space-y-1.5">
-          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Konfliktmineraler:</strong> Involverad i värdekedjor med mineraler från DR Kongo där människorättsbrott förekommer.</span></li>
-          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Militär teknologi:</strong> Distribuerar övervaknings- och kontrollteknik till ockupationsmakt och konfliktparter.</span></li>
-          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span><strong>Partner i brott:</strong> Tillsammans med partners involverad i människorättskränkningar i Israel och andra konfliktområden.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span data-i18n-html="companies.ateaBullet1"><strong>Konfliktmineraler:</strong> Involverad i värdekedjor med mineraler från DR Kongo där människorättsbrott förekommer.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span data-i18n-html="companies.ateaBullet2"><strong>Militär teknologi:</strong> Distribuerar övervaknings- och kontrollteknik till ockupationsmakt och konfliktparter.</span></li>
+          <li class="flex items-start gap-2"><span class="text-ember font-bold flex-shrink-0">•</span> <span data-i18n-html="companies.ateaBullet3"><strong>Partner i brott:</strong> Tillsammans med partners involverad i människorättskränkningar i Israel och andra konfliktområden.</span></li>
          </ul>
         </div>
        </div>
       </div>
      </div>
      <div class="scroll-reveal mt-12 p-6 bg-red-50 border border-red-200 rounded-xl">
-      <p class="text-red-900 text-sm leading-relaxed"><strong>Varför är det här relevant?</strong> Dessa är bara två exempel på hur Malmö stads skattepengar kan komma att finansiera företag involverade i folkerättsbrott. En etisk upphandlingspolicy skulle förhindra detta genom att kräva att leverantörer kan garantera att de inte är involverade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
+      <p class="text-red-900 text-sm leading-relaxed" data-i18n-html="companies.relevance"><strong>Varför är det här relevant?</strong> Dessa är bara två exempel på hur Malmö stads skattepengar kan komma att finansiera företag involverade i folkerättsbrott. En etisk upphandlingspolicy skulle förhindra detta genom att kräva att leverantörer kan garantera att de inte är involverade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
      </div>
     </div>
    </section>
-   <section style="padding:80px 0;background:var(--bg-color)">
+  <section id="home-endorsers" style="padding:80px 0;background:var(--bg-color)">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Stöd för etisk upphandling i Malmö</h2>
-         <p style="font-size:16px;color:#666;max-width:620px;margin:0 auto">Organisationer och enskilda personer som ställer sig bakom kampanjen för etisk upphandling i Malmö.</p>
+       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px" data-i18n="endorsers.title">Stöd för etisk upphandling i Malmö</h2>
+         <p style="font-size:16px;color:#666;max-width:620px;margin:0 auto" data-i18n="endorsers.intro">Organisationer och enskilda personer som ställer sig bakom kampanjen för etisk upphandling i Malmö.</p>
       </div>
         <div class="flex justify-center mb-8">
-         <div class="endorser-tabs" id="endorsers-tabs" role="tablist" aria-label="Stödjande aktörer">
+         <div class="endorser-tabs" id="endorsers-tabs" role="tablist" aria-label="Stödjande aktörer" data-i18n-aria-label="endorsers.aria">
           <span class="endorser-tab-indicator" aria-hidden="true"></span>
-          <button class="endorser-tab active" id="endorsers-tab-orgs" type="button" role="tab" aria-selected="true" aria-controls="endorsers-panel-orgs" onclick="setEndorserTab('orgs')">Organisationer</button>
-          <button class="endorser-tab" id="endorsers-tab-individuals" type="button" role="tab" aria-selected="false" aria-controls="endorsers-panel-individuals" onclick="setEndorserTab('individuals')">Personer</button>
+          <button class="endorser-tab active" id="endorsers-tab-orgs" type="button" role="tab" aria-selected="true" aria-controls="endorsers-panel-orgs" onclick="setEndorserTab('orgs')" data-i18n="endorsers.orgs">Organisationer</button>
+          <button class="endorser-tab" id="endorsers-tab-individuals" type="button" role="tab" aria-selected="false" aria-controls="endorsers-panel-individuals" onclick="setEndorserTab('individuals')" data-i18n="endorsers.people">Personer</button>
          </div>
         </div>
         <div id="endorsers-panel-orgs" class="endorser-panel active" role="tabpanel" aria-labelledby="endorsers-tab-orgs" aria-hidden="false">
@@ -813,32 +843,32 @@ body {
           <div class="org-logo"><i data-lucide="heart-pulse" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Rebellmammorna</div>
          </div>
          <div class="text-center mt-6">
-          <p style="font-size:14px;color:#999;margin-bottom:12px">Vill din organisation offentligt stödja kampanjen? Skicka in ett organisationsstöd så följer vi upp det som en endorsement.</p>
-          <button class="btn-secondary" onclick="openEndorsement('organization')"><i data-lucide="building-2" style="width:18px;height:18px"></i> Stöd som organisation</button>
+          <p style="font-size:14px;color:#999;margin-bottom:12px" data-i18n="endorsers.orgPrompt">Vill din organisation offentligt stödja kampanjen? Skicka in ett organisationsstöd så följer vi upp det som en endorsement.</p>
+          <button class="btn-secondary" onclick="openEndorsement('organization')"><i data-lucide="building-2" style="width:18px;height:18px"></i> <span data-i18n="endorsers.orgCta">Stöd som organisation</span></button>
          </div>
         </div>
         <div id="endorsers-panel-individuals" class="endorser-panel" role="tabpanel" aria-labelledby="endorsers-tab-individuals" aria-hidden="true">
           <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
           <div class="individual-card">
             <div class="individual-name">Nicolas Lunabba</div>
-            <div class="individual-title">författare och hedersdoktor i socialt arbete</div>
+            <div class="individual-title" data-i18n="endorsers.person1Title">författare och hedersdoktor i socialt arbete</div>
           </div>
           <div class="individual-card">
             <div class="individual-name">Halimo Nuur</div>
-            <div class="individual-title">community-arbetare och folkrörelseutvecklare</div>
+            <div class="individual-title" data-i18n="endorsers.person2Title">community-arbetare och folkrörelseutvecklare</div>
           </div>
           <div class="individual-card">
             <div class="individual-name">Anfal Mahdi</div>
-            <div class="individual-title">oppositionsråd för Vänsterpartiet</div>
+            <div class="individual-title" data-i18n="endorsers.person3Title">oppositionsråd för Vänsterpartiet</div>
            </div>
            <div class="individual-card">
             <div class="individual-name">Nina Jakku</div>
-            <div class="individual-title">oppositionsråd för Vänsterpartiet</div>
+            <div class="individual-title" data-i18n="endorsers.person4Title">oppositionsråd för Vänsterpartiet</div>
           </div>
          </div>
            <div class="text-center mt-6">
-            <p style="font-size:14px;color:#999;margin-bottom:12px">Vill du stödja kampanjen som person? Skicka in namn och titel för ett individuellt endorsement.</p>
-            <button class="btn-primary" onclick="openEndorsement('individual')"><i data-lucide="badge-check" style="width:18px;height:18px"></i> Stöd som person</button>
+            <p style="font-size:14px;color:#999;margin-bottom:12px" data-i18n="endorsers.personPrompt">Vill du stödja kampanjen som person? Skicka in namn och titel för ett individuellt endorsement.</p>
+            <button class="btn-primary" onclick="openEndorsement('individual')"><i data-lucide="badge-check" style="width:18px;height:18px"></i> <span data-i18n="endorsers.personCta">Stöd som person</span></button>
            </div>
         </div>
      </div>
@@ -847,9 +877,9 @@ body {
     <div class="absolute top-0 left-0 w-72 h-72 rounded-full bg-ocean/5 blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
      <div class="scroll-reveal text-center mb-14">
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-legal-title">Är det juridiskt möjligt?</h2>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-legal-title" data-i18n="legal.title">Är det juridiskt möjligt?</h2>
       <div class="w-16 h-1 bg-ember rounded-full mx-auto mb-6"></div>
-      <p class="text-ocean/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Politiker hävdar ofta att etisk upphandling är omöjligt enligt EU:s upphandlingslag (LOU). Det stämmer inte. En grundlig juridisk analys visar att Malmö stad redan idag har den rättsliga grunden att införa en etisk upphandlingspolicy.</p>
+      <p class="text-ocean/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto" data-i18n="legal.intro">Politiker hävdar ofta att etisk upphandling är omöjligt enligt EU:s upphandlingslag (LOU). Det stämmer inte. En grundlig juridisk analys visar att Malmö stad redan idag har den rättsliga grunden att införa en etisk upphandlingspolicy.</p>
      </div><!-- Legal Journey Container --> <!-- Flip Cards Container -->
      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Flip Card 1 -->
@@ -860,10 +890,10 @@ body {
          <div class="flip-card-number">
           1
          </div>
-         <h3 class="flip-card-question">Tillåter EU-rätten etiska krav?</h3>
-         <p class="flip-card-subtitle">Direktiv 2014/24/EU — är det ett hinder eller en grund?</p>
+         <h3 class="flip-card-question" data-i18n="legal.card1Question">Tillåter EU-rätten etiska krav?</h3>
+         <p class="flip-card-subtitle" data-i18n="legal.card1Subtitle">Direktiv 2014/24/EU — är det ett hinder eller en grund?</p>
          <div class="flip-card-hint">
-          Klicka för att visa svar
+          <span data-i18n="legal.click">Klicka för att visa svar</span>
          </div>
         </div><!-- Back -->
         <div class="flip-card-back">
@@ -871,10 +901,10 @@ body {
           1
          </div>
          <div class="flip-card-content">
-          <p class="mb-4"><strong>Ja — och långt mer än så</strong></p>
-          <p class="mb-4">Direktiv 2014/24/EU kräver uttryckligen att offentliga upphandlingar genomförs <strong>i enlighet med gällande miljö-, social- och arbetsmiljölag, samt internationella konventioner</strong>.</p>
-          <p class="mb-3 italic text-sm opacity-90">"Myndigheter ska säkerställa att offentliga medel används på sätt som respekterar internationell rätt och mänskliga rättigheter."</p>
-          <p>Det betyder att Malmö stad <strong>redan har den juridiska grunden</strong> — det handlar om att <strong>använda den</strong>.</p>
+          <p class="mb-4"><strong data-i18n="legal.card1BackLead">Ja — och långt mer än så</strong></p>
+          <p class="mb-4" data-i18n-html="legal.card1BackText1">Direktiv 2014/24/EU kräver uttryckligen att offentliga upphandlingar genomförs <strong>i enlighet med gällande miljö-, social- och arbetsmiljölag, samt internationella konventioner</strong>.</p>
+          <p class="mb-3 italic text-sm opacity-90" data-i18n="legal.card1BackQuote">"Myndigheter ska säkerställa att offentliga medel används på sätt som respekterar internationell rätt och mänskliga rättigheter."</p>
+          <p data-i18n-html="legal.card1BackText2">Det betyder att Malmö stad <strong>redan har den juridiska grunden</strong> — det handlar om att <strong>använda den</strong>.</p>
          </div>
         </div>
        </div>
@@ -886,10 +916,10 @@ body {
          <div class="flip-card-number">
           2
          </div>
-         <h3 class="flip-card-question">Kan företag uteslutas för felaktigt beteende?</h3>
-         <p class="flip-card-subtitle">Vilka former av misconduct räknas?</p>
+         <h3 class="flip-card-question" data-i18n="legal.card2Question">Kan företag uteslutas för felaktigt beteende?</h3>
+         <p class="flip-card-subtitle" data-i18n="legal.card2Subtitle">Vilka former av misconduct räknas?</p>
          <div class="flip-card-hint">
-          Klicka för att visa svar
+          <span data-i18n="legal.click">Klicka för att visa svar</span>
          </div>
         </div><!-- Back -->
         <div class="flip-card-back">
@@ -897,10 +927,10 @@ body {
           2
          </div>
          <div class="flip-card-content">
-          <p class="mb-4"><strong>Ja — EU-domstolen tolkar detta mycket brett</strong></p>
-          <p class="mb-4">Begreppet <strong>"allvarligt oprofessionellt beteende"</strong> är inte begränsat till tekniska fel eller brott inom ett specifikt kontrakt.</p>
-          <p class="mb-3"><strong>EU-domstolspraxis:</strong> Det omfattar <strong>allt beteende som ifrågasätter företagets tillförlitlighet</strong> — inklusive allvarlig inblandning i brott mot mänskliga rättigheter eller internationell rätt.</p>
-          <p>Myndigheter kan och <strong>bör</strong> utesluta företag vars verksamhet undergräver grundläggande värderingar.</p>
+          <p class="mb-4"><strong data-i18n="legal.card2BackLead">Ja — EU-domstolen tolkar detta mycket brett</strong></p>
+          <p class="mb-4" data-i18n-html="legal.card2BackText1">Begreppet <strong>"allvarligt oprofessionellt beteende"</strong> är inte begränsat till tekniska fel eller brott inom ett specifikt kontrakt.</p>
+          <p class="mb-3" data-i18n-html="legal.card2BackText2"><strong>EU-domstolspraxis:</strong> Det omfattar <strong>allt beteende som ifrågasätter företagets tillförlitlighet</strong> — inklusive allvarlig inblandning i brott mot mänskliga rättigheter eller internationell rätt.</p>
+          <p data-i18n-html="legal.card2BackText3">Myndigheter kan och <strong>bör</strong> utesluta företag vars verksamhet undergräver grundläggande värderingar.</p>
          </div>
         </div>
        </div>
@@ -912,10 +942,10 @@ body {
          <div class="flip-card-number">
           3
          </div>
-         <h3 class="flip-card-question">Innefattar detta människorättskränkningar?</h3>
-         <p class="flip-card-subtitle">Krigsbrott, brott mot mänskligheten — kan det användas?</p>
+         <h3 class="flip-card-question" data-i18n="legal.card3Question">Innefattar detta människorättskränkningar?</h3>
+         <p class="flip-card-subtitle" data-i18n="legal.card3Subtitle">Krigsbrott, brott mot mänskligheten — kan det användas?</p>
          <div class="flip-card-hint">
-          Klicka för att visa svar
+          <span data-i18n="legal.click">Klicka för att visa svar</span>
          </div>
         </div><!-- Back -->
         <div class="flip-card-back">
@@ -923,10 +953,10 @@ body {
           3
          </div>
          <div class="flip-card-content">
-          <p class="mb-4"><strong>Ja — och det är starkt förankrat i internationell rätt</strong></p>
-          <p class="mb-4">Sverige är bunden av konventioner om mänskliga rättigheter och internationell humanitär rätt. Myndigheter har en juridisk <strong>skyldighet att inte assistera eller underlätta allvarliga brott mot internationell rätt</strong>.</p>
-          <p class="mb-3"><strong>FN:s vägledande principer:</strong> Stater ska säkerställa att affärsverksamhet inte underlättar kränkningar av mänskliga rättigheter.</p>
-          <p>Dokumentation från FN, människorättsorganisationer och oberoende journalistik <strong>räcker som bevisning</strong> — ingen fällande dom krävs.</p>
+          <p class="mb-4"><strong data-i18n="legal.card3BackLead">Ja — och det är starkt förankrat i internationell rätt</strong></p>
+          <p class="mb-4" data-i18n-html="legal.card3BackText1">Sverige är bunden av konventioner om mänskliga rättigheter och internationell humanitär rätt. Myndigheter har en juridisk <strong>skyldighet att inte assistera eller underlätta allvarliga brott mot internationell rätt</strong>.</p>
+          <p class="mb-3" data-i18n-html="legal.card3BackText2"><strong>FN:s vägledande principer:</strong> Stater ska säkerställa att affärsverksamhet inte underlättar kränkningar av mänskliga rättigheter.</p>
+          <p data-i18n-html="legal.card3BackText3">Dokumentation från FN, människorättsorganisationer och oberoende journalistik <strong>räcker som bevisning</strong> — ingen fällande dom krävs.</p>
          </div>
         </div>
        </div>
@@ -934,8 +964,8 @@ body {
      </div><!-- Final Step - The Question -->
      <div class="scroll-reveal pt-4 mt-12 border-t-2 border-ember/30">
       <div class="max-w-2xl">
-       <h3 class="font-display text-2xl md:text-3xl font-bold text-midnight mb-3">Så varför gör inte Malmö det?</h3>
-       <p class="text-ocean/80 text-base md:text-lg leading-relaxed">Det finns ingen juridisk anledning. Det finns bara politisk vilja — eller bristen på sådan.</p>
+      <h3 class="font-display text-2xl md:text-3xl font-bold text-midnight mb-3" data-i18n="legal.whyTitle">Så varför gör inte Malmö det?</h3>
+      <p class="text-ocean/80 text-base md:text-lg leading-relaxed" data-i18n="legal.whyText">Det finns ingen juridisk anledning. Det finns bara politisk vilja — eller bristen på sådan.</p>
       </div>
      </div>
     </div><!-- Key Legal Concept Box -->
@@ -945,96 +975,96 @@ body {
        <i data-lucide="book-open" style="width:24px;height:24px;color:#d4553a;"></i>
       </div>
       <div class="flex-1">
-       <h4 class="font-display text-lg font-bold text-midnight mb-4">Nyckelbegrepp: ALLVARLIGT OPROFESSIONELLT BETEENDE</h4>
+       <h4 class="font-display text-lg font-bold text-midnight mb-4" data-i18n="legal.conceptTitle">Nyckelbegrepp: ALLVARLIGT OPROFESSIONELLT BETEENDE</h4>
        <ul class="space-y-3">
-        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Bred juridisk definition i EU-rätten</strong><br>
-           Omfattar långt mer än bara tekniska fel eller kontraktskränkningar.</span></li>
-        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Täcker beteende som undergräver företagets integritet</strong><br>
-           Inklusive allvarlig inblandning i brott mot folkerättsliga normer.</span></li>
-        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Kräver ingen fällande dom</strong><br>
-           Dokumentation från oberoende källor räcker som bevisning.</span></li>
-        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm"><strong>Kan omfatta människorättskränkningar</strong><br>
-           Krigsbrott, brott mot mänskligheten och systematiska kränkningar.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm" data-i18n-html="legal.concept1"><strong>Bred juridisk definition i EU-rätten</strong><br>
+          Omfattar långt mer än bara tekniska fel eller kontraktskränkningar.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm" data-i18n-html="legal.concept2"><strong>Täcker beteende som undergräver företagets integritet</strong><br>
+          Inklusive allvarlig inblandning i brott mot folkerättsliga normer.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm" data-i18n-html="legal.concept3"><strong>Kräver ingen fällande dom</strong><br>
+          Dokumentation från oberoende källor räcker som bevisning.</span></li>
+        <li class="flex items-start gap-3"><span class="text-ember font-bold flex-shrink-0 mt-0.5">→</span> <span class="text-ocean/80 text-sm" data-i18n-html="legal.concept4"><strong>Kan omfatta människorättskränkningar</strong><br>
+          Krigsbrott, brott mot mänskligheten och systematiska kränkningar.</span></li>
        </ul>
       </div>
      </div>
     </div>
    </section><!-- MOMENTUM / TIMELINE -->
-    <section style="padding:80px 0;background:var(--bg-color)">
+    <section id="timeline" style="padding:80px 0;background:var(--bg-color)">
      <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-       <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Kampanjens framsteg</h2>
-       <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto">Rörelsen växer. Följ hur kampanjen utvecklas.</p>
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px" data-i18n="timeline.title">Kampanjens framsteg</h2>
+      <p style="font-size:16px;color:#666;max-width:500px;margin:0 auto" data-i18n="timeline.intro">Rörelsen växer. Följ hur kampanjen utvecklas.</p>
       </div>
       <div class="grid gap-12 items-start" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><!-- Timeline -->
        <div style="position:relative;padding-left:50px">
         <div class="timeline-line"></div>
         <div class="timeline-step">
          <div class="timeline-dot completed"></div>
-         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px" data-i18n="timeline.jan">
           JANUARI 2025
          </div>
-         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px" data-i18n="timeline.janTitle">
           Namninsamlingen lanserad
          </div>
-         <div style="color:#666;font-size:14px">
+         <div style="color:#666;font-size:14px" data-i18n="timeline.janText">
           Kampanjen Rättvisa Malmö startar officiellt
          </div>
         </div>
         <div class="timeline-step">
          <div class="timeline-dot completed"></div>
-         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px" data-i18n="timeline.mar">
           MARS 2025
          </div>
-         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px" data-i18n="timeline.marTitle">
           1 000 underskrifter
          </div>
-         <div style="color:#666;font-size:14px">
+         <div style="color:#666;font-size:14px" data-i18n="timeline.marText">
           Första tusen namnteckningar insamlade
          </div>
         </div>
         <div class="timeline-step">
          <div class="timeline-dot completed"></div>
-         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px">
+         <div style="font-size:12px;color:var(--secondary-color);font-weight:600;margin-bottom:4px" data-i18n="timeline.may">
           MAJ 2025
          </div>
-         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px" data-i18n="timeline.mayTitle">
           Möte med kommunfullmäktige
          </div>
-         <div style="color:#666;font-size:14px">
+         <div style="color:#666;font-size:14px" data-i18n="timeline.mayText">
           Kampanjen presenteras för förtroendevalda
          </div>
         </div>
         <div class="timeline-step">
          <div class="timeline-dot" style="background:var(--primary-color)"></div>
-         <div style="font-size:12px;color:var(--primary-color);font-weight:600;margin-bottom:4px">
+         <div style="font-size:12px;color:var(--primary-color);font-weight:600;margin-bottom:4px" data-i18n="timeline.ongoing">
           PÅGÅENDE
          </div>
-         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px" data-i18n="timeline.ongoingTitle">
           5 000 underskrifter — nästa mål
          </div>
-         <div style="color:#666;font-size:14px">
+         <div style="color:#666;font-size:14px" data-i18n="timeline.ongoingText">
           Hjälp oss nå nästa milstolpe
          </div>
         </div>
         <div class="timeline-step">
          <div class="timeline-dot" style="background:#ccc"></div>
-         <div style="font-size:12px;color:#999;font-weight:600;margin-bottom:4px">
+         <div style="font-size:12px;color:#999;font-weight:600;margin-bottom:4px" data-i18n="timeline.goal">
           MÅL
          </div>
-         <div style="font-weight:600;font-size:16px;margin-bottom:4px">
+         <div style="font-weight:600;font-size:16px;margin-bottom:4px" data-i18n="timeline.goalTitle">
           10 000 underskrifter
          </div>
-         <div style="color:#666;font-size:14px">
+         <div style="color:#666;font-size:14px" data-i18n="timeline.goalText">
           Formell petition till Malmö stad
          </div>
         </div>
        </div>
        <div style="background:white;border-radius:16px;padding:28px;border:1px solid #e5e2db">
-        <h3 class="font-display" style="font-size:18px;font-weight:700;margin-bottom:10px">Introduktion till kampanjen</h3>
-        <p style="font-size:13px;color:#888;margin-bottom:18px">Se vår korta kampanjvideo som förklarar varför vi kräver etisk upphandling i Malmö.</p>
+        <h3 class="font-display" style="font-size:18px;font-weight:700;margin-bottom:10px" data-i18n="timeline.videoTitle">Introduktion till kampanjen</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:18px" data-i18n="timeline.videoText">Se vår korta kampanjvideo som förklarar varför vi kräver etisk upphandling i Malmö.</p>
         <div style="position:relative;padding-top:140%;max-width:420px;margin:0 auto;border-radius:12px;overflow:hidden;background:#000;min-height:420px">
-         <iframe src="https://www.instagram.com/reel/DPeUv2VjAHo/embed" title="Kampanjintroduktion" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+         <iframe src="https://www.instagram.com/reel/DPeUv2VjAHo/embed" title="Kampanjintroduktion" data-i18n-title="timeline.videoFrameTitle" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
        </div>
       </div>
@@ -1043,47 +1073,47 @@ body {
     <section id="spread" style="padding:80px 0;background:white" class="w-full py-20 md:py-28">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="scroll-reveal text-center mb-12">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-spread-title">Sprid kampanjen</h2>
-        <p class="text-ocean/70 text-base max-w-xl mx-auto">Varje röst räknas. Här är konkreta sätt du kan hjälpa kampanjen att nå fler Malmöbor.</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-spread-title" data-i18n="spread.title">Sprid kampanjen</h2>
+        <p class="text-ocean/70 text-base max-w-xl mx-auto" data-i18n="spread.intro">Varje röst räknas. Här är konkreta sätt du kan hjälpa kampanjen att nå fler Malmöbor.</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="share-2" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Dela i sociala medier</h3>
-        <p class="text-ocean/60 text-sm mb-4">Dela kampanjens budskap med dina nätverk på Instagram, Facebook och TikTok.</p>
-        <div class="flex gap-2"><button onclick="window.open('https://www.facebook.com/rattvisamalmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Facebook"><i data-lucide="facebook" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.tiktok.com/@rattvisa.malmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på TikTok"><i data-lucide="music" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.instagram.com/rattvisamalmo/','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Instagram"><i data-lucide="instagram" style="width:16px;height:16px;"></i></button> <button onclick="window.location.href='mailto:rattvisamalmo@gmail.com'" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela via e-post"><i data-lucide="mail" style="width:16px;height:16px;"></i></button>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.socialTitle">Dela i sociala medier</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.socialText">Dela kampanjens budskap med dina nätverk på Instagram, Facebook och TikTok.</p>
+        <div class="flex gap-2"><button onclick="window.open('https://www.facebook.com/rattvisamalmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Facebook" data-i18n-aria-label="spread.shareFacebook"><i data-lucide="facebook" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.tiktok.com/@rattvisa.malmo','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på TikTok" data-i18n-aria-label="spread.shareTikTok"><i data-lucide="music" style="width:16px;height:16px;"></i></button> <button onclick="window.open('https://www.instagram.com/rattvisamalmo/','_blank')" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela på Instagram" data-i18n-aria-label="spread.shareInstagram"><i data-lucide="instagram" style="width:16px;height:16px;"></i></button> <button onclick="window.location.href='mailto:rattvisamalmo@gmail.com'" class="p-2.5 rounded-lg bg-white border border-sand hover:border-ember hover:text-ember text-ocean transition-colors" aria-label="Dela via e-post" data-i18n-aria-label="spread.shareEmail"><i data-lucide="mail" style="width:16px;height:16px;"></i></button>
         </div>
         </div>
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.08s;">
         <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="message-circle" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Prata med dina grannar</h3>
-        <p class="text-ocean/60 text-sm mb-4">Informella samtal kan göra stor skillnad. Använd vårt informationsblad som utgångspunkt.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Hämta material <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.talkTitle">Prata med dina grannar</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.talkText">Informella samtal kan göra stor skillnad. Använd vårt informationsblad som utgångspunkt.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> <span data-i18n="spread.talkLink">Hämta material</span> <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.16s;">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="megaphone" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Kontakta politiker</h3>
-        <p class="text-ocean/60 text-sm mb-4">Skriv till dina kommunfullmäktigeledamöter och be dem stödja en etisk upphandlingspolicy.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Ladda ner brevmall <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.contactTitle">Kontakta politiker</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.contactText">Skriv till dina kommunfullmäktigeledamöter och be dem stödja en etisk upphandlingspolicy.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> <span data-i18n="spread.contactLink">Ladda ner brevmall</span> <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.24s;">
         <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="printer" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Skriv ut &amp; sätt upp</h3>
-        <p class="text-ocean/60 text-sm mb-4">Skriv ut affischer och flygblad och sätt upp dem på anslagstavlor, i butiker och på arbetsplatser.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Ladda ner affischer <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.printTitle">Skriv ut &amp; sätt upp</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.printText">Skriv ut affischer och flygblad och sätt upp dem på anslagstavlor, i butiker och på arbetsplatser.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> <span data-i18n="spread.printLink">Ladda ner affischer</span> <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.32s;">
         <div class="w-11 h-11 rounded-lg bg-ember/10 flex items-center justify-center mb-4"><i data-lucide="pen-tool" style="width:22px;height:22px;color:#d4553a;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Skriv debattartikel</h3>
-        <p class="text-ocean/60 text-sm mb-4">Dela dina åsikter i en insändare eller debattartikel till lokala och nationella medier om etisk upphandling.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Se exempelartikel <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.opEdTitle">Skriv debattartikel</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.opEdText">Dela dina åsikter i en insändare eller debattartikel till lokala och nationella medier om etisk upphandling.</p><a href="#materials" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> <span data-i18n="spread.opEdLink">Se exempelartikel</span> <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
         <div class="scroll-reveal spread-card bg-chalk rounded-xl p-6" style="transition-delay:0.4s;">
         <div class="w-11 h-11 rounded-lg bg-ocean/10 flex items-center justify-center mb-4"><i data-lucide="users" style="width:22px;height:22px;color:#1a3a5c;"></i>
         </div>
-        <h3 class="font-semibold text-midnight mb-2">Organisera för stöd</h3>
-        <p class="text-ocean/60 text-sm mb-4">Är du en organisation, förening eller arbetsplats? Vi söker partners som kan stödja och förespråka kampanjen.</p><a href="#news" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> Se nyheter <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
+        <h3 class="font-semibold text-midnight mb-2" data-i18n="spread.organizeTitle">Organisera för stöd</h3>
+        <p class="text-ocean/60 text-sm mb-4" data-i18n="spread.organizeText">Är du en organisation, förening eller arbetsplats? Vi söker partners som kan stödja och förespråka kampanjen.</p><a href="#news" class="inline-flex items-center gap-1 text-ember text-sm font-semibold hover:underline"> <span data-i18n="spread.organizeLink">Se nyheter</span> <i data-lucide="arrow-right" style="width:14px;height:14px;"></i> </a>
         </div>
       </div>
       </div>
@@ -1091,60 +1121,60 @@ body {
    <section id="materials" style="padding:80px 0;background:var(--bg-color)" class="w-full py-20 md:py-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
      <div class="scroll-reveal text-center mb-12">
-      <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px">Ladda ner material</h2>
-      <p class="text-ocean/70 text-base max-w-xl mx-auto">Här hittar du allt material du behöver för att stötta kampanjen — flygblad, affischer, mallar och informationsdokument.</p>
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,38px);font-weight:700;margin-bottom:12px" data-i18n="materials.title">Ladda ner material</h2>
+      <p class="text-ocean/70 text-base max-w-xl mx-auto" data-i18n="materials.intro">Här hittar du allt material du behöver för att stötta kampanjen — flygblad, affischer, mallar och informationsdokument.</p>
      </div>
      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"><!-- Material Card 1 -->
       <div class="scroll-reveal material-card bg-white rounded-xl p-6 border border-sand cursor-pointer flex flex-col h-full">
        <div class="w-full aspect-[4/3] bg-gradient-to-br from-ember/10 to-ember/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="file-text" style="width:36px;height:36px;color:#d4553a;"></i> <span class="text-xs text-ember font-semibold mt-2">PDF</span>
        </div>
-       <h3 class="font-semibold text-midnight text-sm mb-1">Informationsblad</h3>
-       <p class="text-ocean/60 text-xs mb-3">Översikt av kampanjen och dess mål — perfekt att dela ut.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Informationsblad.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      <h3 class="font-semibold text-midnight text-sm mb-1" data-i18n="materials.infoTitle">Informationsblad</h3>
+      <p class="text-ocean/60 text-xs mb-3" data-i18n="materials.infoText">Översikt av kampanjen och dess mål — perfekt att dela ut.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Informationsblad.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span data-i18n="materials.download">Ladda ner</span> </button>
       </div><!-- Material Card 2 -->
       <div class="scroll-reveal material-card bg-white rounded-xl p-6 border border-sand cursor-pointer flex flex-col h-full" style="transition-delay:0.08s;">
        <div class="w-full aspect-[4/3] bg-gradient-to-br from-ocean/10 to-ocean/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="image" style="width:36px;height:36px;color:#1a3a5c;"></i> <span class="text-xs text-ocean font-semibold mt-2">PNG / PDF</span>
        </div>
-       <h3 class="font-semibold text-midnight text-sm mb-1">Affisch A3</h3>
-       <p class="text-ocean/60 text-xs mb-3">Tryckfärdig affisch för anslagstavlor, fönster och evenemang.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Affisch_A3.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      <h3 class="font-semibold text-midnight text-sm mb-1" data-i18n="materials.posterTitle">Affisch A3</h3>
+      <p class="text-ocean/60 text-xs mb-3" data-i18n="materials.posterText">Tryckfärdig affisch för anslagstavlor, fönster och evenemang.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Affisch_A3.pdf')"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span data-i18n="materials.download">Ladda ner</span> </button>
       </div><!-- Material Card 3 -->
       <div class="scroll-reveal material-card bg-white rounded-xl p-6 border border-sand cursor-pointer flex flex-col h-full" style="transition-delay:0.16s;">
        <div class="w-full aspect-[4/3] bg-gradient-to-br from-ember/10 to-ocean/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="mail" style="width:36px;height:36px;color:#d4553a;"></i> <span class="text-xs text-ember font-semibold mt-2">DOCX</span>
        </div>
-       <h3 class="font-semibold text-midnight text-sm mb-1">Brevmall till politiker</h3>
-       <p class="text-ocean/60 text-xs mb-3">Färdig mall för att kontakta dina lokala politiker om etisk upphandling.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Brevmall.docx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      <h3 class="font-semibold text-midnight text-sm mb-1" data-i18n="materials.letterTitle">Brevmall till politiker</h3>
+      <p class="text-ocean/60 text-xs mb-3" data-i18n="materials.letterText">Färdig mall för att kontakta dina lokala politiker om etisk upphandling.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Brevmall.docx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span data-i18n="materials.download">Ladda ner</span> </button>
       </div><!-- Material Card 4 -->
       <div class="scroll-reveal material-card bg-white rounded-xl p-6 border border-sand cursor-pointer flex flex-col h-full" style="transition-delay:0.24s;">
        <div class="w-full aspect-[4/3] bg-gradient-to-br from-ocean/10 to-ember/5 rounded-lg flex flex-col items-center justify-center mb-4"><i data-lucide="presentation" style="width:36px;height:36px;color:#1a3a5c;"></i> <span class="text-xs text-ocean font-semibold mt-2">PPTX</span>
        </div>
-       <h3 class="font-semibold text-midnight text-sm mb-1">Presentationsmaterial</h3>
-       <p class="text-ocean/60 text-xs mb-3">Bildspel för möten, studiecirklar och informationsträffar.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Presentation.pptx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> Ladda ner </button>
+      <h3 class="font-semibold text-midnight text-sm mb-1" data-i18n="materials.presentationTitle">Presentationsmaterial</h3>
+      <p class="text-ocean/60 text-xs mb-3" data-i18n="materials.presentationText">Bildspel för möten, studiecirklar och informationsträffar.</p><button class="w-full flex items-center justify-center gap-2 py-2 bg-chalk text-midnight text-xs font-semibold rounded-lg hover:bg-sand transition-colors border border-sand mt-auto" style="min-height:36px" onclick="simulateDownload(this, 'Presentation.pptx')"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span data-i18n="materials.download">Ladda ner</span> </button>
       </div>
      </div>
     </div>
    </section><!-- FINAL CTA -->
-    <section style="padding:80px 0;background:var(--text-color)">
+    <section id="home-closing" style="padding:80px 0;background:var(--text-color)">
      <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <h2 id="closingHeadline" class="font-display" style="font-size:clamp(32px,5vw,48px);font-weight:800;color:white;margin-bottom:16px;line-height:1.1">Malmö kan visa vägen.</h2>
-      <p id="closingText" style="font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:550px;margin-left:auto;margin-right:auto">Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.</p>
-      <div class="flex flex-wrap justify-center gap-4"><button class="btn-primary" style="background:var(--primary-color)" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under </button> <button class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig </button>
+      <h2 id="closingHeadline" class="font-display" style="font-size:clamp(32px,5vw,48px);font-weight:800;color:white;margin-bottom:16px;line-height:1.1" data-i18n="closing.headline">Malmö kan visa vägen.</h2>
+      <p id="closingText" style="font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:550px;margin-left:auto;margin-right:auto" data-i18n="closing.text">Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.</p>
+      <div class="flex flex-wrap justify-center gap-4"><button class="btn-primary" style="background:var(--primary-color)" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="closing.sign">Skriv under</span> </button> <button class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="closing.volunteer">Engagera dig</span> </button>
       </div>
      </div>
     </section>
    </main><!-- ========== PETITION PAGE ========== -->
    <main id="page-petition" class="page" role="main">
     <section style="padding:60px 0 80px">
-     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
-      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Skriv under namninsamlingen</h1>
-      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6">Jag kräver att Malmö stad antar en etisk upphandlingspolicy som utesluter företag inblandade i krigsbrott, brott mot mänskligheten och grova kränkningar av mänskliga rättigheter.</p>
-      <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="lock" style="width:14px;height:14px"></i> Din information är trygg och delas aldrig med tredje part
+     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="petition.title">Skriv under namninsamlingen</h1>
+      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6" data-i18n="petition.intro">Jag kräver att Malmö stad antar en etisk upphandlingspolicy som utesluter företag inblandade i krigsbrott, brott mot mänskligheten och grova kränkningar av mänskliga rättigheter.</p>
+      <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="lock" style="width:14px;height:14px"></i> <span data-i18n="petition.privacy">Din information är trygg och delas aldrig med tredje part</span>
       </div>
       <form id="petitionForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
-       <div class="mb-5"><label for="petName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Namn *</label> <input type="text" id="petName" class="form-input" placeholder="Ditt fullständiga namn" required>
+       <div class="mb-5"><label for="petName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.name">Namn *</label> <input type="text" id="petName" class="form-input" placeholder="Ditt fullständiga namn" data-i18n-placeholder="petition.namePlaceholder" required>
        </div>
-       <div class="mb-5"><label for="petEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="petEmail" class="form-input" placeholder="din@email.com" required>
+       <div class="mb-5"><label for="petEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.email">E-post *</label> <input type="email" id="petEmail" class="form-input" placeholder="din@email.com" data-i18n-placeholder="petition.emailPlaceholder" required>
        </div>
-       <div class="mb-6"><label for="petPostal" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Postnummer (valfritt)</label> <input type="text" id="petPostal" class="form-input" placeholder="211 XX">
-       </div><button type="submit" id="petitionSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span id="petitionBtnText">Skriv under namninsamlingen</span> </button>
+       <div class="mb-6"><label for="petPostal" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.postal">Postnummer (valfritt)</label> <input type="text" id="petPostal" class="form-input" placeholder="211 XX" data-i18n-placeholder="petition.postalPlaceholder">
+       </div><button type="submit" id="petitionSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span id="petitionBtnText" data-i18n="petition.submit">Skriv under namninsamlingen</span> </button>
        <div id="petitionMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
       </form>
      </div>
@@ -1152,58 +1182,58 @@ body {
    </main><!-- ========== VOLUNTEER PAGE ========== -->
    <main id="page-volunteer" class="page" role="main">
     <section style="padding:60px 0 80px">
-     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
-      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Engagera dig i kampanjen</h1>
-      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6">Varje insats gör skillnad. Oavsett om du har fem minuter eller fem timmar — det finns något du kan göra.</p>
+    <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
+     <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="volunteer.title">Engagera dig i kampanjen</h1>
+     <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6" data-i18n="volunteer.intro">Varje insats gör skillnad. Oavsett om du har fem minuter eller fem timmar — det finns något du kan göra.</p>
       <div class="grid gap-4 mb-10" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:24px">
        <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="file-signature" style="width:20px;height:20px;color:var(--primary-color)"></i>
         </div>
-        <div style="font-weight:600;font-size:14px">
+        <div style="font-weight:600;font-size:14px" data-i18n="volunteer.collect">
          Samla underskrifter
         </div>
        </div>
        <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="share-2" style="width:20px;height:20px;color:var(--secondary-color)"></i>
         </div>
-        <div style="font-weight:600;font-size:14px">
+        <div style="font-weight:600;font-size:14px" data-i18n="volunteer.share">
          Dela kampanjen
         </div>
        </div>
        <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="calendar" style="width:20px;height:20px;color:var(--primary-color)"></i>
         </div>
-        <div style="font-weight:600;font-size:14px">
+        <div style="font-weight:600;font-size:14px" data-i18n="volunteer.events">
          Organisera event
         </div>
        </div>
        <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(43,90,75,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="mail" style="width:20px;height:20px;color:var(--secondary-color)"></i>
         </div>
-        <div style="font-weight:600;font-size:14px">
+        <div style="font-weight:600;font-size:14px" data-i18n="volunteer.politicians">
          Kontakta politiker
         </div>
        </div>
        <div style="padding:20px;border-radius:12px;background:white;border:1px solid #e5e2db;text-align:center">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><i data-lucide="megaphone" style="width:20px;height:20px;color:var(--primary-color)"></i>
         </div>
-        <div style="font-weight:600;font-size:14px">
+        <div style="font-weight:600;font-size:14px" data-i18n="volunteer.outreach">
          Hjälp med uppsökande
         </div>
        </div>
       </div>
       <form id="volunteerForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
-       <h2 class="font-display" style="font-size:22px;font-weight:700;margin-bottom:20px">Anmäl dig som volontär</h2>
-       <div class="mb-5"><label for="volName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Namn *</label> <input type="text" id="volName" class="form-input" placeholder="Ditt namn" required>
+      <h2 class="font-display" style="font-size:22px;font-weight:700;margin-bottom:20px" data-i18n="volunteer.formTitle">Anmäl dig som volontär</h2>
+      <div class="mb-5"><label for="volName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="volunteer.name">Namn *</label> <input type="text" id="volName" class="form-input" placeholder="Ditt namn" data-i18n-placeholder="volunteer.namePlaceholder" required>
        </div>
-       <div class="mb-5"><label for="volEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="volEmail" class="form-input" placeholder="din@email.com" required>
+      <div class="mb-5"><label for="volEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="volunteer.email">E-post *</label> <input type="email" id="volEmail" class="form-input" placeholder="din@email.com" data-i18n-placeholder="volunteer.emailPlaceholder" required>
        </div>
-       <div class="mb-5"><label style="display:block;font-weight:600;font-size:14px;margin-bottom:10px">Vad vill du hjälpa till med?</label>
-        <div class="grid gap-3" style="grid-template-columns:1fr 1fr" id="volunteerAreas"><label class="check-item"><input type="checkbox" value="signatures"><span>Samla underskrifter</span></label> <label class="check-item"><input type="checkbox" value="share"><span>Dela kampanjen</span></label> <label class="check-item"><input type="checkbox" value="events"><span>Organisera event</span></label> <label class="check-item"><input type="checkbox" value="politicians"><span>Kontakta politiker</span></label> <label class="check-item"><input type="checkbox" value="outreach"><span>Uppsökande arbete</span></label> <label class="check-item"><input type="checkbox" value="other"><span>Annat</span></label>
+      <div class="mb-5"><label style="display:block;font-weight:600;font-size:14px;margin-bottom:10px" data-i18n="volunteer.areas">Vad vill du hjälpa till med?</label>
+       <div class="grid gap-3" style="grid-template-columns:1fr 1fr" id="volunteerAreas"><label class="check-item"><input type="checkbox" value="signatures"><span data-i18n="volunteer.collect">Samla underskrifter</span></label> <label class="check-item"><input type="checkbox" value="share"><span data-i18n="volunteer.share">Dela kampanjen</span></label> <label class="check-item"><input type="checkbox" value="events"><span data-i18n="volunteer.events">Organisera event</span></label> <label class="check-item"><input type="checkbox" value="politicians"><span data-i18n="volunteer.politicians">Kontakta politiker</span></label> <label class="check-item"><input type="checkbox" value="outreach"><span data-i18n="volunteer.outreachArea">Uppsökande arbete</span></label> <label class="check-item"><input type="checkbox" value="other"><span data-i18n="volunteer.other">Annat</span></label>
         </div>
        </div>
-       <div class="mb-6"><label for="volMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Meddelande (valfritt)</label> <textarea id="volMessage" class="form-input" rows="3" placeholder="Berätta gärna lite om dig själv..."></textarea>
-       </div><button type="submit" id="volunteerSubmitBtn" class="btn-secondary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="hand" style="width:18px;height:18px"></i> <span id="volunteerBtnText">Anmäl dig som volontär</span> </button>
+      <div class="mb-6"><label for="volMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="volunteer.message">Meddelande (valfritt)</label> <textarea id="volMessage" class="form-input" rows="3" placeholder="Berätta gärna lite om dig själv..." data-i18n-placeholder="volunteer.messagePlaceholder"></textarea>
+      </div><button type="submit" id="volunteerSubmitBtn" class="btn-secondary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="hand" style="width:18px;height:18px"></i> <span id="volunteerBtnText" data-i18n="volunteer.submit">Anmäl dig som volontär</span> </button>
        <div id="volunteerMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
       </form>
      </div>
@@ -1211,22 +1241,22 @@ body {
     </main><!-- ========== ENDORSEMENT PAGE ========== -->
     <main id="page-endorse" class="page" role="main">
      <section style="padding:60px 0 80px">
-      <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
+      <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
       <h1 id="endorsementPageHeading" class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px">Stöd kampanjen som organisation</h1>
       <p id="endorsementPageIntro" style="font-size:16px;color:#666;margin-bottom:24px;line-height:1.6">Fyll i uppgifterna nedan så följer vi upp ert stöd och bekräftar allt innan något publiceras offentligt.</p>
       <div class="flex justify-center mb-8">
-       <div class="endorsement-type-switch" role="tablist" aria-label="Välj typ av endorsement">
-        <button class="endorsement-type-btn active" id="endorsementModeOrg" type="button" role="tab" aria-selected="true" onclick="setEndorsementMode('organization')">Som organisation</button>
-        <button class="endorsement-type-btn" id="endorsementModeIndividual" type="button" role="tab" aria-selected="false" onclick="setEndorsementMode('individual')">Som person</button>
+      <div class="endorsement-type-switch" role="tablist" aria-label="Välj typ av endorsement" data-i18n-aria-label="endorsement.switcher">
+       <button class="endorsement-type-btn active" id="endorsementModeOrg" type="button" role="tab" aria-selected="true" onclick="setEndorsementMode('organization')">Som organisation</button>
+       <button class="endorsement-type-btn" id="endorsementModeIndividual" type="button" role="tab" aria-selected="false" onclick="setEndorsementMode('individual')">Som person</button>
        </div>
       </div>
       <form id="endorsementForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
        <h2 id="endorsementFormTitle" class="font-display" style="font-size:22px;font-weight:700;margin-bottom:20px">Skicka organisationsstöd</h2>
-       <div class="mb-5"><label id="endorseNameLabel" for="endorseName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Organisationens namn *</label> <input type="text" id="endorseName" class="form-input" placeholder="Namn på organisation" required>
+      <div class="mb-5"><label id="endorseNameLabel" for="endorseName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Organisationens namn *</label> <input type="text" id="endorseName" class="form-input" placeholder="Namn på organisation" required>
        </div>
-       <div class="mb-5"><label id="endorseSecondaryLabel" for="endorseSecondary" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kontaktperson (valfritt)</label> <input type="text" id="endorseSecondary" class="form-input" placeholder="Namn på kontaktperson">
+      <div class="mb-5"><label id="endorseSecondaryLabel" for="endorseSecondary" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kontaktperson (valfritt)</label> <input type="text" id="endorseSecondary" class="form-input" placeholder="Namn på kontaktperson">
        </div>
-       <div class="mb-5"><label for="endorseEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">E-post *</label> <input type="email" id="endorseEmail" class="form-input" placeholder="namn@organisation.se" required>
+      <div class="mb-5"><label for="endorseEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="endorsement.email">E-post *</label> <input type="email" id="endorseEmail" class="form-input" placeholder="namn@organisation.se" required>
        </div>
        <div class="mb-6"><label id="endorseMessageLabel" for="endorseMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kort meddelande (valfritt)</label> <textarea id="endorseMessage" class="form-input" rows="4" placeholder="Skriv gärna om varför ni vill stödja kampanjen..."></textarea>
         <p id="endorsementDisclosure" style="margin-top:10px;font-size:13px;color:#777;line-height:1.5">Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.</p>
@@ -1238,75 +1268,75 @@ body {
    </main><!-- ========== ABOUT PAGE ========== -->
    <main id="page-about" class="page" role="main">
     <section style="padding:60px 0 80px">
-     <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
-      <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:20px">Om Rättvisa Malmö</h1>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
+     <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:20px" data-i18n="about.title">Om Rättvisa Malmö</h1>
       <div style="font-size:17px;line-height:1.8;color:#444">
-       <p style="margin-bottom:20px;font-size:19px;font-weight:500;color:var(--text-color)">Rättvisa Malmö är en gräsrotsrörelse som verkar för etisk offentlig upphandling och ansvarsutkrävande för mänskliga rättigheter i Malmö stad.</p>
-       <p style="margin-bottom:20px">Kampanjen drivs av Malmöbor och stöds av ett brett nätverk av civilsamhällesorganisationer, fackförbund, studentföreningar och religiösa samfund. Vi tror att offentliga medel — skattepengar som tillhör oss alla — aldrig bör finansiera företag som är inblandade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
-       <p style="margin-bottom:20px">Malmö stad upphandlar varor och tjänster för cirka 11 miljarder kronor varje år. Det gör kommunen till en av Sveriges största offentliga köpare. Med den kraften följer ett ansvar. Vi anser att staden bör anta en etisk upphandlingspolicy som sätter mänskliga rättigheter i centrum.</p>
+      <p style="margin-bottom:20px;font-size:19px;font-weight:500;color:var(--text-color)" data-i18n="about.lead">Rättvisa Malmö är en gräsrotsrörelse som verkar för etisk offentlig upphandling och ansvarsutkrävande för mänskliga rättigheter i Malmö stad.</p>
+      <p style="margin-bottom:20px" data-i18n="about.body1">Kampanjen drivs av Malmöbor och stöds av ett brett nätverk av civilsamhällesorganisationer, fackförbund, studentföreningar och religiösa samfund. Vi tror att offentliga medel — skattepengar som tillhör oss alla — aldrig bör finansiera företag som är inblandade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.</p>
+      <p style="margin-bottom:20px" data-i18n="about.body2">Malmö stad upphandlar varor och tjänster för cirka 11 miljarder kronor varje år. Det gör kommunen till en av Sveriges största offentliga köpare. Med den kraften följer ett ansvar. Vi anser att staden bör anta en etisk upphandlingspolicy som sätter mänskliga rättigheter i centrum.</p>
        <div style="background:white;border-left:4px solid var(--primary-color);padding:24px 28px;border-radius:0 12px 12px 0;margin:32px 0">
-        <p style="font-style:italic;font-size:18px;margin-bottom:8px;color:var(--text-color)">"Offentlig upphandling är inte bara en ekonomisk fråga — det är en moralisk fråga."</p>
-        <p style="font-size:14px;color:#888">— Rättvisa Malmö</p>
+       <p style="font-style:italic;font-size:18px;margin-bottom:8px;color:var(--text-color)" data-i18n="about.quote">"Offentlig upphandling är inte bara en ekonomisk fråga — det är en moralisk fråga."</p>
+       <p style="font-size:14px;color:#888" data-i18n="about.quoteBy">— Rättvisa Malmö</p>
        </div>
-       <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px">Vad vi gör</h2>
+      <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px" data-i18n="about.doingTitle">Vad vi gör</h2>
        <ul style="list-style:none;padding:0">
-        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Samlar underskrifter för en formell petition till Malmö kommunfullmäktige</span></li>
-        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Informerar Malmöbor om hur deras skattepengar används</span></li>
-        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Bygger en bred koalition av stödjande organisationer</span></li>
-        <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span>Möter lokalpolitiker och tjänstemän för att driva förändring</span></li>
+       <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span data-i18n="about.doing1">Samlar underskrifter för en formell petition till Malmö kommunfullmäktige</span></li>
+       <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span data-i18n="about.doing2">Informerar Malmöbor om hur deras skattepengar används</span></li>
+       <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span data-i18n="about.doing3">Bygger en bred koalition av stödjande organisationer</span></li>
+       <li class="flex items-start gap-3 mb-4"><i data-lucide="check" style="width:20px;height:20px;color:var(--secondary-color);flex-shrink:0;margin-top:3px"></i><span data-i18n="about.doing4">Möter lokalpolitiker och tjänstemän för att driva förändring</span></li>
        </ul>
-       <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px">Internationell kontext</h2>
-       <p style="margin-bottom:20px">Etisk upphandling är inte nytt. Norges oljefond (Government Pension Fund Global) har sedan länge uteslutit företag som bryter mot internationell rätt. Barcelona antog sin etiska upphandlingspolicy 2017. Oslo kommun har infört regler som utesluter leverantörer inblandade i folkrättsbrott. EU-direktiv ger också uttryckligt stöd för att inkludera sociala och etiska kriterier i offentlig upphandling.</p>
-       <p>Malmö kan och bör följa deras exempel.</p>
+      <h2 class="font-display" style="font-size:24px;font-weight:700;margin-bottom:12px;margin-top:40px" data-i18n="about.contextTitle">Internationell kontext</h2>
+      <p style="margin-bottom:20px" data-i18n="about.contextBody">Etisk upphandling är inte nytt. Norges oljefond (Government Pension Fund Global) har sedan länge uteslutit företag som bryter mot internationell rätt. Barcelona antog sin etiska upphandlingspolicy 2017. Oslo kommun har infört regler som utesluter leverantörer inblandade i folkrättsbrott. EU-direktiv ger också uttryckligt stöd för att inkludera sociala och etiska kriterier i offentlig upphandling.</p>
+      <p data-i18n="about.contextClosing">Malmö kan och bör följa deras exempel.</p>
       </div>
-      <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under</button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig</button>
+     <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="about.sign">Skriv under</span></button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="about.volunteer">Engagera dig</span></button>
       </div>
      </div>
     </section>
    </main><!-- ========== FAQ PAGE ========== -->
    <main id="page-faq" class="page" role="main">
     <section style="padding:60px 0 80px">
-     <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Tillbaka </button>
-      <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:8px">Frågor &amp; Svar</h1>
-      <p style="font-size:16px;color:#666;margin-bottom:40px">Vanliga frågor om kampanjen och etisk upphandling</p>
+     <div class="max-w-3xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
+      <h1 class="font-display" style="font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:8px" data-i18n="faq.title">Frågor &amp; Svar</h1>
+      <p style="font-size:16px;color:#666;margin-bottom:40px" data-i18n="faq.intro">Vanliga frågor om kampanjen och etisk upphandling</p>
       <div id="faqContainer">
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vad innebär etisk upphandling? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q1">Vad innebär etisk upphandling?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Etisk upphandling innebär att kommunen tar hänsyn till mänskliga rättigheter, arbetsvillkor och internationell rätt när den köper varor och tjänster. Det handlar om att utesluta leverantörer som är inblandade i grova överträdelser, som krigsbrott eller brott mot mänskligheten.
+         <span data-i18n="faq.a1">Etisk upphandling innebär att kommunen tar hänsyn till mänskliga rättigheter, arbetsvillkor och internationell rätt när den köper varor och tjänster. Det handlar om att utesluta leverantörer som är inblandade i grova överträdelser, som krigsbrott eller brott mot mänskligheten.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Är detta lagligt? Kan kommuner göra detta? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q2">Är detta lagligt? Kan kommuner göra detta?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Ja. EU:s upphandlingsdirektiv (2014/24/EU) ger uttryckligt stöd för att inkludera sociala och etiska kriterier. Lagen om offentlig upphandling (LOU) i Sverige tillåter krav på att leverantörer respekterar internationella konventioner om mänskliga rättigheter och arbetsrätt.
+         <span data-i18n="faq.a2">Ja. EU:s upphandlingsdirektiv (2014/24/EU) ger uttryckligt stöd för att inkludera sociala och etiska kriterier. Lagen om offentlig upphandling (LOU) i Sverige tillåter krav på att leverantörer respekterar internationella konventioner om mänskliga rättigheter och arbetsrätt.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vilka andra städer har infört liknande policyer? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q3">Vilka andra städer har infört liknande policyer?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Barcelona (Spanien), Oslo (Norge), Dublin (Irland), och ett flertal belgiska och holländska kommuner har alla olika former av etiska upphandlingspolicyer. Norska statens pensionsfond har världens mest kända etiska investeringspolicy som utesluter hundratals företag.
+         <span data-i18n="faq.a3">Barcelona (Spanien), Oslo (Norge), Dublin (Irland), och ett flertal belgiska och holländska kommuner har alla olika former av etiska upphandlingspolicyer. Norska statens pensionsfond har världens mest kända etiska investeringspolicy som utesluter hundratals företag.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Hur mycket pengar handlar det om? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q4">Hur mycket pengar handlar det om?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Malmö stad spenderar cirka 11 miljarder kronor per år på upphandling av varor och tjänster. Det är enorma summor av skattemedel som kan styras till företag som respekterar mänskliga rättigheter.
+         <span data-i18n="faq.a4">Malmö stad spenderar cirka 11 miljarder kronor per år på upphandling av varor och tjänster. Det är enorma summor av skattemedel som kan styras till företag som respekterar mänskliga rättigheter.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Hur kan jag hjälpa till? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q5">Hur kan jag hjälpa till?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Det finns många sätt att engagera sig! Du kan skriva under namninsamlingen, dela kampanjen i sociala medier, samla underskrifter bland vänner och kollegor, delta i kampanjevent, eller kontakta lokala politiker direkt. Besök vår sida "Engagera dig" för att anmäla dig som volontär.
+         <span data-i18n="faq.a5">Det finns många sätt att engagera sig! Du kan skriva under namninsamlingen, dela kampanjen i sociala medier, samla underskrifter bland vänner och kollegor, delta i kampanjevent, eller kontakta lokala politiker direkt. Besök vår sida "Engagera dig" för att anmäla dig som volontär.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Vad händer med min underskrift? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q6">Vad händer med min underskrift?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Din underskrift sparas säkert och används enbart för att visa stödet för etisk upphandling i Malmö. När vi når vårt mål kommer namninsamlingen att presenteras formellt för Malmö kommunfullmäktige. Din personliga information delas aldrig med tredje part.
+         <span data-i18n="faq.a6">Din underskrift sparas säkert och används enbart för att visa stödet för etisk upphandling i Malmö. När vi når vårt mål kommer namninsamlingen att presenteras formellt för Malmö kommunfullmäktige. Din personliga information delas aldrig med tredje part.</span>
         </div>
        </div>
-       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> Måste jag bo i Malmö för att skriva under? <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
+       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="faq.q7">Måste jag bo i Malmö för att skriva under?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button>
         <div class="faq-answer">
-         Alla är välkomna att skriva under. Även om kampanjens fokus är Malmö stad, visar stöd från personer utanför kommunen att frågan engagerar brett. Lokala underskrifter har dock extra tyngd i den politiska processen.
+         <span data-i18n="faq.a7">Alla är välkomna att skriva under. Även om kampanjens fokus är Malmö stad, visar stöd från personer utanför kommunen att frågan engagerar brett. Lokala underskrifter har dock extra tyngd i den politiska processen.</span>
         </div>
        </div>
       </div>
-      <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> Skriv under</button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> Engagera dig</button>
+      <div class="flex flex-wrap gap-4 mt-10"><button class="btn-primary" onclick="goTo('petition')"><i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="faq.sign">Skriv under</span></button> <button class="btn-secondary" onclick="goTo('volunteer')"><i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="faq.volunteer">Engagera dig</span></button>
       </div>
      </div>
     </section>
@@ -1318,25 +1348,25 @@ body {
        <div class="font-display" style="font-weight:700;color:white;font-size:18px;margin-bottom:12px">
         Rättvisa Malmö
        </div>
-       <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6">En gräsrotsrörelse för etisk offentlig upphandling och mänskliga rättigheter i Malmö.</p>
+      <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6" data-i18n="footer.description">En gräsrotsrörelse för etisk offentlig upphandling och mänskliga rättigheter i Malmö.</p>
       </div>
       <div>
-       <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px">
-        Sidor
+      <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px" data-i18n="footer.pages">
+       Sidor
        </div>
-       <div class="flex flex-col gap-2"><button onclick="goTo('home')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Hem</button> <button onclick="goTo('about')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Om kampanjen</button> <button onclick="goTo('faq')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Frågor &amp; Svar</button>
+      <div class="flex flex-col gap-2"><button onclick="goTo('home')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0" data-i18n="nav.home">Hem</button> <button onclick="goTo('about')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0" data-i18n="nav.about">Om kampanjen</button> <button onclick="goTo('faq')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0" data-i18n="nav.faq">Frågor &amp; Svar</button>
        </div>
       </div>
       <div>
-       <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px">
-        Delta
+      <div style="font-weight:600;color:white;font-size:14px;margin-bottom:12px" data-i18n="footer.participate">
+       Delta
        </div>
-       <div class="flex flex-col gap-2"><button onclick="goTo('petition')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Skriv under</button> <button onclick="goTo('volunteer')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0">Engagera dig</button>
+      <div class="flex flex-col gap-2"><button onclick="goTo('petition')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0" data-i18n="nav.sign">Skriv under</button> <button onclick="goTo('volunteer')" style="color:rgba(255,255,255,0.5);font-size:14px;background:none;border:none;cursor:pointer;text-align:left;padding:0" data-i18n="nav.volunteer">Engagera dig</button>
        </div>
       </div>
      </div>
      <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center">
-      <p style="color:rgba(255,255,255,0.3);font-size:13px">© 2025 Rättvisa Malmö. Alla rättigheter förbehållna.</p>
+      <p style="color:rgba(255,255,255,0.3);font-size:13px" data-i18n="footer.rights">© 2025 Rättvisa Malmö. Alla rättigheter förbehållna.</p>
      </div>
     </div>
    </footer>
@@ -1346,6 +1376,688 @@ body {
 let allRecords = [];
 let currentPage = 'home';
 let currentEndorsementType = 'organization';
+let currentLanguage = 'sv';
+let activeConfig = null;
+
+const LANGUAGE_STORAGE_KEY = 'rm-lang';
+
+const translations = {
+  sv: {
+    meta: {
+      title: 'Rättvisa Malmö'
+    },
+    language: {
+      switcher: 'Välj språk',
+      mobileMenu: 'Navigationsmeny',
+      openMenu: 'Öppna meny',
+      closeMenu: 'Stäng meny',
+      goHome: 'Gå till startsidan'
+    },
+    nav: {
+      home: 'Hem',
+      about: 'Om kampanjen',
+      faq: 'Frågor & Svar',
+      sign: 'Skriv under',
+      volunteer: 'Engagera dig'
+    },
+    hero: {
+      badge: 'MEDBORGARINITIATIV I MALMÖ',
+      headline: 'Offentliga medel ska aldrig finansiera krigsbrott',
+      subtext: 'Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.',
+      sign: 'Skriv under',
+      volunteer: 'Engagera dig',
+      note: 'Det tar bara 10 sekunder att skriva under.'
+    },
+    counter: {
+      live: 'LIVE - NAMNINSAMLING',
+      signed: 'personer har skrivit under',
+      goal: 'Mål:'
+    },
+    impact: {
+      title: 'Varför det spelar roll',
+      intro: 'Offentlig upphandling är ett av de mest kraftfulla verktygen en kommun har. Det handlar om hur vi använder gemensamma resurser.',
+      yearly: 'SEK per år',
+      yearlyText: 'Malmö stad spenderar 11 miljarder kronor årligen på inköp av varor och tjänster. Det är enorma summor av skattebetalarnas pengar.',
+      values: 'Gemensamma värderingar',
+      valuesText: 'Offentliga medel ska spegla våra gemensamma värderingar. Skattepengar bör aldrig gå till företag som bryter mot mänskliga rättigheter.',
+      cities: 'Städer visar vägen',
+      citiesText: 'Över 20 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.'
+    },
+    demand: {
+      eyebrow: 'VÅRT KRAV',
+      title: 'Malmö stad ska anta en etisk upphandlingspolicy',
+      intro: 'Policyn ska utesluta företag som är inblandade i:',
+      warCrimes: 'Krigsbrott',
+      warCrimesText: 'Brott mot internationell humanitär rätt i väpnade konflikter',
+      crimesAgainstHumanity: 'Brott mot mänskligheten',
+      crimesAgainstHumanityText: 'Systematiska och utbredda övergrepp mot civilbefolkningen',
+      severeViolations: 'Grova kränkningar av mänskliga rättigheter',
+      severeViolationsText: 'Allvarliga och dokumenterade brott mot grundläggande rättigheter',
+      cardTitle: 'Etisk upphandling - redan verklighet',
+      cardText: 'Etiska upphandlingspolicyer är redan verklighet i många städer och institutioner runt om i världen. De bygger på internationell rätt, FN:s vägledande principer för företag och mänskliga rättigheter, samt EU-direktiv om hållbar upphandling.',
+      example1: '<strong>Bologna</strong>: etisk upphandlingspolicy sedan 2023',
+      example2: '<strong>Leuven och Ghent</strong>: utesluter företag som bryter mot folkrätten',
+      example3: '<strong>Norska pensionsfonden</strong>: världsledande etiska riktlinjer',
+      example4: '<strong>EU-direktiv</strong>: stödjer hållbar och etisk upphandling'
+    },
+    companies: {
+      title: 'Exempel från Malmö stad',
+      intro: 'Här är två exempel på företag som Malmö stad har kontrakt med, trots deras inblandning i brott mot folkerättsliga normer.',
+      wspSubtitle: 'Del av WSP Global Inc.',
+      wspValue: 'Malmö stad: 10 miljoner kronor',
+      wspContract: 'Kontraktsvärde för konsulttjänster',
+      wspHeading: 'Inblandning i folkerättsbrott',
+      wspBullet1: '<strong>Jerusalem spårväg:</strong> Designade spårvägssystem som förbinder olagliga bosättningar i ockuperad Östjerusalem med västra delen av staden.',
+      wspBullet2: '<strong>Tel Aviv-Jerusalem järnväg:</strong> Tillhandahållit finansiellt och tekniskt stöd för järnväg som går över ockuperad mark i Västbanken.',
+      ateaSubtitle: 'IT och teknikdistributör',
+      ateaValue: 'Malmö stad: Finansierar Atea',
+      ateaContract: 'Genom IT-upphandling och systemleveranser',
+      ateaHeading: 'Inblandning i kränkningar',
+      ateaBullet1: '<strong>Konfliktmineraler:</strong> Involverad i värdekedjor med mineraler från DR Kongo där människorättsbrott förekommer.',
+      ateaBullet2: '<strong>Militär teknologi:</strong> Distribuerar övervaknings- och kontrollteknik till ockupationsmakt och konfliktparter.',
+      ateaBullet3: '<strong>Partner i brott:</strong> Tillsammans med partners involverad i människorättskränkningar i Israel och andra konfliktområden.',
+      relevance: '<strong>Varför är det här relevant?</strong> Dessa är bara två exempel på hur Malmö stads skattepengar kan komma att finansiera företag involverade i folkerättsbrott. En etisk upphandlingspolicy skulle förhindra detta genom att kräva att leverantörer kan garantera att de inte är involverade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.'
+    },
+    endorsers: {
+      title: 'Stöd för etisk upphandling i Malmö',
+      intro: 'Organisationer och enskilda personer som ställer sig bakom kampanjen för etisk upphandling i Malmö.',
+      aria: 'Stödjande aktörer',
+      orgs: 'Organisationer',
+      people: 'Personer',
+      orgPrompt: 'Vill din organisation offentligt stödja kampanjen? Skicka in ett organisationsstöd så följer vi upp det som en endorsement.',
+      orgCta: 'Stöd som organisation',
+      personPrompt: 'Vill du stödja kampanjen som person? Skicka in namn och titel för ett individuellt endorsement.',
+      personCta: 'Stöd som person',
+      person1Title: 'författare och hedersdoktor i socialt arbete',
+      person2Title: 'community-arbetare och folkrörelseutvecklare',
+      person3Title: 'oppositionsråd för Vänsterpartiet',
+      person4Title: 'oppositionsråd för Vänsterpartiet'
+    },
+    legal: {
+      title: 'Är det juridiskt möjligt?',
+      intro: 'Politiker hävdar ofta att etisk upphandling är omöjligt enligt EU:s upphandlingslag (LOU). Det stämmer inte. En grundlig juridisk analys visar att Malmö stad redan idag har den rättsliga grunden att införa en etisk upphandlingspolicy.',
+      card1Question: 'Tillåter EU-rätten etiska krav?',
+      card1Subtitle: 'Direktiv 2014/24/EU - är det ett hinder eller en grund?',
+      card2Question: 'Kan företag uteslutas för felaktigt beteende?',
+      card2Subtitle: 'Vilka former av misconduct räknas?',
+      card3Question: 'Innefattar detta människorättskränkningar?',
+      card3Subtitle: 'Krigsbrott, brott mot mänskligheten - kan det användas?',
+      click: 'Klicka för att visa svar',
+      card1BackLead: 'Ja - och långt mer än så',
+      card1BackText1: 'Direktiv 2014/24/EU kräver uttryckligen att offentliga upphandlingar genomförs <strong>i enlighet med gällande miljö-, social- och arbetsmiljölag, samt internationella konventioner</strong>.',
+      card1BackQuote: '"Myndigheter ska säkerställa att offentliga medel används på sätt som respekterar internationell rätt och mänskliga rättigheter."',
+      card1BackText2: 'Det betyder att Malmö stad <strong>redan har den juridiska grunden</strong> - det handlar om att <strong>använda den</strong>.',
+      card2BackLead: 'Ja - EU-domstolen tolkar detta mycket brett',
+      card2BackText1: 'Begreppet <strong>"allvarligt oprofessionellt beteende"</strong> är inte begränsat till tekniska fel eller brott inom ett specifikt kontrakt.',
+      card2BackText2: '<strong>EU-domstolspraxis:</strong> Det omfattar <strong>allt beteende som ifrågasätter företagets tillförlitlighet</strong> - inklusive allvarlig inblandning i brott mot mänskliga rättigheter eller internationell rätt.',
+      card2BackText3: 'Myndigheter kan och <strong>bör</strong> utesluta företag vars verksamhet undergräver grundläggande värderingar.',
+      card3BackLead: 'Ja - och det är starkt förankrat i internationell rätt',
+      card3BackText1: 'Sverige är bunden av konventioner om mänskliga rättigheter och internationell humanitär rätt. Myndigheter har en juridisk <strong>skyldighet att inte assistera eller underlätta allvarliga brott mot internationell rätt</strong>.',
+      card3BackText2: '<strong>FN:s vägledande principer:</strong> Stater ska säkerställa att affärsverksamhet inte underlättar kränkningar av mänskliga rättigheter.',
+      card3BackText3: 'Dokumentation från FN, människorättsorganisationer och oberoende journalistik <strong>räcker som bevisning</strong> - ingen fällande dom krävs.',
+      whyTitle: 'Så varför gör inte Malmö det?',
+      whyText: 'Det finns ingen juridisk anledning. Det finns bara politisk vilja - eller bristen på sådan.',
+      conceptTitle: 'Nyckelbegrepp: ALLVARLIGT OPROFESSIONELLT BETEENDE',
+      concept1: '<strong>Bred juridisk definition i EU-rätten</strong><br>Omfattar långt mer än bara tekniska fel eller kontraktskränkningar.',
+      concept2: '<strong>Täcker beteende som undergräver företagets integritet</strong><br>Inklusive allvarlig inblandning i brott mot folkerättsliga normer.',
+      concept3: '<strong>Kräver ingen fällande dom</strong><br>Dokumentation från oberoende källor räcker som bevisning.',
+      concept4: '<strong>Kan omfatta människorättskränkningar</strong><br>Krigsbrott, brott mot mänskligheten och systematiska kränkningar.'
+    },
+    timeline: {
+      title: 'Kampanjens framsteg',
+      intro: 'Rörelsen växer. Följ hur kampanjen utvecklas.',
+      jan: 'JANUARI 2025',
+      janTitle: 'Namninsamlingen lanserad',
+      janText: 'Kampanjen Rättvisa Malmö startar officiellt',
+      mar: 'MARS 2025',
+      marTitle: '1 000 underskrifter',
+      marText: 'Första tusen namnteckningar insamlade',
+      may: 'MAJ 2025',
+      mayTitle: 'Möte med kommunfullmäktige',
+      mayText: 'Kampanjen presenteras för förtroendevalda',
+      ongoing: 'PÅGÅENDE',
+      ongoingTitle: '5 000 underskrifter - nästa mål',
+      ongoingText: 'Hjälp oss nå nästa milstolpe',
+      goal: 'MÅL',
+      goalTitle: '10 000 underskrifter',
+      goalText: 'Formell petition till Malmö stad',
+      videoTitle: 'Introduktion till kampanjen',
+      videoText: 'Se vår korta kampanjvideo som förklarar varför vi kräver etisk upphandling i Malmö.',
+      videoFrameTitle: 'Kampanjintroduktion'
+    },
+    spread: {
+      title: 'Sprid kampanjen',
+      intro: 'Varje röst räknas. Här är konkreta sätt du kan hjälpa kampanjen att nå fler Malmöbor.',
+      socialTitle: 'Dela i sociala medier',
+      socialText: 'Dela kampanjens budskap med dina nätverk på Instagram, Facebook och TikTok.',
+      talkTitle: 'Prata med dina grannar',
+      talkText: 'Informella samtal kan göra stor skillnad. Använd vårt informationsblad som utgångspunkt.',
+      talkLink: 'Hämta material',
+      contactTitle: 'Kontakta politiker',
+      contactText: 'Skriv till dina kommunfullmäktigeledamöter och be dem stödja en etisk upphandlingspolicy.',
+      contactLink: 'Ladda ner brevmall',
+      printTitle: 'Skriv ut & sätt upp',
+      printText: 'Skriv ut affischer och flygblad och sätt upp dem på anslagstavlor, i butiker och på arbetsplatser.',
+      printLink: 'Ladda ner affischer',
+      opEdTitle: 'Skriv debattartikel',
+      opEdText: 'Dela dina åsikter i en insändare eller debattartikel till lokala och nationella medier om etisk upphandling.',
+      opEdLink: 'Se exempelartikel',
+      organizeTitle: 'Organisera för stöd',
+      organizeText: 'Är du en organisation, förening eller arbetsplats? Vi söker partners som kan stödja och förespråka kampanjen.',
+      organizeLink: 'Se nyheter',
+      shareFacebook: 'Dela på Facebook',
+      shareTikTok: 'Dela på TikTok',
+      shareInstagram: 'Dela på Instagram',
+      shareEmail: 'Dela via e-post'
+    },
+    materials: {
+      title: 'Ladda ner material',
+      intro: 'Här hittar du allt material du behöver för att stötta kampanjen - flygblad, affischer, mallar och informationsdokument.',
+      infoTitle: 'Informationsblad',
+      infoText: 'Översikt av kampanjen och dess mål - perfekt att dela ut.',
+      posterTitle: 'Affisch A3',
+      posterText: 'Tryckfärdig affisch för anslagstavlor, fönster och evenemang.',
+      letterTitle: 'Brevmall till politiker',
+      letterText: 'Färdig mall för att kontakta dina lokala politiker om etisk upphandling.',
+      presentationTitle: 'Presentationsmaterial',
+      presentationText: 'Bildspel för möten, studiecirklar och informationsträffar.',
+      download: 'Ladda ner',
+      loading: 'Laddar...'
+    },
+    closing: {
+      headline: 'Malmö kan visa vägen.',
+      text: 'Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.',
+      sign: 'Skriv under',
+      volunteer: 'Engagera dig'
+    },
+    back: 'Tillbaka',
+    petition: {
+      title: 'Skriv under namninsamlingen',
+      intro: 'Jag kräver att Malmö stad antar en etisk upphandlingspolicy som utesluter företag inblandade i krigsbrott, brott mot mänskligheten och grova kränkningar av mänskliga rättigheter.',
+      privacy: 'Din information är trygg och delas aldrig med tredje part',
+      name: 'Namn *',
+      namePlaceholder: 'Ditt fullständiga namn',
+      email: 'E-post *',
+      emailPlaceholder: 'din@email.com',
+      postal: 'Postnummer (valfritt)',
+      postalPlaceholder: '211 XX',
+      submit: 'Skriv under namninsamlingen',
+      success: 'Tack för din underskrift! ✊'
+    },
+    volunteer: {
+      title: 'Engagera dig i kampanjen',
+      intro: 'Varje insats gör skillnad. Oavsett om du har fem minuter eller fem timmar - det finns något du kan göra.',
+      collect: 'Samla underskrifter',
+      share: 'Dela kampanjen',
+      events: 'Organisera event',
+      politicians: 'Kontakta politiker',
+      outreach: 'Hjälp med uppsökande',
+      formTitle: 'Anmäl dig som volontär',
+      name: 'Namn *',
+      namePlaceholder: 'Ditt namn',
+      email: 'E-post *',
+      emailPlaceholder: 'din@email.com',
+      areas: 'Vad vill du hjälpa till med?',
+      outreachArea: 'Uppsökande arbete',
+      other: 'Annat',
+      message: 'Meddelande (valfritt)',
+      messagePlaceholder: 'Berätta gärna lite om dig själv...',
+      submit: 'Anmäl dig som volontär',
+      success: 'Välkommen till kampanjen! 🎉'
+    },
+    endorsement: {
+      switcher: 'Välj typ av endorsement',
+      orgTab: 'Som organisation',
+      personTab: 'Som person',
+      pageHeadingOrg: 'Stöd kampanjen som organisation',
+      pageHeadingPerson: 'Stöd kampanjen som person',
+      introOrg: 'Fyll i uppgifterna nedan så följer vi upp ert stöd och bekräftar allt innan något publiceras offentligt.',
+      introPerson: 'Skicka in ditt namn och din titel så följer vi upp stödet och bekräftar allt innan något publiceras offentligt.',
+      formTitleOrg: 'Skicka organisationsstöd',
+      formTitlePerson: 'Skicka individuellt stöd',
+      nameOrg: 'Organisationens namn *',
+      namePerson: 'Ditt namn *',
+      nameOrgPlaceholder: 'Namn på organisation',
+      namePersonPlaceholder: 'Ditt fullständiga namn',
+      secondaryOrg: 'Kontaktperson (valfritt)',
+      secondaryPerson: 'Titel eller roll *',
+      secondaryOrgPlaceholder: 'Namn på kontaktperson',
+      secondaryPersonPlaceholder: 'Till exempel författare, forskare eller kommunpolitiker',
+      email: 'E-post *',
+      emailOrgPlaceholder: 'namn@organisation.se',
+      emailPersonPlaceholder: 'din@email.com',
+      messageOrg: 'Kort meddelande (valfritt)',
+      messagePerson: 'Kort motivering (valfritt)',
+      messageOrgPlaceholder: 'Skriv gärna om varför ni vill stödja kampanjen...',
+      messagePersonPlaceholder: 'Skriv gärna om varför du vill stödja kampanjen...',
+      disclosureOrg: 'Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.',
+      disclosurePerson: 'Vi återkommer för att bekräfta stödet innan namn och titel publiceras.',
+      submitOrg: 'Skicka organisationsstöd',
+      submitPerson: 'Skicka individuellt stöd',
+      successOrg: 'Tack! Vi följer upp ert organisationsstöd.',
+      successPerson: 'Tack! Vi följer upp ditt stöd.'
+    },
+    about: {
+      title: 'Om Rättvisa Malmö',
+      lead: 'Rättvisa Malmö är en gräsrotsrörelse som verkar för etisk offentlig upphandling och ansvarsutkrävande för mänskliga rättigheter i Malmö stad.',
+      body1: 'Kampanjen drivs av Malmöbor och stöds av ett brett nätverk av civilsamhällesorganisationer, fackförbund, studentföreningar och religiösa samfund. Vi tror att offentliga medel - skattepengar som tillhör oss alla - aldrig bör finansiera företag som är inblandade i krigsbrott, brott mot mänskligheten eller grova kränkningar av mänskliga rättigheter.',
+      body2: 'Malmö stad upphandlar varor och tjänster för cirka 11 miljarder kronor varje år. Det gör kommunen till en av Sveriges största offentliga köpare. Med den kraften följer ett ansvar. Vi anser att staden bör anta en etisk upphandlingspolicy som sätter mänskliga rättigheter i centrum.',
+      quote: '"Offentlig upphandling är inte bara en ekonomisk fråga - det är en moralisk fråga."',
+      quoteBy: '- Rättvisa Malmö',
+      doingTitle: 'Vad vi gör',
+      doing1: 'Samlar underskrifter för en formell petition till Malmö kommunfullmäktige',
+      doing2: 'Informerar Malmöbor om hur deras skattepengar används',
+      doing3: 'Bygger en bred koalition av stödjande organisationer',
+      doing4: 'Möter lokalpolitiker och tjänstemän för att driva förändring',
+      contextTitle: 'Internationell kontext',
+      contextBody: 'Etisk upphandling är inte nytt. Norges oljefond (Government Pension Fund Global) har sedan länge uteslutit företag som bryter mot internationell rätt. Barcelona antog sin etiska upphandlingspolicy 2017. Oslo kommun har infört regler som utesluter leverantörer inblandade i folkrättsbrott. EU-direktiv ger också uttryckligt stöd för att inkludera sociala och etiska kriterier i offentlig upphandling.',
+      contextClosing: 'Malmö kan och bör följa deras exempel.',
+      sign: 'Skriv under',
+      volunteer: 'Engagera dig'
+    },
+    faq: {
+      title: 'Frågor & Svar',
+      intro: 'Vanliga frågor om kampanjen och etisk upphandling',
+      q1: 'Vad innebär etisk upphandling?',
+      a1: 'Etisk upphandling innebär att kommunen tar hänsyn till mänskliga rättigheter, arbetsvillkor och internationell rätt när den köper varor och tjänster. Det handlar om att utesluta leverantörer som är inblandade i grova överträdelser, som krigsbrott eller brott mot mänskligheten.',
+      q2: 'Är detta lagligt? Kan kommuner göra detta?',
+      a2: 'Ja. EU:s upphandlingsdirektiv (2014/24/EU) ger uttryckligt stöd för att inkludera sociala och etiska kriterier. Lagen om offentlig upphandling (LOU) i Sverige tillåter krav på att leverantörer respekterar internationella konventioner om mänskliga rättigheter och arbetsrätt.',
+      q3: 'Vilka andra städer har infört liknande policyer?',
+      a3: 'Barcelona (Spanien), Oslo (Norge), Dublin (Irland), och ett flertal belgiska och holländska kommuner har alla olika former av etiska upphandlingspolicyer. Norska statens pensionsfond har världens mest kända etiska investeringspolicy som utesluter hundratals företag.',
+      q4: 'Hur mycket pengar handlar det om?',
+      a4: 'Malmö stad spenderar cirka 11 miljarder kronor per år på upphandling av varor och tjänster. Det är enorma summor av skattemedel som kan styras till företag som respekterar mänskliga rättigheter.',
+      q5: 'Hur kan jag hjälpa till?',
+      a5: 'Det finns många sätt att engagera sig! Du kan skriva under namninsamlingen, dela kampanjen i sociala medier, samla underskrifter bland vänner och kollegor, delta i kampanjevent, eller kontakta lokala politiker direkt. Besök vår sida "Engagera dig" för att anmäla dig som volontär.',
+      q6: 'Vad händer med min underskrift?',
+      a6: 'Din underskrift sparas säkert och används enbart för att visa stödet för etisk upphandling i Malmö. När vi når vårt mål kommer namninsamlingen att presenteras formellt för Malmö kommunfullmäktige. Din personliga information delas aldrig med tredje part.',
+      q7: 'Måste jag bo i Malmö för att skriva under?',
+      a7: 'Alla är välkomna att skriva under. Även om kampanjens fokus är Malmö stad, visar stöd från personer utanför kommunen att frågan engagerar brett. Lokala underskrifter har dock extra tyngd i den politiska processen.',
+      sign: 'Skriv under',
+      volunteer: 'Engagera dig'
+    },
+    footer: {
+      description: 'En gräsrotsrörelse för etisk offentlig upphandling och mänskliga rättigheter i Malmö.',
+      pages: 'Sidor',
+      participate: 'Delta',
+      rights: '© 2025 Rättvisa Malmö. Alla rättigheter förbehållna.'
+    },
+    generic: {
+      maxRecords: 'Maximalt antal poster nått (999).',
+      maxRecordsPetition: 'Maximalt antal poster nått (999). Tack för ditt stöd!',
+      error: 'Något gick fel. Försök igen.',
+      unspecified: 'Ej angiven'
+    }
+  },
+  en: {
+    meta: {
+      title: 'Justice Malmo'
+    },
+    language: {
+      switcher: 'Choose language',
+      mobileMenu: 'Navigation menu',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      goHome: 'Go to homepage'
+    },
+    nav: {
+      home: 'Home',
+      about: 'About the campaign',
+      faq: 'FAQ',
+      sign: 'Sign the petition',
+      volunteer: 'Get involved'
+    },
+    hero: {
+      badge: 'CITIZENS\' INITIATIVE IN MALMO',
+      headline: 'Public funds must never finance war crimes',
+      subtext: 'The City of Malmo spends SEK 11 billion every year on procurement. We demand an ethical procurement policy that ensures tax money never goes to companies involved in gross human rights violations.',
+      sign: 'Sign the petition',
+      volunteer: 'Get involved',
+      note: 'It only takes 10 seconds to sign.'
+    },
+    counter: {
+      live: 'LIVE - PETITION',
+      signed: 'people have signed',
+      goal: 'Goal:'
+    },
+    impact: {
+      title: 'Why it matters',
+      intro: 'Public procurement is one of the most powerful tools a municipality has. It is about how we use our shared resources.',
+      yearly: 'SEK per year',
+      yearlyText: 'The City of Malmo spends SEK 11 billion every year on goods and services. That is an enormous amount of public money.',
+      values: 'Shared values',
+      valuesText: 'Public funds should reflect our shared values. Tax money should never go to companies that violate human rights.',
+      cities: 'Cities are leading',
+      citiesText: 'More than 20 European cities and institutions have already introduced ethical procurement policies. Municipalities have the power to choose responsible suppliers.'
+    },
+    demand: {
+      eyebrow: 'OUR DEMAND',
+      title: 'The City of Malmo must adopt an ethical procurement policy',
+      intro: 'The policy must exclude companies involved in:',
+      warCrimes: 'War crimes',
+      warCrimesText: 'Violations of international humanitarian law in armed conflicts',
+      crimesAgainstHumanity: 'Crimes against humanity',
+      crimesAgainstHumanityText: 'Systematic and widespread abuses against civilians',
+      severeViolations: 'Serious human rights violations',
+      severeViolationsText: 'Severe and documented violations of fundamental rights',
+      cardTitle: 'Ethical procurement - already a reality',
+      cardText: 'Ethical procurement policies are already in place in many cities and institutions around the world. They are grounded in international law, the UN Guiding Principles on Business and Human Rights, and EU directives on sustainable procurement.',
+      example1: '<strong>Bologna</strong>: ethical procurement policy since 2023',
+      example2: '<strong>Leuven and Ghent</strong>: exclude companies that violate international law',
+      example3: '<strong>Norwegian sovereign wealth fund</strong>: world-leading ethical guidelines',
+      example4: '<strong>EU directives</strong>: support sustainable and ethical procurement'
+    },
+    companies: {
+      title: 'Examples from the City of Malmo',
+      intro: 'Here are two examples of companies that hold contracts with the City of Malmo despite their involvement in violations of international legal norms.',
+      wspSubtitle: 'Part of WSP Global Inc.',
+      wspValue: 'City of Malmo: SEK 10 million',
+      wspContract: 'Contract value for consultancy services',
+      wspHeading: 'Involvement in violations of international law',
+      wspBullet1: '<strong>Jerusalem Light Rail:</strong> Designed rail systems linking illegal settlements in occupied East Jerusalem with the western part of the city.',
+      wspBullet2: '<strong>Tel Aviv-Jerusalem Railway:</strong> Provided financial and technical support for a railway crossing occupied land in the West Bank.',
+      ateaSubtitle: 'IT and technology distributor',
+      ateaValue: 'City of Malmo: Funds Atea',
+      ateaContract: 'Through IT procurement and system deliveries',
+      ateaHeading: 'Involvement in abuses',
+      ateaBullet1: '<strong>Conflict minerals:</strong> Involved in supply chains with minerals from the DRC where human rights abuses occur.',
+      ateaBullet2: '<strong>Military technology:</strong> Distributes surveillance and control technology to occupying powers and conflict parties.',
+      ateaBullet3: '<strong>Complicity:</strong> Together with partners, involved in human rights abuses in Israel and other conflict areas.',
+      relevance: '<strong>Why is this relevant?</strong> These are only two examples of how the City of Malmo\'s tax money may end up financing companies involved in violations of international law. An ethical procurement policy would prevent this by requiring suppliers to guarantee that they are not involved in war crimes, crimes against humanity, or serious human rights violations.'
+    },
+    endorsers: {
+      title: 'Support for ethical procurement in Malmo',
+      intro: 'Organizations and individuals backing the campaign for ethical procurement in Malmo.',
+      aria: 'Supporting voices',
+      orgs: 'Organizations',
+      people: 'Individuals',
+      orgPrompt: 'Does your organization want to publicly support the campaign? Send in an organizational endorsement and we will follow up before publishing anything.',
+      orgCta: 'Support as an organization',
+      personPrompt: 'Do you want to support the campaign as an individual? Send in your name and title for an individual endorsement.',
+      personCta: 'Support as a person',
+      person1Title: 'author and honorary doctor of social work',
+      person2Title: 'community worker and movement organizer',
+      person3Title: 'deputy leader for the Left Party',
+      person4Title: 'deputy leader for the Left Party'
+    },
+    legal: {
+      title: 'Is it legally possible?',
+      intro: 'Politicians often claim that ethical procurement is impossible under EU procurement law. That is not true. A thorough legal analysis shows that the City of Malmo already has the legal basis needed to introduce an ethical procurement policy.',
+      card1Question: 'Does EU law allow ethical requirements?',
+      card1Subtitle: 'Directive 2014/24/EU - obstacle or foundation?',
+      card2Question: 'Can companies be excluded for misconduct?',
+      card2Subtitle: 'What types of misconduct count?',
+      card3Question: 'Does this include human rights abuses?',
+      card3Subtitle: 'War crimes and crimes against humanity - can they be used?',
+      click: 'Click to reveal the answer',
+      card1BackLead: 'Yes - and much more than that',
+      card1BackText1: 'Directive 2014/24/EU explicitly requires public procurement to be carried out <strong>in compliance with applicable environmental, social and labor law, as well as international conventions</strong>.',
+      card1BackQuote: '"Authorities must ensure that public funds are used in ways that respect international law and human rights."',
+      card1BackText2: 'That means the City of Malmo <strong>already has the legal foundation</strong> - the question is whether it will <strong>use it</strong>.',
+      card2BackLead: 'Yes - the Court of Justice interprets this very broadly',
+      card2BackText1: 'The concept of <strong>"serious professional misconduct"</strong> is not limited to technical errors or breaches within a specific contract.',
+      card2BackText2: '<strong>EU case law:</strong> It covers <strong>any conduct that calls the company\'s reliability into question</strong> - including serious involvement in human rights abuses or violations of international law.',
+      card2BackText3: 'Authorities can and <strong>should</strong> exclude companies whose conduct undermines fundamental values.',
+      card3BackLead: 'Yes - and it is firmly grounded in international law',
+      card3BackText1: 'Sweden is bound by human rights conventions and international humanitarian law. Public authorities have a legal <strong>duty not to assist or facilitate serious violations of international law</strong>.',
+      card3BackText2: '<strong>UN Guiding Principles:</strong> States must ensure that business activity does not contribute to human rights abuses.',
+      card3BackText3: 'Documentation from the UN, human rights organizations and independent journalism <strong>is sufficient evidence</strong> - no criminal conviction is required.',
+      whyTitle: 'So why is Malmo not doing this?',
+      whyText: 'There is no legal obstacle. There is only political will - or the lack of it.',
+      conceptTitle: 'Key concept: SERIOUS PROFESSIONAL MISCONDUCT',
+      concept1: '<strong>Broad legal definition in EU law</strong><br>Covers far more than technical errors or breaches of contract.',
+      concept2: '<strong>Covers conduct that undermines corporate integrity</strong><br>Including serious involvement in violations of international law.',
+      concept3: '<strong>Does not require a criminal conviction</strong><br>Documentation from independent sources is enough.',
+      concept4: '<strong>Can include human rights abuses</strong><br>War crimes, crimes against humanity, and systematic violations.'
+    },
+    timeline: {
+      title: 'Campaign progress',
+      intro: 'The movement is growing. Follow how the campaign is developing.',
+      jan: 'JANUARY 2025',
+      janTitle: 'Petition launched',
+      janText: 'The Justice Malmo campaign officially begins',
+      mar: 'MARCH 2025',
+      marTitle: '1,000 signatures',
+      marText: 'The first thousand signatures collected',
+      may: 'MAY 2025',
+      mayTitle: 'Meeting with city council',
+      mayText: 'The campaign is presented to elected representatives',
+      ongoing: 'ONGOING',
+      ongoingTitle: '5,000 signatures - next goal',
+      ongoingText: 'Help us reach the next milestone',
+      goal: 'GOAL',
+      goalTitle: '10,000 signatures',
+      goalText: 'Formal petition to the City of Malmo',
+      videoTitle: 'Campaign introduction',
+      videoText: 'Watch our short campaign video explaining why we demand ethical procurement in Malmo.',
+      videoFrameTitle: 'Campaign introduction'
+    },
+    spread: {
+      title: 'Spread the campaign',
+      intro: 'Every voice matters. Here are concrete ways you can help the campaign reach more people in Malmo.',
+      socialTitle: 'Share on social media',
+      socialText: 'Share the campaign message with your networks on Instagram, Facebook, and TikTok.',
+      talkTitle: 'Talk to your neighbors',
+      talkText: 'Informal conversations can make a real difference. Use our information sheet as a starting point.',
+      talkLink: 'Get materials',
+      contactTitle: 'Contact politicians',
+      contactText: 'Write to your city council representatives and ask them to support an ethical procurement policy.',
+      contactLink: 'Download letter template',
+      printTitle: 'Print and post',
+      printText: 'Print posters and leaflets and put them up on noticeboards, in shops, and at workplaces.',
+      printLink: 'Download posters',
+      opEdTitle: 'Write an op-ed',
+      opEdText: 'Share your views in a letter to the editor or op-ed in local and national media about ethical procurement.',
+      opEdLink: 'See sample article',
+      organizeTitle: 'Organize support',
+      organizeText: 'Are you an organization, association, or workplace? We are looking for partners who can support and advocate for the campaign.',
+      organizeLink: 'See updates',
+      shareFacebook: 'Share on Facebook',
+      shareTikTok: 'Share on TikTok',
+      shareInstagram: 'Share on Instagram',
+      shareEmail: 'Share by email'
+    },
+    materials: {
+      title: 'Download materials',
+      intro: 'Here you will find everything you need to support the campaign - leaflets, posters, templates, and information documents.',
+      infoTitle: 'Information sheet',
+      infoText: 'Overview of the campaign and its goals - perfect for handing out.',
+      posterTitle: 'A3 poster',
+      posterText: 'Print-ready poster for noticeboards, windows, and events.',
+      letterTitle: 'Letter template for politicians',
+      letterText: 'Ready-made template for contacting your local politicians about ethical procurement.',
+      presentationTitle: 'Presentation materials',
+      presentationText: 'Slide deck for meetings, study circles, and information sessions.',
+      download: 'Download',
+      loading: 'Downloading...'
+    },
+    closing: {
+      headline: 'Malmo can lead the way.',
+      text: 'Join the growing number of Malmo residents who believe public funds must never support human rights abuses.',
+      sign: 'Sign the petition',
+      volunteer: 'Get involved'
+    },
+    back: 'Back',
+    petition: {
+      title: 'Sign the petition',
+      intro: 'I demand that the City of Malmo adopt an ethical procurement policy excluding companies involved in war crimes, crimes against humanity, and serious human rights violations.',
+      privacy: 'Your information is safe and never shared with third parties',
+      name: 'Name *',
+      namePlaceholder: 'Your full name',
+      email: 'Email *',
+      emailPlaceholder: 'your@email.com',
+      postal: 'Postal code (optional)',
+      postalPlaceholder: '211 XX',
+      submit: 'Sign the petition',
+      success: 'Thank you for signing! ✊'
+    },
+    volunteer: {
+      title: 'Get involved in the campaign',
+      intro: 'Every contribution matters. Whether you have five minutes or five hours, there is something you can do.',
+      collect: 'Collect signatures',
+      share: 'Share the campaign',
+      events: 'Organize events',
+      politicians: 'Contact politicians',
+      outreach: 'Help with outreach',
+      formTitle: 'Sign up as a volunteer',
+      name: 'Name *',
+      namePlaceholder: 'Your name',
+      email: 'Email *',
+      emailPlaceholder: 'your@email.com',
+      areas: 'What would you like to help with?',
+      outreachArea: 'Outreach',
+      other: 'Other',
+      message: 'Message (optional)',
+      messagePlaceholder: 'Tell us a bit about yourself...',
+      submit: 'Sign up as a volunteer',
+      success: 'Welcome to the campaign! 🎉'
+    },
+    endorsement: {
+      switcher: 'Choose endorsement type',
+      orgTab: 'As an organization',
+      personTab: 'As an individual',
+      pageHeadingOrg: 'Support the campaign as an organization',
+      pageHeadingPerson: 'Support the campaign as an individual',
+      introOrg: 'Fill in the details below and we will follow up to confirm your support before anything is published publicly.',
+      introPerson: 'Send us your name and title and we will follow up to confirm your support before anything is published publicly.',
+      formTitleOrg: 'Send organizational endorsement',
+      formTitlePerson: 'Send individual endorsement',
+      nameOrg: 'Organization name *',
+      namePerson: 'Your name *',
+      nameOrgPlaceholder: 'Organization name',
+      namePersonPlaceholder: 'Your full name',
+      secondaryOrg: 'Contact person (optional)',
+      secondaryPerson: 'Title or role *',
+      secondaryOrgPlaceholder: 'Name of contact person',
+      secondaryPersonPlaceholder: 'For example author, researcher, or city councillor',
+      email: 'Email *',
+      emailOrgPlaceholder: 'name@organization.org',
+      emailPersonPlaceholder: 'your@email.com',
+      messageOrg: 'Short message (optional)',
+      messagePerson: 'Short motivation (optional)',
+      messageOrgPlaceholder: 'Feel free to share why your organization wants to support the campaign...',
+      messagePersonPlaceholder: 'Feel free to share why you want to support the campaign...',
+      disclosureOrg: 'We will follow up to confirm the endorsement before any name, title, or organization is published.',
+      disclosurePerson: 'We will follow up to confirm the endorsement before any name or title is published.',
+      submitOrg: 'Send organizational endorsement',
+      submitPerson: 'Send individual endorsement',
+      successOrg: 'Thank you. We will follow up on your organization\'s endorsement.',
+      successPerson: 'Thank you. We will follow up on your endorsement.'
+    },
+    about: {
+      title: 'About Justice Malmo',
+      lead: 'Justice Malmo is a grassroots movement working for ethical public procurement and accountability for human rights in the City of Malmo.',
+      body1: 'The campaign is led by Malmo residents and supported by a broad network of civil society organizations, trade unions, student groups, and faith communities. We believe that public funds - tax money that belongs to all of us - should never finance companies involved in war crimes, crimes against humanity, or serious human rights violations.',
+      body2: 'The City of Malmo procures goods and services worth about SEK 11 billion every year. That makes the municipality one of Sweden\'s largest public buyers. With that power comes responsibility. We believe the city should adopt an ethical procurement policy that puts human rights at the center.',
+      quote: '"Public procurement is not only an economic issue - it is a moral issue."',
+      quoteBy: '- Justice Malmo',
+      doingTitle: 'What we do',
+      doing1: 'Collect signatures for a formal petition to the Malmo city council',
+      doing2: 'Inform Malmo residents about how their tax money is used',
+      doing3: 'Build a broad coalition of supporting organizations',
+      doing4: 'Meet local politicians and officials to push for change',
+      contextTitle: 'International context',
+      contextBody: 'Ethical procurement is not new. Norway\'s sovereign wealth fund (Government Pension Fund Global) has long excluded companies that violate international law. Barcelona adopted its ethical procurement policy in 2017. The City of Oslo has introduced rules excluding suppliers involved in violations of international law. EU directives also explicitly support including social and ethical criteria in public procurement.',
+      contextClosing: 'Malmo can and should follow their example.',
+      sign: 'Sign the petition',
+      volunteer: 'Get involved'
+    },
+    faq: {
+      title: 'FAQ',
+      intro: 'Frequently asked questions about the campaign and ethical procurement',
+      q1: 'What does ethical procurement mean?',
+      a1: 'Ethical procurement means that the municipality takes human rights, labor conditions, and international law into account when buying goods and services. It means excluding suppliers involved in serious violations such as war crimes or crimes against humanity.',
+      q2: 'Is this legal? Can municipalities do this?',
+      a2: 'Yes. The EU Procurement Directive (2014/24/EU) explicitly supports including social and ethical criteria. Sweden\'s Public Procurement Act also allows requirements that suppliers respect international human rights and labor conventions.',
+      q3: 'Which other cities have introduced similar policies?',
+      a3: 'Barcelona, Oslo, Dublin, and several Belgian and Dutch municipalities have all adopted different forms of ethical procurement policy. Norway\'s state pension fund has the world\'s best-known ethical investment policy, excluding hundreds of companies.',
+      q4: 'How much money is involved?',
+      a4: 'The City of Malmo spends about SEK 11 billion per year on procuring goods and services. That is an enormous amount of public money that can be directed toward companies that respect human rights.',
+      q5: 'How can I help?',
+      a5: 'There are many ways to get involved. You can sign the petition, share the campaign on social media, collect signatures among friends and colleagues, attend campaign events, or contact local politicians directly. Visit our Get involved page to sign up as a volunteer.',
+      q6: 'What happens to my signature?',
+      a6: 'Your signature is stored securely and used only to show support for ethical procurement in Malmo. When we reach our goal, the petition will be formally presented to the Malmo city council. Your personal information is never shared with third parties.',
+      q7: 'Do I need to live in Malmo to sign?',
+      a7: 'Everyone is welcome to sign. Even though the campaign focuses on the City of Malmo, support from people outside the municipality shows that the issue has broad resonance. Local signatures still carry extra weight in the political process.',
+      sign: 'Sign the petition',
+      volunteer: 'Get involved'
+    },
+    footer: {
+      description: 'A grassroots movement for ethical public procurement and human rights in Malmo.',
+      pages: 'Pages',
+      participate: 'Participate',
+      rights: '© 2025 Justice Malmo. All rights reserved.'
+    },
+    generic: {
+      maxRecords: 'Maximum number of records reached (999).',
+      maxRecordsPetition: 'Maximum number of records reached (999). Thank you for your support.',
+      error: 'Something went wrong. Please try again.',
+      unspecified: 'Not provided'
+    }
+  }
+};
+
+function getText(key, language = currentLanguage) {
+  return key.split('.').reduce((value, part) => {
+    if (value && typeof value === 'object' && part in value) return value[part];
+    return undefined;
+  }, translations[language]) || key;
+}
+
+function detectInitialLanguage() {
+  const storedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  if (storedLanguage === 'sv' || storedLanguage === 'en') return storedLanguage;
+  return navigator.language && navigator.language.toLowerCase().startsWith('en') ? 'en' : 'sv';
+}
+
+function updateLanguageButtons() {
+  document.querySelectorAll('[data-language-button]').forEach(button => {
+    const isActive = button.getAttribute('data-language-button') === currentLanguage;
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
+function applyLanguage(language) {
+  currentLanguage = translations[language] ? language : 'sv';
+  document.documentElement.lang = currentLanguage;
+  document.title = getText('meta.title');
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    element.textContent = getText(element.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(element => {
+    element.innerHTML = getText(element.getAttribute('data-i18n-html'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+    element.placeholder = getText(element.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
+    element.setAttribute('aria-label', getText(element.getAttribute('data-i18n-aria-label')));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(element => {
+    element.setAttribute('title', getText(element.getAttribute('data-i18n-title')));
+  });
+
+  if (currentLanguage === 'sv' && activeConfig) {
+    const heroH = document.getElementById('heroHeadline');
+    if (heroH) heroH.textContent = activeConfig.hero_headline || defaultConfig.hero_headline;
+    const heroS = document.getElementById('heroSubtext');
+    if (heroS) heroS.textContent = activeConfig.hero_subtext || defaultConfig.hero_subtext;
+    const closeH = document.getElementById('closingHeadline');
+    if (closeH) closeH.textContent = activeConfig.closing_headline || defaultConfig.closing_headline;
+    const closeT = document.getElementById('closingText');
+    if (closeT) closeT.textContent = activeConfig.closing_text || defaultConfig.closing_text;
+  }
+
+  updateLanguageButtons();
+  updateSignatureCount();
+  updateEndorsementForm();
+}
+
+function setLanguage(language) {
+  applyLanguage(language);
+}
 
 const defaultConfig = {
   background_color: '#F7F5F0',
@@ -1431,29 +2143,29 @@ function updateEndorsementForm() {
 
   if (!pageHeading || !pageIntro || !formTitle || !nameLabel || !nameInput || !secondaryLabel || !secondaryInput || !emailInput || !messageLabel || !messageInput || !disclosure || !submitText || !orgBtn || !individualBtn) return;
 
-  pageHeading.textContent = isOrg ? 'Stöd kampanjen som organisation' : 'Stöd kampanjen som person';
-  pageIntro.textContent = isOrg
-    ? 'Fyll i uppgifterna nedan så följer vi upp ert stöd och bekräftar allt innan något publiceras offentligt.'
-    : 'Skicka in ditt namn och din titel så följer vi upp stödet och bekräftar allt innan något publiceras offentligt.';
-  formTitle.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
-  nameLabel.textContent = isOrg ? 'Organisationens namn *' : 'Ditt namn *';
-  nameInput.placeholder = isOrg ? 'Namn på organisation' : 'Ditt fullständiga namn';
-  secondaryLabel.textContent = isOrg ? 'Kontaktperson (valfritt)' : 'Titel eller roll *';
-  secondaryInput.placeholder = isOrg ? 'Namn på kontaktperson' : 'Till exempel författare, forskare eller kommunpolitiker';
+  pageHeading.textContent = isOrg ? getText('endorsement.pageHeadingOrg') : getText('endorsement.pageHeadingPerson');
+  pageIntro.textContent = isOrg ? getText('endorsement.introOrg') : getText('endorsement.introPerson');
+  formTitle.textContent = isOrg ? getText('endorsement.formTitleOrg') : getText('endorsement.formTitlePerson');
+  nameLabel.textContent = isOrg ? getText('endorsement.nameOrg') : getText('endorsement.namePerson');
+  nameInput.placeholder = isOrg ? getText('endorsement.nameOrgPlaceholder') : getText('endorsement.namePersonPlaceholder');
+  secondaryLabel.textContent = isOrg ? getText('endorsement.secondaryOrg') : getText('endorsement.secondaryPerson');
+  secondaryInput.placeholder = isOrg ? getText('endorsement.secondaryOrgPlaceholder') : getText('endorsement.secondaryPersonPlaceholder');
   secondaryInput.required = !isOrg;
-  emailInput.placeholder = isOrg ? 'namn@organisation.se' : 'din@email.com';
-  messageLabel.textContent = isOrg ? 'Kort meddelande (valfritt)' : 'Kort motivering (valfritt)';
+  emailInput.placeholder = isOrg ? getText('endorsement.emailOrgPlaceholder') : getText('endorsement.emailPersonPlaceholder');
+  messageLabel.textContent = isOrg ? getText('endorsement.messageOrg') : getText('endorsement.messagePerson');
   messageInput.placeholder = isOrg
-    ? 'Skriv gärna om varför ni vill stödja kampanjen...'
-    : 'Skriv gärna om varför du vill stödja kampanjen...';
+    ? getText('endorsement.messageOrgPlaceholder')
+    : getText('endorsement.messagePersonPlaceholder');
   disclosure.textContent = isOrg
-    ? 'Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.'
-    : 'Vi återkommer för att bekräfta stödet innan namn och titel publiceras.';
-  submitText.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
+    ? getText('endorsement.disclosureOrg')
+    : getText('endorsement.disclosurePerson');
+  submitText.textContent = isOrg ? getText('endorsement.submitOrg') : getText('endorsement.submitPerson');
   orgBtn.classList.toggle('active', isOrg);
   individualBtn.classList.toggle('active', !isOrg);
   orgBtn.setAttribute('aria-selected', isOrg ? 'true' : 'false');
   individualBtn.setAttribute('aria-selected', isOrg ? 'false' : 'true');
+  orgBtn.textContent = getText('endorsement.orgTab');
+  individualBtn.textContent = getText('endorsement.personTab');
 }
 
 // ===== FAQ =====
@@ -1498,12 +2210,13 @@ function updateSignatureCount() {
   const count = signatureCountStatic;
   const goal = calculateSignatureGoal(count);
   const el = document.getElementById('signatureCount');
-  if (el) el.textContent = count.toLocaleString('sv-SE');
+  const locale = currentLanguage === 'en' ? 'en-US' : 'sv-SE';
+  if (el) el.textContent = count.toLocaleString(locale);
 
   const startEl = document.getElementById('progressStart');
   const goalEl = document.getElementById('progressGoal');
   if (startEl) startEl.textContent = '0';
-  if (goalEl) goalEl.textContent = goal.toLocaleString('sv-SE');
+  if (goalEl) goalEl.textContent = goal.toLocaleString(locale);
 
   const bar = document.getElementById('progressBar');
   if (bar) {
@@ -1515,7 +2228,7 @@ function updateSignatureCount() {
 // Simulate download with inline feedback
 function simulateDownload(btn, filename) {
   const original = btn.innerHTML;
-  btn.innerHTML = '<span class="flex items-center gap-1.5"><svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg> Laddar...</span>';
+  btn.innerHTML = '<span class="flex items-center gap-1.5"><svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg> ' + getText('materials.loading') + '</span>';
   btn.disabled = true;
   setTimeout(() => {
     btn.innerHTML = '<span class="flex items-center gap-1.5 text-green-700">✓ ' + filename + '</span>';
@@ -1541,7 +2254,7 @@ function setupForms() {
   petForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (allRecords.length >= 999) {
-      showToast('Maximalt antal poster nått (999). Tack för ditt stöd!', 'error');
+      showToast(getText('generic.maxRecordsPetition'), 'error');
       return;
     }
     const btn = document.getElementById('petitionSubmitBtn');
@@ -1564,13 +2277,13 @@ function setupForms() {
     });
 
     btn.disabled = false;
-    btnText.textContent = 'Skriv under namninsamlingen';
+    btnText.textContent = getText('petition.submit');
 
     if (result.isOk) {
-      showToast('Tack för din underskrift! ✊', 'success');
+      showToast(getText('petition.success'), 'success');
       petForm.reset();
     } else {
-      showToast('Något gick fel. Försök igen.', 'error');
+      showToast(getText('generic.error'), 'error');
     }
   });
 
@@ -1578,7 +2291,7 @@ function setupForms() {
   volForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (allRecords.length >= 999) {
-      showToast('Maximalt antal poster nått (999).', 'error');
+      showToast(getText('generic.maxRecords'), 'error');
       return;
     }
     const btn = document.getElementById('volunteerSubmitBtn');
@@ -1602,13 +2315,13 @@ function setupForms() {
     });
 
     btn.disabled = false;
-    btnText.textContent = 'Anmäl dig som volontär';
+    btnText.textContent = getText('volunteer.submit');
 
     if (result.isOk) {
-      showToast('Välkommen till kampanjen! 🎉', 'success');
+      showToast(getText('volunteer.success'), 'success');
       volForm.reset();
     } else {
-      showToast('Något gick fel. Försök igen.', 'error');
+      showToast(getText('generic.error'), 'error');
     }
   });
 
@@ -1616,7 +2329,7 @@ function setupForms() {
   endorsementForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (allRecords.length >= 999) {
-      showToast('Maximalt antal poster nått (999).', 'error');
+      showToast(getText('generic.maxRecords'), 'error');
       return;
     }
     const btn = document.getElementById('endorsementSubmitBtn');
@@ -1630,8 +2343,8 @@ function setupForms() {
     const email = document.getElementById('endorseEmail').value.trim();
     const message = document.getElementById('endorseMessage').value.trim();
     const details = [
-      isOrg ? `Kontaktperson: ${secondary || 'Ej angiven'}` : `Titel eller roll: ${secondary}`,
-      message ? `Meddelande: ${message}` : ''
+      isOrg ? `${getText('endorsement.secondaryOrg').replace(' (valfritt)', '')}: ${secondary || getText('generic.unspecified')}` : `${getText('endorsement.secondaryPerson').replace(' *', '')}: ${secondary}`,
+      message ? `${(isOrg ? getText('endorsement.messageOrg') : getText('endorsement.messagePerson')).replace(' (valfritt)', '')}: ${message}` : ''
     ].filter(Boolean).join('\n');
 
     const result = await window.dataSdk.create({
@@ -1645,20 +2358,22 @@ function setupForms() {
     });
 
     btn.disabled = false;
-    btnText.textContent = isOrg ? 'Skicka organisationsstöd' : 'Skicka individuellt stöd';
+    btnText.textContent = isOrg ? getText('endorsement.submitOrg') : getText('endorsement.submitPerson');
 
     if (result.isOk) {
-      showToast(isOrg ? 'Tack! Vi följer upp ert organisationsstöd.' : 'Tack! Vi följer upp ditt stöd.', 'success');
+      showToast(isOrg ? getText('endorsement.successOrg') : getText('endorsement.successPerson'), 'success');
       endorsementForm.reset();
       updateEndorsementForm();
     } else {
-      showToast('Något gick fel. Försök igen.', 'error');
+      showToast(getText('generic.error'), 'error');
     }
   });
 }
 
 // ===== ELEMENT SDK =====
 function applyConfig(config) {
+  activeConfig = config || defaultConfig;
+
   const bg = config.background_color || defaultConfig.background_color;
   const surface = config.surface_color || defaultConfig.surface_color;
   const text = config.text_color || defaultConfig.text_color;
@@ -1685,19 +2400,13 @@ function applyConfig(config) {
     el.style.fontFamily = `'Poppins', ${font}, sans-serif`;
   });
 
-  // Text content
-  const heroH = document.getElementById('heroHeadline');
-  if (heroH) heroH.textContent = config.hero_headline || defaultConfig.hero_headline;
-  const heroS = document.getElementById('heroSubtext');
-  if (heroS) heroS.textContent = config.hero_subtext || defaultConfig.hero_subtext;
-  const closeH = document.getElementById('closingHeadline');
-  if (closeH) closeH.textContent = config.closing_headline || defaultConfig.closing_headline;
-  const closeT = document.getElementById('closingText');
-  if (closeT) closeT.textContent = config.closing_text || defaultConfig.closing_text;
+  applyLanguage(currentLanguage);
 }
 
 // ===== INIT =====
 (async function init() {
+  applyLanguage(detectInitialLanguage());
+
   // Init Element SDK
   if (window.elementSdk) {
     window.elementSdk.init({

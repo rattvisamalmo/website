@@ -418,6 +418,12 @@ body {
 .endorser-panel.active {
   display: block;
 }
+.endorser-grid {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .individual-card {
   background: white;
   border: 1px solid #e5e2db;
@@ -442,6 +448,11 @@ body {
   font-size: 14px;
   line-height: 1.5;
   color: #666;
+}
+@media (min-width: 768px) {
+  .endorser-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
 }
 .endorsement-type-switch {
   display: inline-flex;
@@ -779,9 +790,13 @@ body {
         </div>
         <h1 id="heroHeadline" class="font-display fade-up fade-up-d1" style="font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.08;margin-bottom:20px;color:var(--text-color)" data-i18n="hero.headline">Offentliga medel ska aldrig finansiera krigsbrott</h1>
         <p id="heroSubtext" class="fade-up fade-up-d2" style="font-size:clamp(17px,2vw,20px);line-height:1.6;color:#555;margin-bottom:32px;max-width:600px" data-i18n="hero.subtext">Malmö stad spenderar 11 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.</p>
-        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="hero.sign">Skriv under</span> </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="hero.volunteer">Engagera dig</span> </button>
+        <div class="fade-up fade-up-d3 flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+         <div style="display:flex;flex-direction:column;align-items:flex-start">
+          <button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="hero.sign">Skriv under</span> </button>
+          <p style="margin-top:8px;font-size:14px;color:#444;opacity:0.9" data-i18n="hero.note">Det tar bara 10 sekunder att skriva under.</p>
+         </div>
+         <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="hero.volunteer">Engagera dig</span> </button>
         </div>
-        <p style="margin-top:8px;font-size:14px;color:#444;opacity:0.9" data-i18n="hero.note">Det tar bara 10 sekunder att skriva under.</p>
        </div>
       </div><!-- LIVE COUNTER -->
       <div class="fade-up fade-up-d4" style="margin-top:48px;padding:32px;border-radius:16px;background:white;border:1px solid #e5e2db;max-width:560px">
@@ -833,13 +848,13 @@ body {
        <div class="info-card" style="padding:36px 28px;border-radius:16px;background:var(--bg-color);border:1px solid #e5e2db">
         <div style="width:56px;height:56px;border-radius:12px;background:rgba(194,58,34,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary-color)"></i>
         </div>
-        <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px">
-         20+
+        <div class="font-display" style="font-size:42px;font-weight:800;color:var(--primary-color);margin-bottom:8px" data-i18n="impact.citiesCount">
+         40+
         </div>
         <div style="font-size:18px;font-weight:600;margin-bottom:8px" data-i18n="impact.cities">
-         Städer visar vägen
+         Kommuner visar vägen
         </div>
-        <p style="color:#666;font-size:15px;line-height:1.6" data-i18n="impact.citiesText">Över 20 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.</p>
+        <p style="color:#666;font-size:15px;line-height:1.6" data-i18n="impact.citiesText">Över 40 europeiska kommuner, städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.</p>
        </div>
       </div>
      </div>
@@ -984,7 +999,7 @@ body {
          </div>
         </div>
         <div id="endorsers-panel-orgs" class="endorser-panel active" role="tabpanel" aria-labelledby="endorsers-tab-orgs" aria-hidden="false">
-         <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+         <div class="endorser-grid">
           <div class="org-logo"><i data-lucide="users" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Afroswedes</div>
           <div class="org-logo"><i data-lucide="flag" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Fridays For Future Malmö</div>
           <div class="org-logo"><i data-lucide="heart" style="width:18px;height:18px;margin-right:8px;color:var(--secondary-color);flex-shrink:0"></i> Klimataktion Skåne</div>
@@ -1000,7 +1015,7 @@ body {
          </div>
         </div>
         <div id="endorsers-panel-individuals" class="endorser-panel" role="tabpanel" aria-labelledby="endorsers-tab-individuals" aria-hidden="true">
-          <div class="grid gap-4 justify-items-center" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div class="endorser-grid">
           <div class="individual-card">
             <div class="individual-name">Nicolas Lunabba</div>
             <div class="individual-title" data-i18n="endorsers.person1Title">författare och hedersdoktor i socialt arbete</div>
@@ -1030,7 +1045,6 @@ body {
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
      <div class="scroll-reveal text-center mb-14">
       <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight mb-3" id="el-legal-title" data-i18n="legal.title">Är det juridiskt möjligt?</h2>
-      <div class="w-16 h-1 bg-ember rounded-full mx-auto mb-6"></div>
       <p class="text-ocean/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto" data-i18n="legal.intro">Politiker hävdar ofta att etisk upphandling är omöjligt enligt EU:s upphandlingslag (LOU). Det stämmer inte. En grundlig juridisk analys visar att Malmö stad redan idag har den rättsliga grunden att införa en etisk upphandlingspolicy.</p>
      </div><!-- Legal Journey Container --> <!-- Flip Cards Container -->
      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1561,7 +1575,7 @@ body {
     <div style="margin-bottom:48px">
      <div class="text-center mb-10">
       <h2 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:700;margin-bottom:12px" data-i18n="legalDeep.objectionsTitle">Centrala juridiska frågor i tillämpningen</h2>
-      <p style="font-size:16px;color:#666;max-width:760px;margin:0 auto;line-height:1.7" data-i18n="legalDeep.objectionsIntro">Debatten rymmer flera juridiska frågor, men den avgörande punkten är hur kriterier utformas, motiveras och tillämpas i praktiken.</p>
+      <p style="font-size:16px;color:#666;max-width:760px;margin:0 auto;line-height:1.7" data-i18n="legalDeep.objectionsIntro">Den avgörande punkten är hur kriterier utformas, motiveras och tillämpas i praktiken.</p>
      </div>
      <div style="background:white;padding:8px 28px;border-radius:18px;border:1px solid #e5e2db">
       <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"> <span data-i18n="legalDeep.obj1Q">Är inte detta diskriminering av vissa företag eller länder?</span> <i data-lucide="chevron-down" style="width:20px;height:20px;flex-shrink:0;transition:transform 0.3s"></i> </button><div class="faq-answer"><span data-i18n="legalDeep.obj1A">Inte om kriterierna knyts till leverantörens beteende, integritet och efterlevnad i stället för till nationalitet. Det centrala är objektiva och generellt tillämpliga regler.</span></div></div>
@@ -1681,6 +1695,7 @@ let currentPage = 'home';
 let currentEndorsementType = 'organization';
 let currentLanguage = 'sv';
 let activeConfig = null;
+const pageScrollPositions = { home: 0 };
 
 const LANGUAGE_STORAGE_KEY = 'rm-lang';
 
@@ -1725,8 +1740,9 @@ const translations = {
       yearlyText: 'Malmö stad spenderar 11 miljarder kronor årligen på inköp av varor och tjänster. Det är enorma summor av skattebetalarnas pengar.',
       values: 'Gemensamma värderingar',
       valuesText: 'Offentliga medel ska spegla våra gemensamma värderingar. Skattepengar bör aldrig gå till företag som bryter mot mänskliga rättigheter.',
-      cities: 'Städer visar vägen',
-      citiesText: 'Över 20 europeiska städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.'
+      citiesCount: '40+',
+      cities: 'Kommuner visar vägen',
+      citiesText: 'Över 40 europeiska kommuner, städer och institutioner har redan infört etiska upphandlingspolicyer. Kommuner har makten att välja ansvarsfulla leverantörer.'
     },
     demand: {
       eyebrow: 'VÅRT KRAV',
@@ -2112,12 +2128,13 @@ const translations = {
       yearlyText: 'The City of Malmö spends SEK 11 billion every year on goods and services. That is an enormous amount of public money.',
       values: 'Shared values',
       valuesText: 'Public funds should reflect our shared values. Tax money should never go to companies that violate human rights.',
-      cities: 'Cities are leading',
-      citiesText: 'More than 20 European cities and institutions have already introduced ethical procurement policies. Municipalities have the power to choose responsible suppliers.'
+      citiesCount: '40+',
+      cities: 'Municipalities are leading',
+      citiesText: 'More than 40 European municipalities, cities, and public institutions have already introduced ethical procurement policies. Municipalities have the power to choose responsible suppliers.'
     },
     demand: {
       eyebrow: 'OUR DEMAND',
-      title: 'The City of Malmö must adopt an ethical procurement policy',
+      title: 'We call on the City of Malmö to adopt an ethical procurement policy',
       intro: 'The policy must exclude companies involved in:',
       warCrimes: 'War crimes',
       warCrimesText: 'Violations of international humanitarian law in armed conflicts',
@@ -2539,7 +2556,28 @@ const defaultConfig = {
 };
 
 // ===== NAVIGATION =====
-function goTo(page) {
+function getPageUrl(page) {
+  return page === 'home' ? `${window.location.pathname}${window.location.search}` : `#${page}`;
+}
+
+function getPageFromHash() {
+  const hash = window.location.hash.replace(/^#/, '');
+  if (!hash) return 'home';
+  return document.getElementById('page-' + hash) ? hash : 'home';
+}
+
+function restorePageScroll(page) {
+  const appWrapper = document.getElementById('appWrapper');
+  const nextScrollTop = pageScrollPositions[page] || 0;
+  requestAnimationFrame(() => {
+    appWrapper.scrollTop = nextScrollTop;
+  });
+}
+
+function goTo(page, options = {}) {
+  const { pushHistory = true, restoreScroll = false } = options;
+  const appWrapper = document.getElementById('appWrapper');
+  pageScrollPositions[currentPage] = appWrapper.scrollTop;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
@@ -2548,9 +2586,21 @@ function goTo(page) {
   document.querySelectorAll('[data-nav]').forEach(n => {
     n.classList.toggle('active-nav', n.getAttribute('data-nav') === page);
   });
-  document.getElementById('appWrapper').scrollTop = 0;
+  if (pushHistory) {
+    window.history.pushState({ page }, '', getPageUrl(page));
+  }
+  if (restoreScroll) {
+    restorePageScroll(page);
+  } else {
+    appWrapper.scrollTop = 0;
+  }
   lucide.createIcons();
 }
+
+window.addEventListener('popstate', (event) => {
+  const page = event.state?.page || getPageFromHash();
+  goTo(page, { pushHistory: false, restoreScroll: true });
+});
 
 function toggleMobileMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
@@ -2856,6 +2906,10 @@ function applyConfig(config) {
 // ===== INIT =====
 (async function init() {
   applyLanguage(detectInitialLanguage());
+  const initialPage = getPageFromHash();
+  currentPage = initialPage;
+  goTo(initialPage, { pushHistory: false, restoreScroll: true });
+  window.history.replaceState({ page: initialPage }, '', getPageUrl(initialPage));
 
   // Init Element SDK
   if (window.elementSdk) {

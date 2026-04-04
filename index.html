@@ -24,7 +24,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <script src="/_sdk/data_sdk.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1363,25 +1362,19 @@ body {
      </div>
     </section>
    </main><!-- ========== PETITION PAGE ========== -->
-   <main id="page-petition" class="page" role="main">
-    <section style="padding:60px 0 80px">
-     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
-      <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="petition.title">Skriv under namninsamlingen</h1>
-      <p style="font-size:16px;color:#666;margin-bottom:8px;line-height:1.6" data-i18n="petition.intro">Jag kräver att Malmö stad antar en etisk upphandlingspolicy som utesluter företag inblandade i krigsbrott, brott mot mänskligheten och grova kränkningar av mänskliga rättigheter.</p>
-      <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="lock" style="width:14px;height:14px"></i> <span data-i18n="petition.privacy">Din information är trygg och delas aldrig med tredje part</span>
-      </div>
-      <form id="petitionForm" style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
-       <div class="mb-5"><label for="petName" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.name">Namn *</label> <input type="text" id="petName" class="form-input" placeholder="Ditt fullständiga namn" data-i18n-placeholder="petition.namePlaceholder" required>
-       </div>
-       <div class="mb-5"><label for="petEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.email">E-post *</label> <input type="email" id="petEmail" class="form-input" placeholder="din@email.com" data-i18n-placeholder="petition.emailPlaceholder" required>
-       </div>
-       <div class="mb-6"><label for="petPostal" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="petition.postal">Postnummer (valfritt)</label> <input type="text" id="petPostal" class="form-input" placeholder="211 XX" data-i18n-placeholder="petition.postalPlaceholder">
-       </div><button type="submit" id="petitionSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span id="petitionBtnText" data-i18n="petition.submit">Skriv under namninsamlingen</span> </button>
-       <div id="petitionMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
-      </form>
+  <main id="page-petition" class="page" role="main">
+   <section style="padding:60px 0 80px">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
+    <div style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
+     <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="petition.redirectTitle">Skriv under via Skiftet</h1>
+     <p style="font-size:16px;color:#666;margin-bottom:16px;line-height:1.6" data-i18n="petition.redirectBody">Namninsamlingen hanteras via Skiftet. När du klickar vidare öppnas kampanjens petitionsida där du kan skriva under direkt.</p>
+     <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="external-link" style="width:14px;height:14px"></i> <span data-i18n="petition.redirectNote">Du lämnar Rättvisa Malmö tillfälligt och fortsätter till petitionsidan på Skiftet.</span>
      </div>
-    </section>
-   </main><!-- ========== VOLUNTEER PAGE ========== -->
+     <button type="button" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px" onclick="openPetition()"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="petition.redirectCta">Fortsätt till namninsamlingen</span> </button>
+    </div>
+    </div>
+   </section>
+  </main><!-- ========== VOLUNTEER PAGE ========== -->
    <main id="page-volunteer" class="page" role="main">
     <section style="padding:60px 0 80px">
     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
@@ -1435,7 +1428,8 @@ body {
         </div>
        </div>
       <div class="mb-6"><label for="volMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="volunteer.message">Meddelande (valfritt)</label> <textarea id="volMessage" class="form-input" rows="3" placeholder="Berätta gärna lite om dig själv..." data-i18n-placeholder="volunteer.messagePlaceholder"></textarea>
-      </div><button type="submit" id="volunteerSubmitBtn" class="btn-secondary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="hand" style="width:18px;height:18px"></i> <span id="volunteerBtnText" data-i18n="volunteer.submit">Anmäl dig som volontär</span> </button>
+      </div>
+      <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true"><label for="volWebsite">Website</label><input type="text" id="volWebsite" tabindex="-1" autocomplete="off"></div><button type="submit" id="volunteerSubmitBtn" class="btn-secondary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="hand" style="width:18px;height:18px"></i> <span id="volunteerBtnText" data-i18n="volunteer.submit">Anmäl dig som volontär</span> </button>
        <div id="volunteerMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
       </form>
      </div>
@@ -1460,9 +1454,10 @@ body {
        </div>
       <div class="mb-5"><label for="endorseEmail" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px" data-i18n="endorsement.email">E-post *</label> <input type="email" id="endorseEmail" class="form-input" placeholder="namn@organisation.se" required>
        </div>
-       <div class="mb-6"><label id="endorseMessageLabel" for="endorseMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kort meddelande (valfritt)</label> <textarea id="endorseMessage" class="form-input" rows="4" placeholder="Skriv gärna om varför ni vill stödja kampanjen..."></textarea>
-        <p id="endorsementDisclosure" style="margin-top:10px;font-size:13px;color:#777;line-height:1.5">Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.</p>
-       </div><button type="submit" id="endorsementSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="badge-check" style="width:18px;height:18px"></i> <span id="endorsementBtnText">Skicka organisationsstöd</span> </button>
+      <div class="mb-6"><label id="endorseMessageLabel" for="endorseMessage" style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">Kort meddelande (valfritt)</label> <textarea id="endorseMessage" class="form-input" rows="4" placeholder="Skriv gärna om varför ni vill stödja kampanjen..."></textarea>
+       <p id="endorsementDisclosure" style="margin-top:10px;font-size:13px;color:#777;line-height:1.5">Vi återkommer för att bekräfta stödet innan namn, titel eller organisation publiceras.</p>
+      </div>
+      <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true"><label for="endorseWebsite">Website</label><input type="text" id="endorseWebsite" tabindex="-1" autocomplete="off"></div><button type="submit" id="endorsementSubmitBtn" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px"> <i data-lucide="badge-check" style="width:18px;height:18px"></i> <span id="endorsementBtnText">Skicka organisationsstöd</span> </button>
        <div id="endorsementMsg" style="margin-top:16px;text-align:center;font-size:14px;display:none"></div>
       </form>
       </div>
@@ -1710,7 +1705,6 @@ body {
   </div><!-- end app-wrapper -->
   <script>
 // ===== STATE =====
-let allRecords = [];
 let currentPage = 'home';
 let currentEndorsementType = 'organization';
 let currentLanguage = 'sv';
@@ -2002,7 +1996,11 @@ const translations = {
       postal: 'Postnummer (valfritt)',
       postalPlaceholder: '211 XX',
       submit: 'Skriv under namninsamlingen',
-      success: 'Tack för din underskrift! ✊'
+      success: 'Tack för din underskrift! ✊',
+      redirectTitle: 'Skriv under via Skiftet',
+      redirectBody: 'Namninsamlingen hanteras via Skiftet. När du klickar vidare öppnas kampanjens petitionsida där du kan skriva under direkt.',
+      redirectNote: 'Du lämnar Rättvisa Malmö tillfälligt och fortsätter till petitionsidan på Skiftet.',
+      redirectCta: 'Fortsätt till namninsamlingen'
     },
     volunteer: {
       title: 'Engagera dig i kampanjen',
@@ -2105,7 +2103,10 @@ const translations = {
       maxRecords: 'Maximalt antal poster nått (999).',
       maxRecordsPetition: 'Maximalt antal poster nått (999). Tack för ditt stöd!',
       error: 'Något gick fel. Försök igen.',
-      unspecified: 'Ej angiven'
+      unspecified: 'Ej angiven',
+      petitionUnavailable: 'Namninsamlingen är inte publicerad ännu.',
+      formUnavailable: 'Formuläret är inte kopplat ännu.',
+      spamBlocked: 'Formuläret kunde inte skickas.'
     }
   },
   en: {
@@ -2390,7 +2391,11 @@ const translations = {
       postal: 'Postal code (optional)',
       postalPlaceholder: '211 XX',
       submit: 'Sign the petition',
-      success: 'Thank you for signing! ✊'
+      success: 'Thank you for signing! ✊',
+      redirectTitle: 'Sign via Skiftet',
+      redirectBody: 'The petition is handled via Skiftet. When you continue, the campaign petition page opens and you can sign there directly.',
+      redirectNote: 'You are leaving Justice Malmö briefly and continuing to the petition page on Skiftet.',
+      redirectCta: 'Continue to the petition'
     },
     volunteer: {
       title: 'Get involved in the campaign',
@@ -2493,7 +2498,10 @@ const translations = {
       maxRecords: 'Maximum number of records reached (999).',
       maxRecordsPetition: 'Maximum number of records reached (999). Thank you for your support.',
       error: 'Something went wrong. Please try again.',
-      unspecified: 'Not provided'
+      unspecified: 'Not provided',
+      petitionUnavailable: 'The petition has not been published yet.',
+      formUnavailable: 'This form is not connected yet.',
+      spamBlocked: 'The form could not be submitted.'
     }
   }
 };
@@ -2580,6 +2588,77 @@ const defaultConfig = {
   closing_text: 'Anslut dig till det växande antalet Malmöbor som anser att offentliga medel aldrig ska stödja kränkningar av mänskliga rättigheter.'
 };
 
+const siteConfig = {
+  petitionUrl: 'https://kampanj.skiftet.org/bojkotta-eurovision/kampanj/signera/',
+  volunteerEndpointUrl: '',
+  endorsementEndpointUrl: ''
+};
+
+function isConfiguredUrl(url) {
+  return typeof url === 'string' && /^https:\/\//i.test(url.trim());
+}
+
+function openPetition() {
+  if (!isConfiguredUrl(siteConfig.petitionUrl)) {
+    showToast(getText('generic.petitionUnavailable'), 'error');
+    return;
+  }
+
+  window.location.assign(siteConfig.petitionUrl);
+}
+
+function getFormEndpoint(formType) {
+  if (formType === 'volunteer') return siteConfig.volunteerEndpointUrl;
+  if (formType === 'endorsement') return siteConfig.endorsementEndpointUrl;
+  return '';
+}
+
+function setSubmitButtonState(button, buttonText, isSubmitting, idleText) {
+  button.disabled = isSubmitting;
+  buttonText.innerHTML = isSubmitting ? '<span class="spinner"></span>' : idleText;
+}
+
+async function submitToAppsScript(formType, payload) {
+  const endpointUrl = getFormEndpoint(formType);
+  if (!isConfiguredUrl(endpointUrl)) {
+    return { ok: false, error: 'missing-endpoint' };
+  }
+
+  try {
+    const response = await fetch(endpointUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const responseText = await response.text();
+    let responseBody = null;
+
+    if (responseText) {
+      try {
+        responseBody = JSON.parse(responseText);
+      } catch (error) {
+        responseBody = null;
+      }
+    }
+
+    if (!response.ok) {
+      return { ok: false, error: responseBody?.error || `http-${response.status}` };
+    }
+
+    if (responseBody && responseBody.ok === false) {
+      return { ok: false, error: responseBody.error || 'request-failed' };
+    }
+
+    return { ok: true, body: responseBody };
+  } catch (error) {
+    console.error(`Apps Script submission failed for ${formType}`, error);
+    return { ok: false, error: 'network-error' };
+  }
+}
+
 // ===== NAVIGATION =====
 function getPageUrl(page) {
   return page === 'home' ? `${window.location.pathname}${window.location.search}` : `#${page}`;
@@ -2604,6 +2683,11 @@ function scrollToSection(sectionId) {
 }
 
 function goTo(page, options = {}) {
+  if (page === 'petition') {
+    openPetition();
+    return;
+  }
+
   const { pushHistory = true, fromSection } = options;
   const appWrapper = document.getElementById('appWrapper');
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2821,132 +2905,93 @@ function updateSignatureCount() {
   }
 }
 
-// ===== DATA SDK =====
-const dataHandler = {
-  onDataChanged(data) {
-    allRecords = data;
-    updateSignatureCount();
-  }
-};
-
 // ===== FORMS =====
 function setupForms() {
-  const petForm = document.getElementById('petitionForm');
-  petForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (allRecords.length >= 999) {
-      showToast(getText('generic.maxRecordsPetition'), 'error');
-      return;
-    }
-    const btn = document.getElementById('petitionSubmitBtn');
-    const btnText = document.getElementById('petitionBtnText');
-    btn.disabled = true;
-    btnText.innerHTML = '<span class="spinner"></span>';
-
-    const name = document.getElementById('petName').value.trim();
-    const email = document.getElementById('petEmail').value.trim();
-    const postal = document.getElementById('petPostal').value.trim();
-
-    const result = await window.dataSdk.create({
-      type: 'petition',
-      name,
-      email,
-      postal_code: postal,
-      volunteer_areas: '',
-      message: '',
-      created_at: new Date().toISOString()
-    });
-
-    btn.disabled = false;
-    btnText.textContent = getText('petition.submit');
-
-    if (result.isOk) {
-      showToast(getText('petition.success'), 'success');
-      petForm.reset();
-    } else {
-      showToast(getText('generic.error'), 'error');
-    }
-  });
-
   const volForm = document.getElementById('volunteerForm');
   volForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (allRecords.length >= 999) {
-      showToast(getText('generic.maxRecords'), 'error');
+    const honeypot = document.getElementById('volWebsite').value.trim();
+    if (honeypot) {
+      showToast(getText('generic.spamBlocked'), 'error');
       return;
     }
+
     const btn = document.getElementById('volunteerSubmitBtn');
     const btnText = document.getElementById('volunteerBtnText');
-    btn.disabled = true;
-    btnText.innerHTML = '<span class="spinner"></span>';
+    setSubmitButtonState(btn, btnText, true, getText('volunteer.submit'));
 
     const name = document.getElementById('volName').value.trim();
     const email = document.getElementById('volEmail').value.trim();
     const message = document.getElementById('volMessage').value.trim();
-    const areas = [...document.querySelectorAll('#volunteerAreas input:checked')].map(c => c.value).join(',');
+    const volunteerAreas = [...document.querySelectorAll('#volunteerAreas input:checked')].map(c => c.value);
 
-    const result = await window.dataSdk.create({
+    const result = await submitToAppsScript('volunteer', {
       type: 'volunteer',
       name,
       email,
-      postal_code: '',
-      volunteer_areas: areas,
+      volunteer_areas: volunteerAreas,
       message,
-      created_at: new Date().toISOString()
+      source_page: currentPage,
+      locale: currentLanguage,
+      honeypot,
+      submitted_at: new Date().toISOString()
     });
 
-    btn.disabled = false;
-    btnText.textContent = getText('volunteer.submit');
+    setSubmitButtonState(btn, btnText, false, getText('volunteer.submit'));
 
-    if (result.isOk) {
+    if (result.ok) {
       showToast(getText('volunteer.success'), 'success');
       volForm.reset();
     } else {
-      showToast(getText('generic.error'), 'error');
+      showToast(result.error === 'missing-endpoint' ? getText('generic.formUnavailable') : getText('generic.error'), 'error');
     }
   });
 
   const endorsementForm = document.getElementById('endorsementForm');
   endorsementForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (allRecords.length >= 999) {
-      showToast(getText('generic.maxRecords'), 'error');
+    const honeypot = document.getElementById('endorseWebsite').value.trim();
+    if (honeypot) {
+      showToast(getText('generic.spamBlocked'), 'error');
       return;
     }
+
     const btn = document.getElementById('endorsementSubmitBtn');
     const btnText = document.getElementById('endorsementBtnText');
-    btn.disabled = true;
-    btnText.innerHTML = '<span class="spinner"></span>';
+    setSubmitButtonState(btn, btnText, true, currentEndorsementType === 'organization' ? getText('endorsement.submitOrg') : getText('endorsement.submitPerson'));
 
     const isOrg = currentEndorsementType === 'organization';
     const name = document.getElementById('endorseName').value.trim();
     const secondary = document.getElementById('endorseSecondary').value.trim();
     const email = document.getElementById('endorseEmail').value.trim();
     const message = document.getElementById('endorseMessage').value.trim();
-    const details = [
-      isOrg ? `${getText('endorsement.secondaryOrg').replace(' (valfritt)', '')}: ${secondary || getText('generic.unspecified')}` : `${getText('endorsement.secondaryPerson').replace(' *', '')}: ${secondary}`,
-      message ? `${(isOrg ? getText('endorsement.messageOrg') : getText('endorsement.messagePerson')).replace(' (valfritt)', '')}: ${message}` : ''
-    ].filter(Boolean).join('\n');
+    const secondaryLabel = isOrg
+      ? getText('endorsement.secondaryOrg').replace(' (valfritt)', '')
+      : getText('endorsement.secondaryPerson').replace(' *', '');
 
-    const result = await window.dataSdk.create({
+    const result = await submitToAppsScript('endorsement', {
       type: 'endorsement',
+      endorsement_mode: isOrg ? 'organization' : 'individual',
       name,
+      secondary_label: secondaryLabel,
+      secondary_value: secondary || getText('generic.unspecified'),
       email,
-      postal_code: '',
-      volunteer_areas: isOrg ? 'organization-endorsement' : 'individual-endorsement',
-      message: details,
-      created_at: new Date().toISOString()
+      message,
+      review_status: 'pending',
+      source_page: currentPage,
+      locale: currentLanguage,
+      honeypot,
+      submitted_at: new Date().toISOString()
     });
 
-    btn.disabled = false;
-    btnText.textContent = isOrg ? getText('endorsement.submitOrg') : getText('endorsement.submitPerson');
+    setSubmitButtonState(btn, btnText, false, isOrg ? getText('endorsement.submitOrg') : getText('endorsement.submitPerson'));
 
-    if (result.isOk) {
+    if (result.ok) {
       showToast(isOrg ? getText('endorsement.successOrg') : getText('endorsement.successPerson'), 'success');
       endorsementForm.reset();
       updateEndorsementForm();
     } else {
-      showToast(getText('generic.error'), 'error');
+      showToast(result.error === 'missing-endpoint' ? getText('generic.formUnavailable') : getText('generic.error'), 'error');
     }
   });
 }
@@ -2989,6 +3034,10 @@ function applyConfig(config) {
   applyLanguage(detectInitialLanguage());
   if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
+  }
+
+  if (window.location.hash.replace(/^#/, '') === 'petition') {
+    openPetition();
   }
 
   // Track which home-page section is most visible so we can restore it on back navigation
@@ -3037,14 +3086,6 @@ function applyConfig(config) {
         ['closing_text', config.closing_text || defaultConfig.closing_text]
       ])
     });
-  }
-
-  // Init Data SDK
-  if (window.dataSdk) {
-    const result = await window.dataSdk.init(dataHandler);
-    if (!result.isOk) {
-      console.error('Data SDK init failed');
-    }
   }
 
   setupForms();

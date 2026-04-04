@@ -12,6 +12,7 @@
         "npm init": true,
         "npm pkg": true,
         "Set-Content": true,
-        "npm install": true
+        "npm install": true,
+        "ForEach-Object": true
     }
 }

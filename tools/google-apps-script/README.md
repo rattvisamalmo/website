@@ -20,8 +20,10 @@ Use separate Apps Script projects and separate spreadsheets for each workflow.
 7. Update the `notifyEmail` value in each script.
 8. If the script is not spreadsheet-bound, set `spreadsheetId` in the `CONFIG` object to the target spreadsheet ID.
 9. Run `testVolunteerWrite()` or `testEndorsementWrite()` once from the Apps Script editor to verify write access before deploying.
-10. Deploy each project as a web app with access set to `Anyone`.
-11. Paste the volunteer and endorsement web app URLs into the `siteConfig` object in `index.html`.
+10. During setup only, you may temporarily set `debugErrors: true` to expose Apps Script error details in the JSON response.
+11. Before final production deployment, set `debugErrors: false` in both scripts.
+12. Deploy each project as a web app with access set to `Anyone`.
+13. Paste the volunteer and endorsement web app URLs into the `siteConfig` object in `index.html`.
 
 ## Volunteer sheet header
 
@@ -53,4 +55,4 @@ Endorsement submissions send:
 - Honeypot submissions are rejected and not written to either sheet.
 - Keep endorsement spreadsheets private and use them as a review queue only.
 - The site-side endpoint configuration lives in `index.html` in the `siteConfig` object.
-- During setup, `debugErrors: true` returns the Apps Script error message in the JSON response. Turn it off after deployment if you do not want setup details exposed.
+- Keep `debugErrors: false` in production so internal setup details are not exposed in client-visible responses.

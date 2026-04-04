@@ -5,7 +5,7 @@ const CONFIG = {
   allowedType: 'volunteer',
   requiredFields: ['type', 'name', 'email', 'submitted_at'],
   sheetHeaders: ['submitted_at', 'name', 'email', 'volunteer_areas', 'message', 'source_page', 'locale', 'honeypot_status'],
-  debugErrors: true
+  debugErrors: false
 };
 
 function doPost(e) {

@@ -6,7 +6,7 @@ const CONFIG = {
   allowedModes: ['organization', 'individual'],
   requiredFields: ['type', 'name', 'email', 'submitted_at', 'endorsement_mode', 'secondary_label', 'secondary_value', 'review_status'],
   sheetHeaders: ['submitted_at', 'endorsement_mode', 'name', 'secondary_label', 'secondary_value', 'email', 'message', 'review_status', 'source_page', 'locale', 'honeypot_status'],
-  debugErrors: true
+  debugErrors: false
 };
 
 function doPost(e) {

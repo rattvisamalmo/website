@@ -1,25 +1,39 @@
-# Google Apps Script Form Endpoint
+# Google Apps Script Endpoints
 
-This template is the backend companion for the volunteer and endorsement forms in `index.html`.
+These scripts are the backend companions for the volunteer and endorsement forms in `index.html`.
+
+## Files
+
+- `volunteer-endpoint.gs` handles volunteer signups only.
+- `endorsement-endpoint.gs` handles endorsement submissions only.
+
+Use separate Apps Script projects and separate spreadsheets for each workflow.
 
 ## Recommended setup
 
 1. Create one Google Spreadsheet for volunteer submissions.
 2. Create one Google Spreadsheet for endorsement submissions.
-3. In each spreadsheet, create a sheet named `Submissions`.
-4. Copy `endpoint-template.gs` into two separate Apps Script projects.
-5. Update `CONFIG.workflowType`, `CONFIG.allowedTypes`, `CONFIG.requiredFields`, and `CONFIG.notifyEmail` for each deployment.
-6. Deploy each project as a web app with access set to `Anyone`.
-7. Paste the volunteer and endorsement web app URLs into the `siteConfig` object in `index.html`.
+3. In the volunteer spreadsheet, create a sheet named `Volunteer Submissions`.
+4. In the endorsement spreadsheet, create a sheet named `Endorsement Submissions`.
+5. Copy `volunteer-endpoint.gs` into the volunteer Apps Script project.
+6. Copy `endorsement-endpoint.gs` into the endorsement Apps Script project.
+7. Update the `notifyEmail` value in each script.
+8. Deploy each project as a web app with access set to `Anyone`.
+9. Paste the volunteer and endorsement web app URLs into the `siteConfig` object in `index.html`.
 
-## Suggested sheet headers
+## Volunteer sheet header
 
-Use this header row in both spreadsheets:
+Use this header row in the volunteer spreadsheet:
 
-`submitted_at,type,name,email,volunteer_areas,endorsement_mode,secondary_label,secondary_value,message,review_status,source_page,locale,honeypot_status`
+`submitted_at,name,email,volunteer_areas,message,source_page,locale,honeypot_status`
 
-Volunteer rows will leave endorsement-specific columns blank.
-Endorsement rows should default to `review_status = pending`.
+## Endorsement sheet header
+
+Use this header row in the endorsement spreadsheet:
+
+`submitted_at,endorsement_mode,name,secondary_label,secondary_value,email,message,review_status,source_page,locale,honeypot_status`
+
+`review_status` should start as `pending` for all new entries.
 
 ## Frontend payload contract
 
@@ -34,5 +48,6 @@ Endorsement submissions send:
 ## Notes
 
 - The frontend sends `text/plain` with a JSON string body to avoid unnecessary CORS preflight behavior.
-- Honeypot submissions are rejected and not written to the sheet.
+- Honeypot submissions are rejected and not written to either sheet.
 - Keep endorsement spreadsheets private and use them as a review queue only.
+- The site-side endpoint configuration lives in `index.html` in the `siteConfig` object.

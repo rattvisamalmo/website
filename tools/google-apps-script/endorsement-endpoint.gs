@@ -1,16 +1,16 @@
 const CONFIG = {
-  workflowType: 'volunteer',
-  sheetName: 'Submissions',
+  sheetName: 'Endorsement Submissions',
   notifyEmail: 'campaign@example.org',
-  allowedTypes: ['volunteer'],
-  requiredFields: ['type', 'name', 'email', 'submitted_at']
+  allowedType: 'endorsement',
+  allowedModes: ['organization', 'individual'],
+  requiredFields: ['type', 'name', 'email', 'submitted_at', 'endorsement_mode', 'secondary_label', 'secondary_value', 'review_status']
 };
 
 function doPost(e) {
   try {
     const payload = parsePayload_(e);
 
-    if (!CONFIG.allowedTypes.includes(payload.type)) {
+    if (payload.type !== CONFIG.allowedType) {
       return jsonResponse_({ ok: false, error: 'invalid-type' });
     }
 
@@ -18,14 +18,12 @@ function doPost(e) {
       return jsonResponse_({ ok: false, error: 'spam-blocked' });
     }
 
-    for (const fieldName of CONFIG.requiredFields) {
-      if (!String(payload[fieldName] || '').trim()) {
-        return jsonResponse_({ ok: false, error: `missing-${fieldName}` });
-      }
+    const validationError = validatePayload_(payload);
+    if (validationError) {
+      return jsonResponse_({ ok: false, error: validationError });
     }
 
-    const sheet = getTargetSheet_();
-    sheet.appendRow(buildRow_(payload));
+    getTargetSheet_().appendRow(buildRow_(payload));
     sendNotification_(payload);
 
     return jsonResponse_({ ok: true });
@@ -45,6 +43,24 @@ function parsePayload_(e) {
   return payload;
 }
 
+function validatePayload_(payload) {
+  for (const fieldName of CONFIG.requiredFields) {
+    if (!String(payload[fieldName] || '').trim()) {
+      return `missing-${fieldName}`;
+    }
+  }
+
+  if (!CONFIG.allowedModes.includes(payload.endorsement_mode)) {
+    return 'invalid-endorsement-mode';
+  }
+
+  if (payload.review_status !== 'pending') {
+    return 'invalid-review-status';
+  }
+
+  return '';
+}
+
 function getTargetSheet_() {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.sheetName);
   if (!sheet) {
@@ -57,36 +73,35 @@ function getTargetSheet_() {
 function buildRow_(payload) {
   return [
     payload.submitted_at || '',
-    payload.type || '',
-    payload.name || '',
-    payload.email || '',
-    Array.isArray(payload.volunteer_areas) ? payload.volunteer_areas.join(', ') : '',
     payload.endorsement_mode || '',
+    payload.name || '',
     payload.secondary_label || '',
     payload.secondary_value || '',
+    payload.email || '',
     payload.message || '',
-    payload.review_status || '',
+    payload.review_status || 'pending',
     payload.source_page || '',
     payload.locale || '',
-    payload.honeypot ? 'blocked' : 'clear'
+    'clear'
   ];
 }
 
 function sendNotification_(payload) {
   if (!CONFIG.notifyEmail) return;
 
-  const subject = `[RM] New ${CONFIG.workflowType} submission`;
+  const subject = `[RM] New ${payload.endorsement_mode || 'endorsement'} endorsement`;
   const body = [
-    `Workflow: ${CONFIG.workflowType}`,
+    'A new endorsement submission has arrived.',
+    '',
     `Submitted: ${payload.submitted_at || ''}`,
+    `Mode: ${payload.endorsement_mode || ''}`,
     `Name: ${payload.name || ''}`,
+    `${payload.secondary_label || 'Additional info'}: ${payload.secondary_value || ''}`,
     `Email: ${payload.email || ''}`,
-    payload.endorsement_mode ? `Mode: ${payload.endorsement_mode}` : '',
-    payload.secondary_label ? `${payload.secondary_label}: ${payload.secondary_value || ''}` : '',
-    Array.isArray(payload.volunteer_areas) ? `Volunteer areas: ${payload.volunteer_areas.join(', ')}` : '',
     payload.message ? `Message: ${payload.message}` : '',
-    payload.review_status ? `Review status: ${payload.review_status}` : '',
-    payload.source_page ? `Source page: ${payload.source_page}` : ''
+    `Review status: ${payload.review_status || 'pending'}`,
+    payload.source_page ? `Source page: ${payload.source_page}` : '',
+    payload.locale ? `Locale: ${payload.locale}` : ''
   ].filter(Boolean).join('\n');
 
   MailApp.sendEmail(CONFIG.notifyEmail, subject, body);

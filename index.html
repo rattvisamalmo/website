@@ -799,6 +799,10 @@ body {
   }());
   </script>
   <div class="app-wrapper" id="appWrapper"><!-- Toast -->
+   <div id="petitionPrelaunchBanner" style="display:none;background:linear-gradient(90deg, rgba(194,58,34,0.14), rgba(43,90,75,0.14));border-bottom:1px solid rgba(10,22,40,0.08)">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6" style="padding:12px 0;text-align:center;font-size:14px;font-weight:600;color:var(--text-color)"><span data-i18n="petition.prelaunchBanner">Namninsamlingen lanseras snart. Volontäranmälan är redan öppen.</span>
+    </div>
+   </div>
    <div id="toast" class="toast-msg toast-success" role="alert" aria-live="polite"></div><!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Navigation menu" data-i18n-aria-label="language.mobileMenu">
    <div class="flex justify-between items-center mb-8"><button type="button" onclick="goTo('home');toggleMobileMenu()" class="flex items-center border-none bg-transparent cursor-pointer p-0" aria-label="Go to homepage" data-i18n-aria-label="language.goHome"><img src="assets/brand/logo-horizontal-dark.png" alt="" class="brand-logo brand-logo-menu" width="435" height="74" decoding="async"></button> <button onclick="toggleMobileMenu()" class="p-2" aria-label="Close menu" data-i18n-aria-label="language.closeMenu"><i data-lucide="x" style="width:24px;height:24px"></i></button>
@@ -812,7 +816,7 @@ body {
    </div><!-- HEADER / NAV -->
   <header class="sticky top-0 z-50" style="background:rgba(247,245,240,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e5e2db">
   <div class="header-inner max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between" style="height:64px"><button type="button" onclick="goTo('home')" class="flex items-center border-none bg-transparent cursor-pointer p-0" aria-label="Go to homepage" data-i18n-aria-label="language.goHome"><img src="assets/brand/logo-horizontal-dark.png" alt="" class="brand-logo brand-logo-header" width="435" height="74" decoding="async" fetchpriority="high"></button>
-    <nav class="desktop-nav flex items-center gap-3" aria-label="Main navigation"><button class="nav-link" data-nav="home" onclick="goTo('home')" data-i18n="nav.home">Hem</button> <button class="nav-link" data-nav="about" onclick="goTo('about')" data-i18n="nav.about">Om kampanjen</button> <button class="nav-link" data-nav="legal-deepdive" onclick="goTo('legal-deepdive')" data-i18n="nav.legal">Juridisk analys</button> <button class="nav-link" data-nav="faq" onclick="goTo('faq')" data-i18n="nav.faq">Frågor &amp; Svar</button> <div class="language-switcher" id="desktopLanguageSwitcher" role="group" aria-label="Choose language" data-i18n-aria-label="language.switcher"><button type="button" data-language-button="sv" onclick="setLanguage('sv')">SV</button><button type="button" data-language-button="en" onclick="setLanguage('en')">EN</button></div> <button class="btn-primary btn-pulse" style="padding:8px 20px;font-size:14px" onclick="goTo('petition')" data-i18n="nav.sign">Skriv under</button>
+    <nav class="desktop-nav flex items-center gap-3" aria-label="Main navigation"><button class="nav-link" data-nav="home" onclick="goTo('home')" data-i18n="nav.home">Hem</button> <button class="nav-link" data-nav="about" onclick="goTo('about')" data-i18n="nav.about">Om kampanjen</button> <button class="nav-link" data-nav="legal-deepdive" onclick="goTo('legal-deepdive')" data-i18n="nav.legal">Juridisk analys</button> <button class="nav-link" data-nav="faq" onclick="goTo('faq')" data-i18n="nav.faq">Frågor &amp; Svar</button> <div class="language-switcher" id="desktopLanguageSwitcher" role="group" aria-label="Choose language" data-i18n-aria-label="language.switcher"><button type="button" data-language-button="sv" onclick="setLanguage('sv')">SV</button><button type="button" data-language-button="en" onclick="setLanguage('en')">EN</button></div> <button class="btn-primary btn-pulse" data-petition-pulse="true" style="padding:8px 20px;font-size:14px" onclick="goTo('petition')" data-i18n="nav.sign">Skriv under</button>
     </nav><div class="flex items-center gap-2"><div class="language-switcher mobile-language-switcher md:hidden" id="mobileLanguageSwitcher" role="group" aria-label="Choose language" data-i18n-aria-label="language.switcher"><button type="button" data-language-button="sv" onclick="setLanguage('sv')">SV</button><button type="button" data-language-button="en" onclick="setLanguage('en')">EN</button></div><button class="mobile-trigger p-2 bg-transparent border-none cursor-pointer md:hidden" onclick="toggleMobileMenu()" aria-label="Open menu" data-i18n-aria-label="language.openMenu"> <i data-lucide="menu" style="width:24px;height:24px"></i> </button></div>
     </div>
    </header><!-- ========== HOME PAGE ========== -->
@@ -825,25 +829,33 @@ body {
         </div>
         <h1 id="heroHeadline" class="font-display fade-up fade-up-d1" style="font-size:clamp(36px,5.5vw,64px);font-weight:800;line-height:1.08;margin-bottom:20px;color:var(--text-color)" data-i18n="hero.headline">Offentliga medel ska aldrig finansiera krigsbrott</h1>
         <p id="heroSubtext" class="fade-up fade-up-d2" style="font-size:clamp(17px,2vw,20px);line-height:1.6;color:#555;margin-bottom:32px;max-width:600px" data-i18n="hero.subtext">Malmö stad spenderar cirka 9-10 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.</p>
-        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="hero.sign">Skriv under</span> </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="hero.volunteer">Engagera dig</span> </button>
+        <div class="fade-up fade-up-d3 flex flex-wrap gap-3"><button class="btn-primary btn-pulse" data-petition-pulse="true" style="min-width:230px" onclick="goTo('petition')"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="hero.sign">Skriv under</span> </button> <button class="btn-secondary" onclick="goTo('volunteer')"> <i data-lucide="users" style="width:18px;height:18px"></i> <span data-i18n="hero.volunteer">Engagera dig</span> </button>
         </div>
-        <p style="margin-top:8px;font-size:14px;color:#444;opacity:0.9" data-i18n="hero.note">Det tar bara 10 sekunder att skriva under.</p>
+        <p id="heroPetitionNote" style="margin-top:8px;font-size:14px;color:#444;opacity:0.9" data-i18n="hero.note">Det tar bara 10 sekunder att skriva under.</p>
        </div>
       </div><!-- LIVE COUNTER -->
       <div class="fade-up fade-up-d4" style="margin-top:48px;padding:32px;border-radius:16px;background:white;border:1px solid #e5e2db;max-width:560px">
-      <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> <span data-i18n="counter.live">LIVE — NAMNINSAMLING</span>
+      <div id="petitionCounterLive">
+       <div class="flex items-center gap-2 mb-2" style="color:var(--secondary-color);font-size:13px;font-weight:600;letter-spacing:0.5px"><span style="width:8px;height:8px;background:var(--secondary-color);border-radius:50%;display:inline-block;animation:countPulse 2s infinite"></span> <span data-i18n="counter.live">LIVE — NAMNINSAMLING</span>
        </div>
-      <div class="counter-pulse font-display" style="font-size:clamp(42px,6vw,56px);font-weight:800;color:var(--primary-color)" id="signatureCount">
-       30 139
+       <div class="counter-pulse font-display" style="font-size:clamp(42px,6vw,56px);font-weight:800;color:var(--primary-color)" id="signatureCount">
+        30 139
        </div>
-      <div style="font-size:15px;color:#777;margin-bottom:16px">
-       <span data-i18n="counter.signed">personer har skrivit under</span>
+       <div style="font-size:15px;color:#777;margin-bottom:16px">
+        <span data-i18n="counter.signed">personer har skrivit under</span>
        </div>
        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden">
         <div id="progressBar" class="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));border-radius:4px;width:0%"></div>
        </div>
-      <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span id="progressStart">0</span> <span><span data-i18n="counter.goal">Mål:</span> <span id="progressGoal">30 400</span></span>
+       <div class="flex justify-between mt-2" style="font-size:12px;color:#999"><span id="progressStart">0</span> <span><span data-i18n="counter.goal">Mål:</span> <span id="progressGoal">30 400</span></span>
        </div>
+      </div>
+      <div id="petitionCounterPrelaunch" style="display:none">
+       <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(43,90,75,0.09);color:var(--secondary-color);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px"><i data-lucide="clock-3" style="width:14px;height:14px"></i> <span data-i18n="counter.prelaunchBadge">Lanseras snart</span>
+       </div>
+       <div class="font-display" style="font-size:clamp(30px,4.6vw,40px);font-weight:800;color:var(--text-color);margin-bottom:10px" data-i18n="counter.prelaunchTitle">Namninsamlingen öppnar snart</div>
+       <p style="font-size:15px;line-height:1.7;color:#666" data-i18n="counter.prelaunchBody">Vi delar webbplatsen inför lanseringen. Du kommer snart att kunna skriva under via Skiftet.</p>
+      </div>
       </div>
      </div>
     </section><!-- WHY IT MATTERS — STATS -->
@@ -1366,11 +1378,11 @@ body {
    <section style="padding:60px 0 80px">
     <div class="max-w-2xl mx-auto px-4 sm:px-6"><button onclick="goTo('home')" class="flex items-center gap-2 mb-8 bg-transparent border-none cursor-pointer" style="color:var(--secondary-color);font-weight:500;font-size:14px"> <i data-lucide="arrow-left" style="width:16px;height:16px"></i> <span data-i18n="back">Tillbaka</span> </button>
     <div style="background:white;padding:32px;border-radius:16px;border:1px solid #e5e2db">
-     <h1 class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="petition.redirectTitle">Skriv under via Skiftet</h1>
-     <p style="font-size:16px;color:#666;margin-bottom:16px;line-height:1.6" data-i18n="petition.redirectBody">Namninsamlingen hanteras via Skiftet. När du klickar vidare öppnas kampanjens petitionsida där du kan skriva under direkt.</p>
-     <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="external-link" style="width:14px;height:14px"></i> <span data-i18n="petition.redirectNote">Du lämnar Rättvisa Malmö tillfälligt och fortsätter till petitionsidan på Skiftet.</span>
+    <h1 id="petitionPageTitle" class="font-display" style="font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px" data-i18n="petition.redirectTitle">Skriv under via Skiftet</h1>
+    <p id="petitionPageBody" style="font-size:16px;color:#666;margin-bottom:16px;line-height:1.6" data-i18n="petition.redirectBody">Namninsamlingen hanteras via Skiftet. När du klickar vidare öppnas kampanjens petitionsida där du kan skriva under direkt.</p>
+    <div class="flex items-center gap-2 mb-8" style="font-size:14px;color:var(--secondary-color);font-weight:600"><i data-lucide="external-link" style="width:14px;height:14px"></i> <span id="petitionPageNote" data-i18n="petition.redirectNote">Du lämnar Rättvisa Malmö tillfälligt och fortsätter till petitionsidan på Skiftet.</span>
      </div>
-     <button type="button" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px" onclick="openPetition()"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span data-i18n="petition.redirectCta">Fortsätt till namninsamlingen</span> </button>
+    <button type="button" class="btn-primary w-full justify-center" style="font-size:17px;padding:16px" onclick="openPetition()"> <i data-lucide="pen-tool" style="width:18px;height:18px"></i> <span id="petitionPageCta" data-i18n="petition.redirectCta">Fortsätt till namninsamlingen</span> </button>
     </div>
     </div>
    </section>
@@ -1739,12 +1751,16 @@ const translations = {
       subtext: 'Malmö stad spenderar cirka 9-10 miljarder kronor årligen på upphandling. Vi kräver en etisk upphandlingspolicy som säkerställer att skattepengar aldrig går till företag inblandade i grova brott mot mänskliga rättigheter.',
       sign: 'Skriv under',
       volunteer: 'Engagera dig',
-      note: 'Det tar bara 10 sekunder att skriva under.'
+      note: 'Det tar bara 10 sekunder att skriva under.',
+      notePrelaunch: 'Namninsamlingen lanseras snart. Under tiden kan du dela sidan och anmäla dig som volontär.'
     },
     counter: {
       live: 'LIVE - NAMNINSAMLING',
       signed: 'personer har skrivit under',
-      goal: 'Mål:'
+      goal: 'Mål:',
+      prelaunchBadge: 'Lanseras snart',
+      prelaunchTitle: 'Namninsamlingen öppnar snart',
+      prelaunchBody: 'Vi delar webbplatsen inför lanseringen. Du kommer snart att kunna skriva under via Skiftet.'
     },
     impact: {
       title: 'Varför det spelar roll',
@@ -2000,7 +2016,13 @@ const translations = {
       redirectTitle: 'Skriv under via Skiftet',
       redirectBody: 'Namninsamlingen hanteras via Skiftet. När du klickar vidare öppnas kampanjens petitionsida där du kan skriva under direkt.',
       redirectNote: 'Du lämnar Rättvisa Malmö tillfälligt och fortsätter till petitionsidan på Skiftet.',
-      redirectCta: 'Fortsätt till namninsamlingen'
+      redirectCta: 'Fortsätt till namninsamlingen',
+      prelaunchBanner: 'Namninsamlingen lanseras snart. Volontäranmälan är redan öppen.',
+      prelaunchTitle: 'Namninsamlingen lanseras snart',
+      prelaunchBody: 'Vi förbereder just nu lanseringen av petitionen. Så snart den är live kommer du att kunna skriva under via Skiftet.',
+      prelaunchNote: 'Tills dess visar vi webbplatsen i förlanseringsläge så att informationen inte blir missvisande.',
+      prelaunchCta: 'Lanseras snart',
+      launchingSoonToast: 'Namninsamlingen lanseras snart.'
     },
     volunteer: {
       title: 'Engagera dig i kampanjen',
@@ -2395,7 +2417,13 @@ const translations = {
       redirectTitle: 'Sign via Skiftet',
       redirectBody: 'The petition is handled via Skiftet. When you continue, the campaign petition page opens and you can sign there directly.',
       redirectNote: 'You are leaving Justice Malmö briefly and continuing to the petition page on Skiftet.',
-      redirectCta: 'Continue to the petition'
+      redirectCta: 'Continue to the petition',
+      prelaunchBanner: 'The petition launches soon. Volunteer signup is already open.',
+      prelaunchTitle: 'The petition launches soon',
+      prelaunchBody: 'We are currently preparing the petition launch. As soon as it is live, you will be able to sign via Skiftet.',
+      prelaunchNote: 'Until then, the website stays in prelaunch mode so the petition experience is not misleading.',
+      prelaunchCta: 'Launching soon',
+      launchingSoonToast: 'The petition launches soon.'
     },
     volunteer: {
       title: 'Get involved in the campaign',
@@ -2561,6 +2589,7 @@ function applyLanguage(language) {
   }
 
   updateLanguageButtons();
+  applyPetitionLaunchState();
   updateSignatureCount();
   updateEndorsementForm();
 }
@@ -2589,22 +2618,62 @@ const defaultConfig = {
 };
 
 const siteConfig = {
-  petitionUrl: 'https://kampanj.skiftet.org/bojkotta-eurovision/kampanj/signera/',
+  petitionLaunchState: 'prelaunch',
+  petitionUrl: '',
   volunteerEndpointUrl: 'https://script.google.com/macros/s/AKfycbwoSRQQ8G2_yS-Tqd0pKIb8rEyP9_ipO7dB5xhBg7toS1Rox_5b5gMizwRu4JCIafUY/exec',
   endorsementEndpointUrl: 'https://script.google.com/macros/s/AKfycbwltAeEAxIEOSdLGyJrXiAeC1VmusdImxanD4Ro0RgDPMoZeSNe7xiY_fx-kOkZDCmA/exec'
 };
+
+function isPetitionPrelaunchMode() {
+  return siteConfig.petitionLaunchState !== 'live';
+}
+
+function applyPetitionLaunchState() {
+  const prelaunch = isPetitionPrelaunchMode();
+  const prelaunchBanner = document.getElementById('petitionPrelaunchBanner');
+  const liveCounter = document.getElementById('petitionCounterLive');
+  const prelaunchCounter = document.getElementById('petitionCounterPrelaunch');
+  const heroNote = document.getElementById('heroPetitionNote');
+  const petitionPageTitle = document.getElementById('petitionPageTitle');
+  const petitionPageBody = document.getElementById('petitionPageBody');
+  const petitionPageNote = document.getElementById('petitionPageNote');
+  const petitionPageCta = document.getElementById('petitionPageCta');
+
+  if (prelaunchBanner) prelaunchBanner.style.display = prelaunch ? 'block' : 'none';
+  if (liveCounter) liveCounter.style.display = prelaunch ? 'none' : 'block';
+  if (prelaunchCounter) prelaunchCounter.style.display = prelaunch ? 'block' : 'none';
+  if (heroNote) heroNote.textContent = getText(prelaunch ? 'hero.notePrelaunch' : 'hero.note');
+  if (petitionPageTitle) petitionPageTitle.textContent = getText(prelaunch ? 'petition.prelaunchTitle' : 'petition.redirectTitle');
+  if (petitionPageBody) petitionPageBody.textContent = getText(prelaunch ? 'petition.prelaunchBody' : 'petition.redirectBody');
+  if (petitionPageNote) petitionPageNote.textContent = getText(prelaunch ? 'petition.prelaunchNote' : 'petition.redirectNote');
+  if (petitionPageCta) petitionPageCta.textContent = getText(prelaunch ? 'petition.prelaunchCta' : 'petition.redirectCta');
+
+  document.querySelectorAll('[data-petition-pulse]').forEach(button => {
+    button.classList.toggle('btn-pulse', !prelaunch);
+  });
+}
 
 function isConfiguredUrl(url) {
   return typeof url === 'string' && /^https:\/\//i.test(url.trim());
 }
 
-function openPetition() {
+function openPetition(options = {}) {
+  const { showPrelaunchToast = true } = options;
+
+  if (isPetitionPrelaunchMode()) {
+    if (showPrelaunchToast) {
+      showToast(getText('petition.launchingSoonToast'), 'success');
+    }
+    return false;
+  }
+
   if (!isConfiguredUrl(siteConfig.petitionUrl)) {
     showToast(getText('generic.petitionUnavailable'), 'error');
-    return;
+    return false;
   }
 
   window.location.assign(siteConfig.petitionUrl);
+  return true;
 }
 
 function getFormEndpoint(formType) {
@@ -2684,8 +2753,15 @@ function scrollToSection(sectionId) {
 
 function goTo(page, options = {}) {
   if (page === 'petition') {
-    openPetition();
-    return;
+    if (isPetitionPrelaunchMode()) {
+      if (!options.allowPetitionPage) {
+        openPetition();
+        return;
+      }
+    } else {
+      openPetition({ showPrelaunchToast: false });
+      return;
+    }
   }
 
   const { pushHistory = true, fromSection } = options;
@@ -2855,6 +2931,11 @@ function calculateSignatureGoal(count) {
 }
 
 async function loadSignatureCount() {
+  if (isPetitionPrelaunchMode()) {
+    updateSignatureCount();
+    return;
+  }
+
   try {
     const response = await fetch(signatureCounterDataUrl, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -3036,8 +3117,8 @@ function applyConfig(config) {
     window.history.scrollRestoration = 'manual';
   }
 
-  if (window.location.hash.replace(/^#/, '') === 'petition') {
-    openPetition();
+  if (window.location.hash.replace(/^#/, '') === 'petition' && !isPetitionPrelaunchMode()) {
+    openPetition({ showPrelaunchToast: false });
   }
 
   // Track which home-page section is most visible so we can restore it on back navigation
@@ -3053,7 +3134,7 @@ function applyConfig(config) {
 
   const initialPage = getPageFromHash();
   currentPage = initialPage;
-  goTo(initialPage, { pushHistory: false });
+  goTo(initialPage, { pushHistory: false, allowPetitionPage: initialPage === 'petition' && isPetitionPrelaunchMode() });
   window.history.replaceState({ page: initialPage, fromSection: null }, '', getPageUrl(initialPage));
 
   // Init Element SDK
